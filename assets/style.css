@@ -33,6 +33,7 @@ body {
   background: var(--parchment);
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 a { color: inherit; }
@@ -422,6 +423,7 @@ img { max-width: 100%; display: block; }
   top: 24px;
   font-family: var(--font-mono);
   font-size: 0.78rem;
+  min-width: 0;
 }
 .toc-title {
   text-transform: uppercase;
@@ -457,6 +459,7 @@ img { max-width: 100%; display: block; }
   max-width: 700px;
   font-size: 1.08rem;
   line-height: 1.75;
+  min-width: 0;
 }
 .article-body .chapter {
   padding-top: 8px;
@@ -688,6 +691,7 @@ table.dataset-table tr:nth-child(even) td {
   color: var(--ink-soft);
   margin: 0 0 12px;
   word-break: break-word;
+  overflow-wrap: anywhere;
   white-space: pre-wrap;
 }
 .citation-copy-btn {
@@ -753,4 +757,102 @@ table.dataset-table tr:nth-child(even) td {
   line-height: 1.7;
   color: var(--ink-soft);
   margin: 0 0 28px;
+}
+
+/* ============================================================
+   Tactile details: selection, scrollbar, background texture
+   ============================================================ */
+::selection {
+  background: var(--brass);
+  color: var(--ink-night);
+}
+
+html {
+  scrollbar-color: var(--brass) var(--parchment);
+  scrollbar-width: thin;
+}
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--parchment); }
+::-webkit-scrollbar-thumb {
+  background: var(--brass);
+  border-radius: 5px;
+  border: 2px solid var(--parchment);
+}
+::-webkit-scrollbar-thumb:hover { background: var(--rust); }
+
+.hero,
+.reading-header,
+.timeline-wrap {
+  background:
+    radial-gradient(circle at 88% 10%, rgba(184, 134, 63, 0.12) 0%, transparent 45%),
+    radial-gradient(circle at 6% 92%, rgba(107, 91, 122, 0.12) 0%, transparent 42%),
+    linear-gradient(180deg, var(--ink-night) 0%, var(--ink-night-2) 100%);
+}
+.timeline-wrap { background-color: var(--ink-night); }
+
+/* ============================================================
+   Editorial touches: drop caps + ghost chapter numerals
+   ============================================================ */
+.article-body .chapter > p:first-of-type::first-letter {
+  font-family: var(--font-display);
+  font-size: 3.6em;
+  font-weight: 600;
+  color: var(--rust);
+  float: left;
+  line-height: 0.82;
+  padding-right: 10px;
+  padding-top: 6px;
+}
+
+.chapter h1 {
+  position: relative;
+  z-index: 1;
+}
+.chapter h1[data-chapter]::after {
+  content: attr(data-chapter);
+  position: absolute;
+  top: -8px;
+  right: 0;
+  font-family: var(--font-display);
+  font-size: 3.8rem;
+  font-weight: 600;
+  color: rgba(184, 134, 63, 0.14);
+  z-index: -1;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+@media (max-width: 600px) {
+  .chapter h1[data-chapter]::after { font-size: 2.6rem; }
+}
+
+/* ============================================================
+   Category color-coding
+   ============================================================ */
+.article-card.cat-genomics {
+  border-left: 3px solid var(--verdigris);
+}
+.article-card.cat-genomics .article-kicker,
+.article-card.cat-genomics .read-link {
+  color: var(--verdigris);
+}
+.article-card.cat-history {
+  border-left: 3px solid var(--rust);
+}
+
+/* ============================================================
+   Motion polish: scroll-reveal + table row hover
+   ============================================================ */
+.js-reveal .reveal-item {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.js-reveal .reveal-item.revealed {
+  opacity: 1;
+  transform: none;
+}
+
+table.dataset-table tbody tr:hover td {
+  background: rgba(184, 134, 63, 0.14);
 }

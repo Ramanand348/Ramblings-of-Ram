@@ -116,3 +116,31 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 });
+
+// Scroll-reveal: cards and section headers gently fade/slide in as they
+// enter the viewport. The 'js-reveal' class is added synchronously in
+// <head> (before paint) so there's no flash of visible-then-hidden content;
+// if JS never runs, that class is absent and everything just displays
+// normally (progressive enhancement).
+document.addEventListener('DOMContentLoaded', function () {
+  if (!document.documentElement.classList.contains('js-reveal')) return;
+
+  var items = document.querySelectorAll('.article-card, .section-head, .empty-state');
+  if (!items.length) return;
+
+  items.forEach(function (el) { el.classList.add('reveal-item'); });
+
+  var observer = new IntersectionObserver(
+    function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { rootMargin: '0px 0px -8% 0px', threshold: 0.05 }
+  );
+
+  items.forEach(function (el) { observer.observe(el); });
+});

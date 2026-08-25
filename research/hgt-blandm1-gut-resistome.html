@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>document.documentElement.classList.add("js-reveal");</script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>In Silico Identification of Horizontal Gene Transfer: Tracking blaNDM-1 Across Multi-Species Gut Reservoirs — Retrocalculated</title>
 <meta name="description" content="An in silico comparative genomics study tracking blaNDM-1 carbapenem resistance hopping between E. coli and Shigella within the human gut resistome.">
@@ -82,12 +83,12 @@
     </section>
 
     <section class="chapter" id="introduction">
-      <h1>1. Introduction</h1>
+      <h1 data-chapter="01">1. Introduction</h1>
       <p>The rapid escalation of antimicrobial resistance (AMR) represents one of the most formidable challenges to global public health. While clinical attention has historically focused on the expansion of resistant pathogens, recent evidence suggests that the human gut microbiome acts as a critical "resistome" — a vast reservoir of antibiotic resistance genes (D'Costa et al., 2011). Among these, the <em>bla</em><sub>NDM-1</sub> gene is particularly alarming due to its ability to confer resistance to nearly all beta-lactam antibiotics, including carbapenems, which are often considered drugs of last resort (Yong et al., 2009). The dissemination of this gene is primarily driven by Horizontal Gene Transfer (HGT), where mobile genetic elements facilitate the "hopping" of resistance markers between different bacterial species. In the polymicrobial environment of the gastrointestinal tract, commensal organisms can serve as stable hosts, subsequently transferring these genes to opportunistic pathogens.</p>
     </section>
 
     <section class="chapter" id="methods">
-      <h1>2. Methods</h1>
+      <h1 data-chapter="02">2. Methods</h1>
       <p>Genomic sequences were retrieved from the NCBI Pathogen Detection Browser, specifically targeting isolates containing the <em>bla</em><sub>NDM-1</sub> genotype. The search was restricted to human-host isolates collected between January 2022 and early 2026. A "multi-species cluster" approach was used to identify recent HGT events. Isolates were grouped based on Pathogen Detection SNP Cluster (PDS) IDs. Clusters containing at least two distinct bacterial species (e.g., <em>Escherichia coli</em> and <em>Klebsiella pneumoniae</em>) with a low SNP distance were prioritized as evidence of recent inter-species gene transfer. The flanking regions of the gene were further analyzed to identify the specific mobile genetic elements (MGEs) involved.</p>
 
       <h2 id="dataset-selection">2.1 Dataset Selection and Retrieval</h2>
@@ -101,7 +102,7 @@
     </section>
 
     <section class="chapter" id="results">
-      <h1>3. Results</h1>
+      <h1 data-chapter="03">3. Results</h1>
 
       <h2 id="evidence-of-gene-hopping">3.1 Evidence of Gene Hopping</h2>
       <p>The <em>bla</em><sub>NDM-1</sub> genotype was searched in the NCBI Pathogen browser, and evidence of organisms sharing this gene was identified. The most frequent finding was gene hopping between <em>E. coli</em> and <em>Shigella</em>, two examples of which are shown in the table below.</p>
@@ -151,7 +152,7 @@
     </section>
 
     <section class="chapter" id="discussion">
-      <h1>4. Discussion</h1>
+      <h1 data-chapter="04">4. Discussion</h1>
 
       <h2 id="resistome-hub">4.1 The Role of the Enteric "Resistome" Hub</h2>
       <p>The discovery of the <em>bla</em><sub>NDM-1</sub> gene within an identical PDS cluster containing both <em>E. coli</em> and <em>Shigella</em> provides definitive evidence for Horizontal Gene Transfer (HGT) within the human gut "resistome." Because <em>E. coli</em> and <em>Shigella</em> are genetically congruent but clinically distinct, their shared occupancy of a low-SNP cluster highlights how "silent" commensal reservoirs can directly fuel the expansion of virulent, resistant pathogens.</p>
@@ -164,14 +165,14 @@
     </section>
 
     <section class="chapter" id="conclusion">
-      <h1>5. Conclusion</h1>
+      <h1 data-chapter="05">5. Conclusion</h1>
       <p>The findings of this study demonstrate that the dissemination of the New Delhi metallo-beta-lactamase-1 (<em>bla</em><sub>NDM-1</sub>) gene within the human gut "resistome" has reached a critical stage of evolution between 2024 and 2026. Using high-resolution in silico genomic surveillance, this study provides definitive evidence of active Horizontal Gene Transfer (HGT) within the PDS000002968.262 multi-species cluster. The high-fidelity conservation of the resistance cassette on contig ACBQRM010001011.1 across both <em>Escherichia coli</em> and <em>Shigella</em> species confirms that taxonomical boundaries are becoming increasingly irrelevant in the face of mobile genetic elements.</p>
       <p>Furthermore, the co-localization of carbapenem resistance with fitness-enhancing siderophore systems (e.g., <em>iutA</em>) reveals a shift toward "hybrid" plasmids that provide a competitive survival advantage even in the absence of antibiotic pressure. This suggests that the current "superbug" threat is becoming deeply integrated into the commensal gut flora, making it harder to eradicate through standard clinical protocols.</p>
       <p>Ultimately, this research highlights that the next generation of AMR monitoring must move beyond species-specific diagnostics. A gene-centric, multi-species surveillance model is essential to intercepting these high-traffic resistance hubs. By identifying the specific genetic "shuttles" that facilitate these hops, public health agencies can better anticipate and mitigate the rise of pan-resistant enteric pathogens, ensuring that carbapenems remain effective as a life-saving clinical resource.</p>
     </section>
 
     <section class="chapter" id="references">
-      <h1>6. References</h1>
+      <h1 data-chapter="06">6. References</h1>
       <p><strong>Primary citations</strong></p>
       <ul>
         <li>D'Costa, V. M., et al. (2011). Sampling the antibiotic resistome. <em>Nature</em>, 477(7365), 457–461.</li>
@@ -191,7 +192,7 @@
 <div class="related-articles">
   <h2>More from Retrocalculated</h2>
   <div class="related-grid">
-    <a class="article-card" href="the-mahabharata-war.html">
+    <a class="article-card cat-history" href="the-mahabharata-war.html">
       <p class="article-kicker">Meta-analysis</p>
       <h3 style="font-size: 1.2rem;">The Mahabharata War: A Meta-Analysis of Astronomical Dating Claims</h3>
       <p>Nineteen proposed dates for the Mahabharata war, scored against a shared evidentiary rubric.</p>
