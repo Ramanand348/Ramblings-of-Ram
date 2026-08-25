@@ -32,3 +32,87 @@ document.addEventListener('DOMContentLoaded', function () {
 
   targets.forEach(function (t) { observer.observe(t.el); });
 });
+
+// Scroll-to-top button: fades in once the reader has scrolled past one
+// viewport height, smooth-scrolls back to top on click.
+document.addEventListener('DOMContentLoaded', function () {
+  var btn = document.createElement('button');
+  btn.className = 'scroll-top-btn';
+  btn.setAttribute('aria-label', 'Scroll to top');
+  btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>';
+  document.body.appendChild(btn);
+
+  var toggleVisibility = function () {
+    if (window.scrollY > window.innerHeight * 0.8) {
+      btn.classList.add('visible');
+    } else {
+      btn.classList.remove('visible');
+    }
+  };
+
+  btn.addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  window.addEventListener('scroll', toggleVisibility, { passive: true });
+  toggleVisibility();
+});
+
+// Reading progress bar: only added on long-form article pages (those with
+// an .article-body), fills as the reader scrolls through the piece.
+document.addEventListener('DOMContentLoaded', function () {
+  var articleBody = document.querySelector('.article-body');
+  if (!articleBody) return;
+
+  var wrap = document.createElement('div');
+  wrap.className = 'reading-progress';
+  var bar = document.createElement('div');
+  bar.className = 'reading-progress-bar';
+  wrap.appendChild(bar);
+  document.body.appendChild(wrap);
+
+  var updateProgress = function () {
+    var rect = articleBody.getBoundingClientRect();
+    var articleTop = rect.top + window.scrollY;
+    var articleHeight = articleBody.offsetHeight;
+    var viewportHeight = window.innerHeight;
+    var scrolled = window.scrollY - articleTop + viewportHeight * 0.5;
+    var pct = Math.min(100, Math.max(0, (scrolled / articleHeight) * 100));
+    bar.style.width = pct + '%';
+  };
+
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener('resize', updateProgress);
+  updateProgress();
+});
+
+// Citation box: tab switching between APA/BibTeX and copy-to-clipboard.
+document.addEventListener('DOMContentLoaded', function () {
+  var box = document.querySelector('.citation-box');
+  if (!box) return;
+
+  var tabs = box.querySelectorAll('.citation-tab');
+  var textEl = box.querySelector('.citation-text');
+  var copyBtn = box.querySelector('.citation-copy-btn');
+
+  tabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      tabs.forEach(function (t) { t.classList.remove('active'); });
+      tab.classList.add('active');
+      textEl.textContent = tab.getAttribute('data-citation');
+    });
+  });
+
+  if (copyBtn) {
+    copyBtn.addEventListener('click', function () {
+      var text = textEl.textContent;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(text).then(function () {
+          var original = copyBtn.textContent;
+          copyBtn.textContent = 'Copied';
+          setTimeout(function () { copyBtn.textContent = original; }, 1800);
+        });
+      }
+    });
+  }
+});

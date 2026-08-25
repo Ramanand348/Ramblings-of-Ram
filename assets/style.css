@@ -590,3 +590,167 @@ table.dataset-table tr:nth-child(even) td {
   .site-nav { gap: 18px; font-size: 0.75rem; }
   .lane-label { font-size: 9px; }
 }
+
+/* ============================================================
+   Reading progress bar
+   ============================================================ */
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: transparent;
+  z-index: 60;
+}
+.reading-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: var(--brass);
+  transition: width 0.1s linear;
+}
+
+/* ============================================================
+   Scroll-to-top button
+   ============================================================ */
+.scroll-top-btn {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--ink-night);
+  border: 1px solid var(--brass);
+  color: var(--brass-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  z-index: 55;
+  box-shadow: var(--shadow);
+}
+.scroll-top-btn.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+.scroll-top-btn:hover { border-color: var(--brass-light); }
+.scroll-top-btn svg { width: 18px; height: 18px; }
+
+/* ============================================================
+   Citation box
+   ============================================================ */
+.citation-box {
+  margin-top: 28px;
+  padding: 16px 18px;
+  background: var(--cream);
+  border: 1px solid var(--line-on-parchment);
+  border-radius: 4px;
+  font-family: var(--font-mono);
+}
+.citation-box .citation-title {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--rust);
+  margin: 0 0 10px;
+  font-weight: 600;
+}
+.citation-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 10px;
+}
+.citation-tab {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background: transparent;
+  border: 1px solid var(--line-on-parchment);
+  color: var(--ink-soft);
+  padding: 4px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.citation-tab.active {
+  border-color: var(--brass);
+  color: var(--rust);
+}
+.citation-text {
+  font-size: 0.78rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  margin: 0 0 12px;
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+.citation-copy-btn {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background: transparent;
+  border: 1px solid var(--brass);
+  color: var(--rust);
+  padding: 5px 12px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.citation-copy-btn:hover { background: rgba(184, 134, 63, 0.1); }
+
+/* ============================================================
+   Related articles
+   ============================================================ */
+.related-articles {
+  max-width: 700px;
+  margin: 8px auto 0;
+  padding: 0 32px 64px;
+}
+.related-articles h2 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0 0 20px;
+  color: var(--ink);
+}
+.related-grid {
+  display: grid;
+  gap: 18px;
+}
+@media (min-width: 640px) {
+  .related-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* ============================================================
+   404 page
+   ============================================================ */
+.error-page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 80px 32px 100px;
+  text-align: left;
+}
+.error-page .error-code {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--rust);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0 0 14px;
+}
+.error-page h1 {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  margin: 0 0 16px;
+}
+.error-page p {
+  line-height: 1.7;
+  color: var(--ink-soft);
+  margin: 0 0 28px;
+}
