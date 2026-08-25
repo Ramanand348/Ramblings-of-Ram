@@ -34,6 +34,18 @@ body {
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  cursor: url('cursor-default.png') 3 2, auto;
+}
+
+a, button,
+.article-card,
+.toc a,
+.site-nav a,
+.scroll-top-btn,
+.citation-tab,
+.citation-copy-btn,
+.tl-point {
+  cursor: url('cursor-pointer.png') 14 14, pointer;
 }
 
 a { color: inherit; }
