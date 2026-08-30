@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rajendra Chola's 1025 CE Campaign — Interactive Map</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --parchment: #EDE3CD;
+    --parchment-deep: #E2D5B8;
+    --ink: #1B2A3A;
+    --gold: #B8863B;
+    --gold-dim: #9C7A47;
+    --oxide: #9C4530;
+    --slate: #4A6670;
+    --card-bg: #F7F1E2;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: var(--parchment);
+    font-family: 'Source Serif 4', serif;
+    color: var(--ink);
+  }
+
+  #app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    min-height: 560px;
+  }
+
+  header {
+    padding: 18px 24px 14px;
+    border-bottom: 1px solid rgba(27,42,58,0.15);
+    background: var(--parchment);
+    flex-shrink: 0;
+  }
+
+  header h1 {
+    font-family: 'Spectral', serif;
+    font-weight: 700;
+    font-size: 1.35rem;
+    margin: 0 0 4px;
+    letter-spacing: 0.01em;
+    color: var(--ink);
+  }
+
+  header p.subtitle {
+    margin: 0;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--slate);
+  }
+
+  #map-wrap {
+    position: relative;
+    flex: 1;
+    min-height: 0;
+  }
+
+  #map {
+    width: 100%;
+    height: 100%;
+    background: var(--parchment) !important;
+  }
+
+  .legend {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    z-index: 500;
+    background: var(--card-bg);
+    border: 1px solid rgba(27,42,58,0.18);
+    border-radius: 3px;
+    padding: 10px 14px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--ink);
+    box-shadow: 0 2px 10px rgba(27,42,58,0.12);
+    line-height: 1.9;
+  }
+
+  .legend-row { display: flex; align-items: center; gap: 8px; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; border: 1.5px solid var(--ink); }
+  .legend-dot.confirmed { background: var(--gold); }
+  .legend-dot.disputed { background: var(--parchment); background-image: repeating-linear-gradient(45deg, var(--gold-dim) 0, var(--gold-dim) 1.5px, transparent 1.5px, transparent 4px); }
+  .legend-dot.capital { background: var(--oxide); }
+  .legend-dot.home { background: var(--ink); }
+
+  .site-marker {
+    background: var(--gold);
+    border: 2px solid var(--ink);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 500;
+    font-size: 11px;
+    color: var(--ink);
+    box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+  }
+  .site-marker.disputed {
+    background: var(--parchment);
+    background-image: repeating-linear-gradient(45deg, var(--gold-dim) 0, var(--gold-dim) 1.5px, transparent 1.5px, transparent 4px);
+  }
+  .site-marker.capital { background: var(--oxide); color: var(--parchment); width: 26px !important; height: 26px !important; }
+  .site-marker.home { background: var(--ink); color: var(--parchment); }
+
+  /* Inscription-card popup styling */
+  .leaflet-popup-content-wrapper {
+    background: var(--card-bg);
+    border-radius: 2px;
+    box-shadow: 0 6px 24px rgba(27,42,58,0.28);
+    border: 1px solid rgba(27,42,58,0.15);
+  }
+  .leaflet-popup-tip { background: var(--card-bg); }
+  .leaflet-popup-content { margin: 0; width: 280px !important; }
+
+  .card {
+    padding: 14px 16px 12px;
+  }
+  .card .eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--oxide);
+    margin-bottom: 4px;
+  }
+  .card h2 {
+    font-family: 'Spectral', serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 0 0 8px;
+    color: var(--ink);
+  }
+  .card .inscription {
+    font-style: italic;
+    font-size: 0.85rem;
+    line-height: 1.55;
+    color: var(--ink);
+    border-left: 2px solid var(--gold);
+    padding-left: 10px;
+    margin: 0 0 8px;
+  }
+  .card .note {
+    font-size: 0.78rem;
+    line-height: 1.5;
+    color: var(--slate);
+    margin: 0 0 8px;
+  }
+  .card .cite {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--gold-dim);
+    border-top: 1px solid rgba(27,42,58,0.12);
+    padding-top: 6px;
+  }
+
+  footer {
+    padding: 10px 24px;
+    border-top: 1px solid rgba(27,42,58,0.15);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--slate);
+    background: var(--parchment);
+    flex-shrink: 0;
+  }
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <h1>The 1025 CE Campaign: Nagapattinam to Palembang</h1>
+    <p class="subtitle">Rajendra Chola I &middot; Route reconstructed from the Thanjavur inscription &middot; Tap a marker to read the source</p>
+  </header>
+  <div id="map-wrap">
+    <div id="map"></div>
+    <div class="legend">
+      <div class="legend-row"><span class="legend-dot home"></span> Chola heartland</div>
+      <div class="legend-row"><span class="legend-dot confirmed"></span> Raided port, ID reasonably confident</div>
+      <div class="legend-row"><span class="legend-dot disputed"></span> Raided port, ID disputed</div>
+      <div class="legend-row"><span class="legend-dot capital"></span> Srivijaya capital</div>
+    </div>
+  </div>
+  <footer>
+    Source: K. A. Nilakanta Sastri, <em>The Cōḷas</em> (1935/2000), p. 211 (inscription translation) &middot; Place identifications per Sastri, pp. 212–218, following E. Hultzsch (1891) and G. Coedès (1918) &middot; Map for illustrative reference only; boundaries approximate.
+  </footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+  const sites = [
+    {
+      name: "Gangaikondacholapuram",
+      lat: 11.2063126, lng: 79.4483194,
+      type: "home",
+      eyebrow: "Chola capital",
+      note: "Rajendra I's new capital, built to commemorate his conquests — the name means \"the city of the Chola who took the Ganges.\" The campaign against Srivijaya was launched during this reign.",
+      inscription: null,
+      cite: "Sastri, The Cōḷas, on Rajendra I's reign"
+    },
+    {
+      name: "Nagapattinam",
+      lat: 10.7672313, lng: 79.8448512,
+      type: "home",
+      eyebrow: "Departure port",
+      note: "The Chola empire's key trading port. In 1006 CE, a Srivijayan king had built a Buddhist monastery here — cordial relations existed less than 20 years before the raid.",
+      inscription: null,
+      cite: "Larger Leiden Grant, 1006 CE / formalized c. 1019 CE"
+    },
+    {
+      name: "Kadaram (Kedah)",
+      lat: 6.0498656, lng: 100.5296115,
+      type: "confirmed",
+      eyebrow: "Final target, king captured",
+      note: "Sangrama Vijayottunggavarman, king of Kadaram, was captured here along with his war elephants and treasury.",
+      inscription: "\u201C...having caught Sangr\u0101ma-vijay\u014dttunga-varman, the king of Kad\u0101ram, together with the elephants in his glorious army...and K\u0101d\u0101ram, of fierce strength, which was protected by the deep sea.\u201D",
+      cite: "Thanjavur inscription, tr. Sastri, The Cōḷas, p. 211"
+    },
+    {
+      name: "Śrī Vijaya (Palembang)",
+      lat: -2.9760735, lng: 104.7754307,
+      type: "capital",
+      eyebrow: "Srivijaya's capital \u2014 identification probable, not certain",
+      note: "Identified with Mevilimbangam in the inscription. This identification rests on 19th\u201320th c. epigraphic reconstruction, not certain proof. The jeweled ceremonial gateway (Vidhyadhara-torana) was seized here.",
+      inscription: "\u201C...(captured) with noise the (arch called) Vidhy\u0101dharatorana at the \u2018war gate\u2019 of his extensive city, \u015aร\u012b Vijaya with the \u2018jewelled wicket-gate\u2019 adorned with great splendour and the \u2018gate of large jewels\u2019...\u201D",
+      cite: "Thanjavur inscription, tr. Sastri, The Cōḷas, p. 211"
+    },
+    {
+      name: "Malaiyūr",
+      lat: -1.6101, lng: 103.6131,
+      type: "disputed",
+      eyebrow: "Raided port \u2014 disputed ID",
+      note: "Identified by most scholars with Malayu in the Batanghari river valley (modern Jambi province); a minority view places it in the southern Malay Peninsula instead.",
+      inscription: "\u201C...the ancient Malaiy\u016br with the strong mountain for its rampart...\u201D",
+      cite: "Thanjavur inscription, tr. Sastri, The Cōḷas, p. 211; ID per Sastri, p. 215"
+    },
+    {
+      name: "Ilangāśōka (Langkasuka)",
+      lat: 6.8, lng: 101.25,
+      type: "confirmed",
+      eyebrow: "Raided port",
+      note: "Located on the east coast of the Malay Peninsula; matched to \"Ling-ya-sseu-kia\" in the Chinese writer Chau Ju-Kua's list of Srivijayan dependencies.",
+      inscription: "\u201C...Ilang\u0101\u015b\u014dka undaunted in fierce battles...\u201D",
+      cite: "Thanjavur inscription, tr. Sastri, The Cōḷas, p. 211"
+    },
+    {
+      name: "Talaittakkōlam",
+      lat: 8.4304, lng: 99.9631,
+      type: "disputed",
+      eyebrow: "Raided port \u2014 disputed ID",
+      note: "Identified with \"Takkola,\" a trading emporium on the Golden Chersonese described by Ptolemy — matched to modern Takuapa in the Isthmus of Kra, though the identification is not universally accepted.",
+      inscription: "\u201C...Talaittakk\u014dlam praised by great men (versed in) the sciences...\u201D",
+      cite: "Thanjavur inscription, tr. Sastri, The Cōḷas, p. 211; ID per Sastri, p. 216"
+    }
+  ];
+
+  const map = L.map('map', {
+    zoomControl: true,
+    attributionControl: true
+  }).setView([5, 92], 4);
+
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+    maxZoom: 10,
+    minZoom: 3
+  }).addTo(map);
+
+  function makeIcon(type, label) {
+    const cls = 'site-marker ' + type;
+    const size = type === 'capital' ? 26 : 22;
+    return L.divIcon({
+      className: '',
+      html: `<div class="${cls}" style="width:${size}px;height:${size}px;">${label}</div>`,
+      iconSize: [size, size],
+      iconAnchor: [size/2, size/2]
+    });
+  }
+
+  const routeCoords = [];
+  const order = ["Gangaikondacholapuram","Nagapattinam","Talaittakkōlam","Ilangāśōka","Malaiyūr","Kadaram (Kedah)","Śrī Vijaya (Palembang)"];
+
+  sites.forEach((s, i) => {
+    const idx = order.indexOf(s.name);
+    const label = s.type === 'home' ? '' : (s.type === 'capital' ? '\u2605' : String(idx));
+    const marker = L.marker([s.lat, s.lng], { icon: makeIcon(s.type, label) }).addTo(map);
+
+    let inscriptionHtml = s.inscription
+      ? `<p class="inscription">${s.inscription}</p>`
+      : '';
+
+    marker.bindPopup(`
+      <div class="card">
+        <div class="eyebrow">${s.eyebrow}</div>
+        <h2>${s.name}</h2>
+        ${inscriptionHtml}
+        <p class="note">${s.note}</p>
+        <div class="cite">${s.cite}</div>
+      </div>
+    `);
+  });
+
+  // Draw route in raid order
+  order.forEach(name => {
+    const site = sites.find(s => s.name === name);
+    if (site) routeCoords.push([site.lat, site.lng]);
+  });
+
+  const routeLine = L.polyline(routeCoords, {
+    color: '#B8863B',
+    weight: 2.5,
+    opacity: 0.85,
+    dashArray: '6, 8'
+  }).addTo(map);
+
+  map.fitBounds(routeLine.getBounds(), { padding: [40, 40] });
+</script>
+</body>
+</html>
