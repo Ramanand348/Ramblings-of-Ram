@@ -18,53 +18,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/style.css">
-<style>
-/* Fallback styling for the citation box, in case this project's copy of
-   style.css predates that feature — safe to delete if style.css already
-   defines these classes on the live site. */
-.citation-box {
-  background: var(--cream);
-  border: 1px solid var(--line-on-parchment);
-  border-radius: 4px;
-  padding: 18px 20px;
-  margin: 8px 0 0;
-}
-.citation-tabs { display: flex; gap: 8px; margin-bottom: 12px; }
-.citation-tab {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  background: transparent;
-  border: 1px solid var(--line-on-parchment);
-  border-radius: 3px;
-  padding: 6px 12px;
-  color: var(--ink-soft);
-  cursor: pointer;
-}
-.citation-tab.active { border-color: var(--brass); color: var(--rust); background: var(--parchment); }
-.citation-text {
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-  line-height: 1.6;
-  color: var(--ink);
-  white-space: pre-wrap;
-  word-break: break-word;
-  margin: 0 0 14px;
-}
-.citation-copy-btn {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  background: var(--ink-night);
-  color: var(--cream);
-  border: none;
-  border-radius: 3px;
-  padding: 7px 14px;
-  cursor: pointer;
-}
-</style>
 </head>
 <body>
 
@@ -193,15 +146,10 @@
       <h2>How to Cite This Piece</h2>
       <div class="citation-box">
         <div class="citation-tabs">
-          <button type="button" class="citation-tab active" data-citation="Retrocalculated. (2026). The fleet that history forgot: Rajendra Chola I's campaigns against Srivijaya and the limits of the conquest narrative. https://ramanand348.github.io/Retrocalculated/research/rajendra-chola-srivijaya-campaign.html">APA</button>
-          <button type="button" class="citation-tab" data-citation="@misc{retrocalculated2026cholasrivijaya,
-  author       = {Retrocalculated},
-  title        = {The Fleet That History Forgot: Rajendra Chola I's Campaigns Against Srivijaya and the Limits of the Conquest Narrative},
-  year         = {2026},
-  howpublished = {\url{https://ramanand348.github.io/Retrocalculated/research/rajendra-chola-srivijaya-campaign.html}}
-}">BibTeX</button>
+          <button type="button" class="citation-tab active" data-citation="Ramanand, A. V. (2026). The Fleet That History Forgot: Rajendra Chola I's Campaigns Against Srivijaya and the Limits of the Conquest Narrative. Retrocalculated. https://ramanand348.github.io/Retrocalculated/research/rajendra-chola-srivijaya-campaign.html">APA</button>
+          <button type="button" class="citation-tab" data-citation="@misc{ramanand2026cholasrivijaya,&#10;  author = {Ramanand, A. V.},&#10;  title = {The Fleet That History Forgot: Rajendra Chola I's Campaigns Against Srivijaya and the Limits of the Conquest Narrative},&#10;  year = {2026},&#10;  howpublished = {\url{https://ramanand348.github.io/Retrocalculated/research/rajendra-chola-srivijaya-campaign.html}},&#10;  note = {Retrocalculated}&#10;}">BibTeX</button>
         </div>
-        <p class="citation-text">Retrocalculated. (2026). The fleet that history forgot: Rajendra Chola I's campaigns against Srivijaya and the limits of the conquest narrative. https://ramanand348.github.io/Retrocalculated/research/rajendra-chola-srivijaya-campaign.html</p>
+        <p class="citation-text">Ramanand, A. V. (2026). The Fleet That History Forgot: Rajendra Chola I's Campaigns Against Srivijaya and the Limits of the Conquest Narrative. Retrocalculated. https://ramanand348.github.io/Retrocalculated/research/rajendra-chola-srivijaya-campaign.html</p>
         <button type="button" class="citation-copy-btn">Copy</button>
       </div>
     </section>
@@ -262,3 +210,4 @@
 <script src="../assets/site.js"></script>
 </body>
 </html>
+
