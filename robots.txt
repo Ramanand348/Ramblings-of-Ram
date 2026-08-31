@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ramanand348.github.io/Ramblings-of-Ram/sitemap.xml
