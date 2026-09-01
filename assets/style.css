@@ -82,7 +82,7 @@ img { max-width: 100%; display: block; }
   max-width: 1120px;
   margin: 0 auto;
   display: flex;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
   gap: 24px;
   flex-wrap: wrap;
@@ -603,7 +603,11 @@ table.dataset-table tr:nth-child(even) td {
 
 @media (max-width: 600px) {
   .site-header, .hero, .section, .reading-header, .reading-layout { padding-left: 20px; padding-right: 20px; }
-  .site-nav { gap: 18px; font-size: 0.75rem; }
+  .site-header-inner { gap: 10px; }
+  .site-header-right { width: 100%; justify-content: space-between; gap: 10px; }
+  .site-nav { gap: 14px; font-size: 0.72rem; }
+  .header-icon-btn { width: 30px; height: 30px; }
+  .header-icon-btn svg { width: 15px; height: 15px; }
   .lane-label { font-size: 9px; }
 }
 
@@ -1037,5 +1041,69 @@ table.dataset-table tbody tr:hover td {
   font-size: 0.92rem;
 }
 
+/* ============================================================
+   Breadcrumbs
+   ============================================================ */
+.breadcrumb-nav {
+  margin-bottom: 18px;
+}
+.breadcrumb-nav ol {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+  color: rgba(244, 238, 221, 0.55);
+}
+.breadcrumb-nav li { display: flex; align-items: center; gap: 6px; }
+.breadcrumb-nav li:not(:last-child)::after { content: '/'; color: rgba(244, 238, 221, 0.3); margin-left: 6px; }
+.breadcrumb-nav a { color: rgba(244, 238, 221, 0.65); text-decoration: none; }
+.breadcrumb-nav a:hover { color: var(--brass-light); }
+.breadcrumb-nav li[aria-current] { color: rgba(244, 238, 221, 0.85); }
+
+/* ============================================================
+   Archive page
+   ============================================================ */
+.archive-list {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 32px 80px;
+}
+.archive-group { margin-bottom: 40px; }
+.archive-group-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0 0 14px;
+  color: var(--ink);
+}
+.archive-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line-on-parchment);
+  text-decoration: none;
+  color: var(--ink);
+}
+.archive-row:hover .archive-row-title { color: var(--rust); }
+.archive-row-title {
+  font-family: var(--font-display);
+  font-size: 1.02rem;
+  font-weight: 600;
+  transition: color 0.15s ease;
+}
+.archive-row-meta {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
 
 
