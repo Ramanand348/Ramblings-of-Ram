@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>Retrocalculated</title>
+  <link>https://ramanand348.github.io/Ramblings-of-Ram/</link>
+  <description>Long-form research articles and shorter Notebook posts spanning history, science, and data-driven topics.</description>
+  <language>en</language>
+  <atom:link href="https://ramanand348.github.io/Ramblings-of-Ram/rss.xml" rel="self" type="application/rss+xml"/>
+  <lastBuildDate>Fri, 28 Aug 2026 00:00:00 GMT</lastBuildDate>
+
+  <item>
+    <title>The Iron Gap: Why More Than Half of Indian Women Are Anaemic, and Why It Got Worse</title>
+    <link>https://ramanand348.github.io/Ramblings-of-Ram/blog/science/the-iron-gap.html</link>
+    <guid>https://ramanand348.github.io/Ramblings-of-Ram/blog/science/the-iron-gap.html</guid>
+    <description>NFHS-5 found 57 percent of Indian women anaemic, up from 53 percent five years earlier, despite a national program built specifically to bring the number down.</description>
+    <category>Science</category>
+    <pubDate>Fri, 28 Aug 2026 00:00:00 GMT</pubDate>
+  </item>
+
+  <item>
+    <title>The Fleet That History Forgot: Rajendra Chola I's Campaigns Against Srivijaya</title>
+    <link>https://ramanand348.github.io/Ramblings-of-Ram/research/history/rajendra-chola-srivijaya-campaign.html</link>
+    <guid>https://ramanand348.github.io/Ramblings-of-Ram/research/history/rajendra-chola-srivijaya-campaign.html</guid>
+    <description>Rajendra Chola I's 1025 CE naval raid on Srivijaya, and why the popular blue-water navy, total-conquest, and royal-marriage version of the story doesn't survive contact with the inscriptions.</description>
+    <category>History</category>
+    <pubDate>Thu, 20 Aug 2026 00:00:00 GMT</pubDate>
+  </item>
+
+  <item>
+    <title>The Navy Nobody Talks About: Rajendra Chola's War Across the Sea</title>
+    <link>https://ramanand348.github.io/Ramblings-of-Ram/blog/history/the-navy-nobody-talks-about.html</link>
+    <guid>https://ramanand348.github.io/Ramblings-of-Ram/blog/history/the-navy-nobody-talks-about.html</guid>
+    <description>A fleet of repurposed merchant ships, a captured king, and a story that's been oversold in almost every retelling since.</description>
+    <category>History</category>
+    <pubDate>Thu, 20 Aug 2026 00:00:00 GMT</pubDate>
+  </item>
+
+  <item>
+    <title>In Silico Identification of Horizontal Gene Transfer: Tracking blaNDM-1 Across Multi-Species Gut Reservoirs</title>
+    <link>https://ramanand348.github.io/Ramblings-of-Ram/research/science/hgt-blandm1-gut-resistome.html</link>
+    <guid>https://ramanand348.github.io/Ramblings-of-Ram/research/science/hgt-blandm1-gut-resistome.html</guid>
+    <description>A comparative genomics study tracing the carbapenem-resistance gene blaNDM-1 as it hops between E. coli and Shigella within the human gut.</description>
+    <category>Science</category>
+    <pubDate>Wed, 01 Jul 2026 00:00:00 GMT</pubDate>
+  </item>
+
+  <item>
+    <title>The Mahabharata War: A Meta-Analysis of Astronomical Dating Claims</title>
+    <link>https://ramanand348.github.io/Ramblings-of-Ram/research/history/the-mahabharata-war.html</link>
+    <guid>https://ramanand348.github.io/Ramblings-of-Ram/research/history/the-mahabharata-war.html</guid>
+    <description>Nineteen proposed dates for the Mahabharata war, spanning 5561 BCE to 900 BCE, scored against a shared evidentiary rubric.</description>
+    <category>History</category>
+    <pubDate>Mon, 15 Jun 2026 00:00:00 GMT</pubDate>
+  </item>
+
+</channel>
+</rss>
