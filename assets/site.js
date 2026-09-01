@@ -144,3 +144,102 @@ document.addEventListener('DOMContentLoaded', function () {
 
   items.forEach(function (el) { observer.observe(el); });
 });
+
+// Theme toggle: persists preference to localStorage. The actual dark/light
+// class is applied synchronously by an inline script in <head> on every
+// page (before paint, to avoid a flash of the wrong theme); this handler
+// just reacts to clicks and updates that same stored preference.
+document.addEventListener('DOMContentLoaded', function () {
+  var btn = document.querySelector('.theme-toggle');
+  if (!btn) return;
+  btn.addEventListener('click', function () {
+    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+      document.documentElement.removeAttribute('data-theme');
+      try { localStorage.setItem('theme', 'light'); } catch (e) {}
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      try { localStorage.setItem('theme', 'dark'); } catch (e) {}
+    }
+  });
+});
+
+// Site search: fetches a small JSON index of every article on first open,
+// then filters client-side as the person types. No server, no build step.
+document.addEventListener('DOMContentLoaded', function () {
+  var openBtn = document.querySelector('.search-toggle');
+  var overlay = document.querySelector('.search-overlay');
+  if (!openBtn || !overlay) return;
+
+  var input = overlay.querySelector('.search-input');
+  var resultsEl = overlay.querySelector('.search-results');
+  var closeBtn = overlay.querySelector('.search-close-btn');
+  var indexData = null;
+  var indexPromise = null;
+
+  var SITE_ROOT = '/Ramblings-of-Ram';
+
+  function loadIndex() {
+    if (indexPromise) return indexPromise;
+    indexPromise = fetch(SITE_ROOT + '/assets/search-index.json')
+      .then(function (r) { return r.json(); })
+      .then(function (data) { indexData = data; return data; })
+      .catch(function () { indexData = []; return []; });
+    return indexPromise;
+  }
+
+  function render(query) {
+    if (!indexData) return;
+    var q = query.trim().toLowerCase();
+    var matches = !q ? indexData : indexData.filter(function (item) {
+      return (item.title + ' ' + item.description + ' ' + item.section + ' ' + item.category)
+        .toLowerCase().indexOf(q) !== -1;
+    });
+    if (!matches.length) {
+      resultsEl.innerHTML = '<p class="search-empty-state">No results for "' + escapeHtml(query) + '".</p>';
+      return;
+    }
+    resultsEl.innerHTML = matches.map(function (item) {
+      return '<a class="search-result" href="' + SITE_ROOT + item.url + '">' +
+        '<p class="search-result-kicker">' + escapeHtml(item.section) + ' \u00b7 ' + escapeHtml(item.category) + '</p>' +
+        '<h3 class="search-result-title">' + escapeHtml(item.title) + '</h3>' +
+        '<p class="search-result-desc">' + escapeHtml(item.description) + '</p>' +
+        '</a>';
+    }).join('');
+  }
+
+  function escapeHtml(str) {
+    var div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function openOverlay() {
+    overlay.classList.add('open');
+    loadIndex().then(function () { render(input.value); });
+    setTimeout(function () { input.focus(); }, 30);
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeOverlay() {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  openBtn.addEventListener('click', openOverlay);
+  closeBtn.addEventListener('click', closeOverlay);
+  overlay.addEventListener('click', function (e) {
+    if (e.target === overlay) closeOverlay();
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && overlay.classList.contains('open')) closeOverlay();
+    if ((e.key === '/' || (e.metaKey && e.key === 'k')) && !overlay.classList.contains('open') &&
+        document.activeElement.tagName !== 'INPUT') {
+      e.preventDefault();
+      openOverlay();
+    }
+  });
+  input.addEventListener('input', function () { render(input.value); });
+});
+
+
