@@ -1,0 +1,18 @@
+{
+  "name": "Retrocalculated",
+  "short_name": "Retrocalculated",
+  "description": "Long-form research articles and shorter Notebook posts spanning history, science, and data-driven topics.",
+  "start_url": "/Ramblings-of-Ram/index.html",
+  "scope": "/Ramblings-of-Ram/",
+  "display": "standalone",
+  "background_color": "#EFE7D2",
+  "theme_color": "#14182B",
+  "icons": [
+    {
+      "src": "/Ramblings-of-Ram/assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
