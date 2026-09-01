@@ -272,9 +272,9 @@
     attributionControl: true
   }).setView([5, 92], 4);
 
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager_nolabels/{z}/{x}/{y}{r}.png', {
-    attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
-    maxZoom: 10,
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    maxZoom: 18,
     minZoom: 3
   }).addTo(map);
 
@@ -329,3 +329,4 @@
 </script>
 </body>
 </html>
+
