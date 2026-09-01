@@ -15,6 +15,7 @@
   --verdigris: #4F7266;
   --plum: #6B5B7A;
   --cream: #F4EEDD;
+  --card-bg: var(--cream);
   --line-on-parchment: rgba(36, 31, 22, 0.16);
   --line-on-night: rgba(244, 238, 221, 0.16);
   --shadow: 0 12px 30px rgba(20, 24, 43, 0.18);
@@ -293,7 +294,7 @@ img { max-width: 100%; display: block; }
   display: block;
   text-decoration: none;
   color: var(--ink);
-  background: var(--cream);
+  background: var(--card-bg);
   border: 1px solid var(--line-on-parchment);
   border-radius: 4px;
   padding: 28px 30px;
@@ -519,7 +520,7 @@ img { max-width: 100%; display: block; }
 
 .thesis-figure {
   margin: 32px 0;
-  background: var(--cream);
+  background: var(--card-bg);
   border: 1px solid var(--line-on-parchment);
   border-radius: 4px;
   padding: 18px;
@@ -588,7 +589,7 @@ table.dataset-table tr:nth-child(even) td {
     margin-bottom: 32px;
     border: 1px solid var(--line-on-parchment);
     border-radius: 4px;
-    background: var(--cream);
+    background: var(--card-bg);
   }
   .toc-title {
     padding: 14px 16px 0;
@@ -663,7 +664,7 @@ table.dataset-table tr:nth-child(even) td {
 .citation-box {
   margin-top: 28px;
   padding: 16px 18px;
-  background: var(--cream);
+  background: var(--card-bg);
   border: 1px solid var(--line-on-parchment);
   border-radius: 4px;
   font-family: var(--font-mono);
@@ -877,7 +878,7 @@ table.dataset-table tbody tr:hover td {
   --parchment-2: #212648;
   --ink: #EDE7D5;
   --ink-soft: #B7AE95;
-  --cream: #1D2242;
+  --card-bg: #1D2242;
   --line-on-parchment: rgba(237, 231, 213, 0.14);
   --shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
 }
@@ -950,7 +951,7 @@ table.dataset-table tbody tr:hover td {
 .search-panel {
   max-width: 640px;
   margin: 0 auto;
-  background: var(--cream);
+  background: var(--card-bg);
   border-radius: 6px;
   box-shadow: var(--shadow);
   overflow: hidden;
@@ -1035,5 +1036,6 @@ table.dataset-table tbody tr:hover td {
   color: var(--ink-soft);
   font-size: 0.92rem;
 }
+
 
 
