@@ -6,7 +6,16 @@
   <description>Long-form research articles and shorter Notebook posts spanning history, science, and data-driven topics.</description>
   <language>en</language>
   <atom:link href="https://ramanand348.github.io/Ramblings-of-Ram/rss.xml" rel="self" type="application/rss+xml"/>
-  <lastBuildDate>Fri, 28 Aug 2026 00:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Thu, 03 Sep 2026 00:00:00 GMT</lastBuildDate>
+
+  <item>
+    <title>Half of India's Pregnancies Are Now High-Risk</title>
+    <link>https://ramanand348.github.io/Ramblings-of-Ram/blog/science/high-risk-pregnancies-india.html</link>
+    <guid>https://ramanand348.github.io/Ramblings-of-Ram/blog/science/high-risk-pregnancies-india.html</guid>
+    <description>NFHS data shows nearly half of pregnancies in India now classified high-risk, driven by rising metabolic disease and answered, unevenly, with surgery.</description>
+    <category>Science</category>
+    <pubDate>Thu, 03 Sep 2026 00:00:00 GMT</pubDate>
+  </item>
 
   <item>
     <title>The Iron Gap: Why More Than Half of Indian Women Are Anaemic, and Why It Got Worse</title>
