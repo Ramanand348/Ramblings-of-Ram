@@ -108,17 +108,32 @@ img { max-width: 100%; display: block; }
   text-transform: uppercase;
 }
 .site-nav a {
+  position: relative;
   text-decoration: none;
   color: var(--cream);
   opacity: 0.75;
-  border-bottom: 1px solid transparent;
   padding-bottom: 3px;
-  transition: opacity 0.15s ease, border-color 0.15s ease;
+  transition: opacity 0.15s ease;
+}
+.site-nav a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--brass-light);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform 0.25s ease;
 }
 .site-nav a:hover,
 .site-nav a[aria-current="page"] {
   opacity: 1;
-  border-color: var(--brass-light);
+}
+.site-nav a:hover::after,
+.site-nav a[aria-current="page"]::after {
+  transform: scaleX(1);
 }
 
 /* ============================================================
@@ -334,11 +349,16 @@ img { max-width: 100%; display: block; }
   flex-wrap: wrap;
 }
 .read-link {
+  display: inline-block;
   font-family: var(--font-mono);
   font-size: 0.82rem;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   color: var(--rust);
+  transition: transform 0.2s ease;
+}
+.article-card:hover .read-link {
+  transform: translateX(3px);
 }
 
 /* Empty state (blog, for now) */
@@ -724,6 +744,17 @@ table.dataset-table tr:nth-child(even) td {
   cursor: pointer;
 }
 .citation-copy-btn:hover { background: rgba(184, 134, 63, 0.1); }
+@keyframes copy-pulse {
+  0% { transform: scale(1); }
+  35% { transform: scale(0.93); }
+  100% { transform: scale(1); }
+}
+.citation-copy-btn.copied {
+  animation: copy-pulse 0.3s ease;
+  background: rgba(79, 114, 102, 0.15);
+  border-color: var(--verdigris);
+  color: var(--verdigris);
+}
 
 /* ============================================================
    Related articles
@@ -934,10 +965,17 @@ table.dataset-table tbody tr:hover td {
   width: 17px;
   height: 17px;
 }
-.theme-toggle .theme-icon-sun { display: none; }
-.theme-toggle .theme-icon-moon { display: inline-flex; }
-:root[data-theme="dark"] .theme-toggle .theme-icon-sun { display: inline-flex; }
-:root[data-theme="dark"] .theme-toggle .theme-icon-moon { display: none; }
+.theme-toggle { position: relative; }
+.theme-toggle svg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transition: opacity 0.3s ease, transform 0.4s ease;
+}
+.theme-toggle .theme-icon-sun { opacity: 0; transform: translate(-50%, -50%) rotate(-90deg) scale(0.5); pointer-events: none; }
+.theme-toggle .theme-icon-moon { opacity: 1; transform: translate(-50%, -50%) rotate(0deg) scale(1); }
+:root[data-theme="dark"] .theme-toggle .theme-icon-sun { opacity: 1; transform: translate(-50%, -50%) rotate(0deg) scale(1); pointer-events: auto; }
+:root[data-theme="dark"] .theme-toggle .theme-icon-moon { opacity: 0; transform: translate(-50%, -50%) rotate(90deg) scale(0.5); pointer-events: none; }
 
 /* ============================================================
    Search overlay
@@ -946,15 +984,23 @@ table.dataset-table tbody tr:hover td {
   position: fixed;
   inset: 0;
   z-index: 1000;
-  display: none;
   background: rgba(20, 24, 43, 0.72);
   backdrop-filter: blur(2px);
   padding: 10vh 20px 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0s linear 0.2s;
 }
-.search-overlay.open { display: block; }
+.search-overlay.open {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.2s ease, visibility 0s linear 0s;
+}
 .search-panel {
   max-width: 640px;
   margin: 0 auto;
+  transform: translateY(-14px) scale(0.98);
+  transition: transform 0.25s ease;
   background: var(--card-bg);
   border-radius: 6px;
   box-shadow: var(--shadow);
@@ -962,6 +1008,9 @@ table.dataset-table tbody tr:hover td {
   max-height: 74vh;
   display: flex;
   flex-direction: column;
+}
+.search-overlay.open .search-panel {
+  transform: translateY(0) scale(1);
 }
 .search-input-row {
   display: flex;
@@ -1106,4 +1155,32 @@ table.dataset-table tbody tr:hover td {
   flex-shrink: 0;
 }
 
+/* ============================================================
+   Additional motion polish: page fade-in, card stagger, footnote flash
+   ============================================================ */
+@keyframes page-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+body { animation: page-fade-in 0.4s ease; }
+
+.js-reveal .card-grid .reveal-item:nth-child(1) { transition-delay: 0s; }
+.js-reveal .card-grid .reveal-item:nth-child(2) { transition-delay: 0.08s; }
+.js-reveal .card-grid .reveal-item:nth-child(3) { transition-delay: 0.16s; }
+.js-reveal .card-grid .reveal-item:nth-child(4) { transition-delay: 0.24s; }
+
+@keyframes footnote-flash {
+  0% { background: rgba(184, 134, 63, 0.35); }
+  100% { background: transparent; }
+}
+.footnote-highlight {
+  animation: footnote-flash 1.8s ease-out;
+  border-radius: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body { animation: none; }
+  .js-reveal .card-grid .reveal-item { transition-delay: 0s !important; }
+  .footnote-highlight { animation: none; }
+}
 
