@@ -110,7 +110,11 @@ document.addEventListener('DOMContentLoaded', function () {
         navigator.clipboard.writeText(text).then(function () {
           var original = copyBtn.textContent;
           copyBtn.textContent = 'Copied';
-          setTimeout(function () { copyBtn.textContent = original; }, 1800);
+          copyBtn.classList.add('copied');
+          setTimeout(function () {
+            copyBtn.textContent = original;
+            copyBtn.classList.remove('copied');
+          }, 1800);
         });
       }
     });
@@ -240,6 +244,22 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
   input.addEventListener('input', function () { render(input.value); });
+});
+
+// Footnote jump highlight: briefly flashes the target when a footnote
+// number or its back-arrow is clicked, so the reader's eye finds the new
+// spot immediately instead of scanning the page after the scroll jump.
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('a[href^="#fn"]').forEach(function (link) {
+    link.addEventListener('click', function () {
+      var id = link.getAttribute('href').slice(1);
+      var target = document.getElementById(id);
+      if (!target) return;
+      target.classList.remove('footnote-highlight');
+      void target.offsetWidth; // restart animation if clicked repeatedly
+      target.classList.add('footnote-highlight');
+    });
+  });
 });
 
 
