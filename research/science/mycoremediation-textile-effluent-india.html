@@ -86,8 +86,8 @@
     <div class="reading-meta">
       <span>Research · Biotechnology</span>
       <span>Science</span>
-      <span>6 sections</span>
-      <span>~20 min read</span>
+      <span>7 sections</span>
+      <span>~27 min read</span>
       <span>Published Sep 2026</span>
       <span>Author: Ramanand AV</span>
     </div>
@@ -103,8 +103,9 @@
       <li><a href="#methods">2. Methods</a></li>
       <li><a href="#results">3. Results</a></li>
       <li><a href="#discussion">4. Discussion</a></li>
-      <li><a href="#conclusion">5. Conclusion</a></li>
-      <li><a href="#references">6. References</a></li>
+      <li><a href="#scaleup">5. Scale-Up Feasibility Model</a></li>
+      <li><a href="#conclusion">6. Conclusion</a></li>
+      <li><a href="#references">7. References</a></li>
     </ol>
   </nav>
 
@@ -114,7 +115,7 @@
       <h1>Abstract</h1>
       <p>India's textile dyeing industry, concentrated in a small number of large clusters, is one of the country's most significant sources of industrial water pollution, releasing synthetic azo dyes that conventional physico-chemical treatment struggles to fully remove. A substantial body of laboratory research, much of it conducted at Indian institutions, has demonstrated that filamentous fungi and their extracellular enzymes, chiefly laccases and peroxidases, can decolorize and partially mineralize these same dyes at high efficiency. This scoping review characterizes that research literature by stage of development (fungal isolation and screening, lab-scale reactor trials, and field or industrial deployment) and sets it against the treatment infrastructure actually operating in India's major dyeing clusters.</p>
       <p>The review finds a consistent pattern: dozens of studies demonstrate fungal decolorization efficiencies exceeding 90 percent at flask or small-reactor scale, including work using real, uncontrolled textile effluent rather than synthetic dye solutions. No published evidence was found of fungal or enzymatic dye-degradation technology operating at field or industrial scale within an Indian textile cluster. Instead, the treatment infrastructure built into government-funded Zero Liquid Discharge systems, representing hundreds of crores of public investment, relies entirely on physico-chemical and reverse-osmosis-based technology with generic bacterial activated-sludge treatment, not fungal or enzymatic systems purpose-built for dye degradation.</p>
-      <p>The discussion traces this gap to a combination of technical barriers (enzyme production cost, instability under real industrial conditions, and the toxicity of synthetic mediators used to boost laccase activity), regulatory barriers (the absence of an approval pathway for biological dye-treatment technology, and court-mandated deadlines that were met using conventional technology before biological alternatives had matured), and an institutional one: capital already sunk into reverse-osmosis infrastructure creates inertia against adopting an unproven alternative, however promising the underlying science.</p>
+      <p>The discussion traces this gap to a combination of technical barriers (enzyme production cost, instability under real industrial conditions, and the toxicity of synthetic mediators used to boost laccase activity), regulatory barriers (the absence of an approval pathway for biological dye-treatment technology, and court-mandated deadlines that were met using conventional technology before biological alternatives had matured), and an institutional one: capital already sunk into reverse-osmosis infrastructure creates inertia against adopting an unproven alternative, however promising the underlying science. To move past a qualitative account of that gap, this review also builds an original scale-up feasibility model, extrapolating the most field-relevant published dataset (an IIT Delhi engineered laccase system, tested in continuous flow on real effluent) to a defined target of 530 cubic metres per day, one percent of Tirupur's combined CETP capacity. The model finds that the required reactor volume, while roughly 440,000 times larger than what has been tested, is not the binding constraint. Enzyme cost is: at current laboratory-demonstrated dosages and commercial enzyme prices, the modelled treatment cost of approximately ₹28,500 per cubic metre runs roughly 140 to 1,900 times higher than the ₹15 to ₹200 per cubic metre Indian CETPs already pay using conventional technology, reframing the lab-to-field gap as primarily an enzyme-economics problem rather than a scale-up engineering one.</p>
     </section>
 
     <section class="chapter" id="introduction">
@@ -295,10 +296,40 @@
       <p>This review does not claim to have identified every fungal dye-degradation study relevant to India, nor every pilot project that may exist in unpublished industry reports or trade literature outside standard academic databases. It is possible that limited-scale pilot efforts exist that have not been published or indexed in the sources searched. Nine primary Indian studies were identified and classified for this review; a systematic search under a formal PRISMA protocol, screening a larger initial pool of records against explicit inclusion and exclusion criteria, would likely surface additional isolation-tier studies, though it is unlikely to change the reactor-tier finding materially, since real-effluent reactor testing is uncommon enough in this literature that both identified instances (IIT Delhi and Siksha 'O' Anusandhan) turned up early and consistently across multiple search rounds. What the review does establish with reasonable confidence is a pattern: an active and geographically distributed body of laboratory research, only two identified cases of reactor-scale testing using real rather than synthetic effluent, and no public evidence of field or industrial deployment at any of the three clusters examined.</p>
     </section>
 
+    <section class="chapter" id="scaleup">
+      <h1 data-chapter="05">5. Scale-Up Feasibility Model</h1>
+      <p>Sections 3 and 4 characterize what has been published. This section produces an original estimate: taking the most field-relevant published dataset identified in this review and extrapolating it, under explicitly stated assumptions, to a defined deployment target. The output is a reactor sizing, an enzyme-cost estimate, and a comparison against what Indian CETPs already pay to treat the same volume of effluent by conventional means. This is a first-order engineering estimate, not a validated pilot result, and its limitations are stated in §5.4.</p>
+
+      <h2 id="model-basis">5.1 Model Basis and Target</h2>
+      <p>The model is built on the continuous-mode operating parameters reported for the IIT Delhi engineered <em>Cyathus bulleri</em> laccase system, the only identified Indian study reporting continuous-flow operation on real textile effluent with a defined hydraulic retention time (HRT). In continuous operation, the 0.3 litre membrane reactor was run at an HRT of 6 hours with a steady-state laccase dosage of approximately 120 U per litre of effluent, achieving roughly 95 percent decolorization and 96 percent detoxification.<sup class="cite-ref"><a href="#ref1">1</a></sup> The target deployment volume chosen for this model is 1 percent of Tirupur's combined CETP capacity, 530 cubic metres per day, a deliberately modest benchmark representing a supplementary polishing stage rather than a wholesale CETP replacement.</p>
+
+      <h2 id="reactor-enzyme-sizing">5.2 Reactor Sizing and Enzyme Demand</h2>
+      <p>Holding the tested HRT and enzyme dosage constant and scaling only the throughput volume, treating 530 m³/day requires a continuous flow rate of approximately 22,083 litres per hour. At a fixed 6-hour HRT, the reactor's working volume must scale proportionally to flow rate, giving a required reactor volume of approximately 132,500 litres, or roughly 132.5 cubic metres, a scale-up factor of approximately 440,000 times the volume actually tested. At the same 120 U/L steady-state dosage, daily enzyme demand works out to approximately 63.6 million enzyme units (63,600 kU) per day. This figure is a lower bound: the source study noted that continuous-mode laccase activity declined during operation and required periodic replenishment in two dosing regimes to maintain the 120 U/L level, meaning actual cumulative enzyme consumption per litre treated is likely higher than this steady-state estimate captures.</p>
+
+      <h2 id="cost-estimate">5.3 Cost Estimate and Comparison to Deployed Treatment</h2>
+      <p>A 2024 techno-economic analysis of fungal laccase production for wastewater treatment, using submerged fermentation of <em>Trametes hirsuta</em>, estimated the cost of crude laccase at 3.90 Canadian dollars per thousand units (kU).<sup class="cite-ref"><a href="#ref18">18</a></sup> Applying that figure to the 63,600 kU/day demand calculated above gives an enzyme cost of approximately 248,000 CAD per day, or roughly 470 CAD per cubic metre treated. At representative 2026 exchange rates, that converts to approximately $340 USD, or roughly ₹28,500, per cubic metre, enzyme cost alone, before reactor capital, membrane replacement, aeration, or labour.</p>
+      <p>Indian industry sources place the running cost of existing CETP and ZLD treatment trains, the physico-chemical, reverse-osmosis, and evaporation systems actually operating at Tirupur, in the range of ₹15 to ₹200 per kilolitre (one kilolitre equals one cubic metre) depending on effluent strength and technology.<sup class="cite-ref"><a href="#ref19">19</a></sup> The modelled enzyme cost of ₹28,500 per kilolitre is therefore between roughly 140 and 1,900 times higher than what Indian textile clusters already pay, using existing technology, to treat the same volume of effluent.</p>
+      <table class="dataset-table" style="margin: 20px 0;">
+        <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td>Target volume (1% of Tirupur CETP capacity)</td><td>530 m³/day</td></tr>
+          <tr><td>Required reactor volume (at tested 6h HRT)</td><td>≈132.5 m³ (≈440,000× the tested 0.3 L reactor)</td></tr>
+          <tr><td>Daily enzyme demand (steady-state, lower bound)</td><td>≈63,600 kU/day</td></tr>
+          <tr><td>Modelled enzyme cost</td><td>≈₹28,500 / m³ (≈$340 USD / m³)</td></tr>
+          <tr><td>Existing CETP/ZLD running cost (India, 2026)</td><td>₹15–₹200 / m³</td></tr>
+          <tr><td>Cost ratio (modelled vs. existing)</td><td>≈140–1,900×</td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="model-limitations">5.4 Interpretation and Model Limitations</h2>
+      <p>This comparison, generated by combining two published figures that were never presented together in either source, gives the discussion in §4.1 a number rather than a general claim: enzyme production cost is not a minor line item standing in the way of an otherwise-ready technology, it is, at current laboratory-demonstrated dosages and commercial enzyme prices, the dominant cost by a wide margin. That reframes what "closing the gap" would actually require. It is not primarily a scale-up engineering problem, the 440,000-fold reactor scale-up is large but not qualitatively different from ordinary bioprocess scale-up. It is an enzyme economics problem: either the required dosage needs to fall substantially through improved enzyme engineering or immobilization and reuse (the kind of step demonstrated at small scale in the immobilized <em>Geotrichum candidum</em> study<sup class="cite-ref"><a href="#ref3">3</a></sup>), or production costs need to fall through cheaper substrates and fermentation routes, before a fungal treatment stage becomes cost-competitive with what CETPs already pay.</p>
+      <p>The model rests on several assumptions that should be stated plainly rather than absorbed into the headline numbers. It assumes linear scalability of both HRT and dosage from a 0.3 litre reactor to a 132.5 cubic metre one, an assumption that does not generally hold in bioreactor engineering, where mixing, oxygen transfer, and fouling dynamics change non-linearly with scale, meaning real-world reactor and enzyme requirements could differ substantially in either direction. It uses a single laccase cost benchmark from a different fungal species (<em>Trametes hirsuta</em> rather than the engineered <em>Cyathus bulleri</em> variant actually tested), produced in a different national market, as a stand-in for Indian production costs, which may not transfer directly given differing labour, energy, and regulatory costs between Canada and India. And it treats the 120 U/L steady-state dosage as the full cost driver while acknowledging, without being able to quantify, that periodic re-dosing likely raises true consumption further. Despite these caveats, the gap between the modelled cost and the deployed benchmark is large enough, well over two orders of magnitude at the low end, that it is unlikely to close entirely even after correcting for the assumptions above. The most direct implication for future research is that publishing the cost of achieving a given decolorization efficiency, not only the efficiency itself, would let subsequent studies and this kind of model track progress toward economic viability directly, rather than only toward technical performance.</p>
+    </section>
+
     <section class="chapter" id="conclusion">
-      <h1 data-chapter="05">5. Conclusion</h1>
+      <h1 data-chapter="06">6. Conclusion</h1>
       <p>India's textile dyeing clusters produce some of the country's most ecologically damaging industrial effluent, and a genuine, methodologically sound body of research, much of it produced at Indian institutions, has repeatedly shown that fungal enzymes can decolorize and partially mineralize the azo dyes responsible. That evidence has not translated into field deployment. The treatment infrastructure actually operating at Tirupur, built at a cost of hundreds of crores of public funding, relies entirely on physico-chemical and reverse-osmosis technology, with no dye-specific biological component beyond generic activated sludge.</p>
-      <p>The gap is not a failure of the science. It is the predictable result of a court-mandated compliance deadline being met by mature, bankable technology before biological alternatives had reached comparable scale, compounded by the ordinary economics of enzyme production and the institutional inertia that follows a large capital investment. Closing it would not require replacing what has already been built. It would require a scaled pilot, integrated as a supplementary step within existing CETP infrastructure, treating real cluster effluent at a volume closer to industrial relevance than the 0.3 litres the most advanced published Indian study has so far reached.</p>
+      <p>The gap is not a failure of the science. It is the predictable result of a court-mandated compliance deadline being met by mature, bankable technology before biological alternatives had reached comparable scale, compounded by the ordinary economics of enzyme production and the institutional inertia that follows a large capital investment. The scale-up model in Section 5 puts a number on that economics: at current laboratory-demonstrated dosages and commercial enzyme prices, a fungal polishing stage would cost roughly two to three orders of magnitude more per kilolitre than Indian CETPs already pay using conventional technology. Closing that gap is primarily an enzyme-cost problem before it is a scale-up problem, and it would not require replacing what has already been built. It would require a scaled pilot, integrated as a supplementary step within existing CETP infrastructure, that reports cost per kilolitre alongside decolorization efficiency, treating real cluster effluent at a volume closer to industrial relevance than the 0.3 litres the most advanced published Indian study has so far reached.</p>
     </section>
 
     <section class="chapter" id="cite">
@@ -314,10 +345,10 @@
     </section>
 
     <section class="chapter" id="references">
-      <h1 data-chapter="06">6. References</h1>
+      <h1 data-chapter="07">7. References</h1>
       <p><strong>Primary studies (Table 1)</strong></p>
       <ol class="ref-list">
-        <li id="ref1"><span class="ref-number">1.</span><p>Sreekrishnan, T. R., et al. (2023). Detoxification and decolorization of complex textile effluent in an enzyme membrane reactor: batch and continuous studies. <em>Frontiers in Microbiology</em>, 14, 1193875.</p></li>
+        <li id="ref1"><span class="ref-number">1.</span><p>Dahiya, M., Islam, D. T., Srivastava, P., Sreekrishnan, T. R., &amp; Mishra, S. (2023). Detoxification and decolorization of complex textile effluent in an enzyme membrane reactor: batch and continuous studies. <em>Frontiers in Microbiology</em>, 14, 1193875. https://doi.org/10.3389/fmicb.2023.1193875</p></li>
         <li id="ref2"><span class="ref-number">2.</span><p>Rajhans, G., Barik, A., Sen, S. K., Masanta, A., Sahoo, N. K., &amp; Raut, S. (2021). Mycoremediation and toxicity assessment of textile effluent pertaining to its possible correlation with COD. <em>Scientific Reports</em>, 11, 15978. https://doi.org/10.1038/s41598-021-94666-8</p></li>
         <li id="ref3"><span class="ref-number">3.</span><p>Rajhans, G., Sen, S. K., Barik, A., &amp; Raut, S. (2021). De-colourization of textile effluent using immobilized <em>Geotrichum candidum</em>: an insight into mycoremediation. <em>Letters in Applied Microbiology</em>, 72(4), 445–457. https://doi.org/10.1111/lam.13430</p></li>
         <li id="ref4"><span class="ref-number">4.</span><p>Khan, R., &amp; Fulekar, M. H. (2017). Mineralization of a sulfonated textile dye Reactive Red 31 from simulated wastewater using pellets of <em>Aspergillus bombycis</em>. <em>Bioresources and Bioprocessing</em>, 4(1), 23. https://doi.org/10.1186/s40643-017-0153-9</p></li>
@@ -340,6 +371,11 @@
         <li id="ref15"><span class="ref-number">15.</span><p>CETP with Zero Liquid Discharge, Tirupur. Department of Textiles, Government of Tamil Nadu.</p></li>
         <li id="ref16"><span class="ref-number">16.</span><p>Tiruppur Textile Effluent Management Project. Tirupur Water Infrastructure Company (TWIC).</p></li>
         <li id="ref17"><span class="ref-number">17.</span><p>India's river pollution crisis needs bold industrial action. World Economic Forum, 2025.</p></li>
+      </ol>
+      <p><strong>Scale-up model sources (Section 5)</strong></p>
+      <ol class="ref-list" start="18">
+        <li id="ref18"><span class="ref-number">18.</span><p>Decisional tool development and application for techno-economic analysis of fungal laccase production. <em>ScienceDirect</em>, 2024. (Cost basis: 3.90 CAD/kU for crude laccase, submerged fermentation, <em>Trametes hirsuta</em>, wastewater treatment application.)</p></li>
+        <li id="ref19"><span class="ref-number">19.</span><p>Industrial ETP Cost Guide: What an Effluent Treatment Plant Really Costs in India (2026). Trade/industry source; cited for the ₹15–₹200 per kilolitre running-cost range of deployed conventional and ZLD treatment trains, not as a peer-reviewed benchmark.</p></li>
       </ol>
     </section>
 
