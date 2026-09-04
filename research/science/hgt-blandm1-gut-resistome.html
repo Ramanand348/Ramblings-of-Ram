@@ -120,7 +120,7 @@
 
     <section class="chapter" id="introduction">
       <h1 data-chapter="01">1. Introduction</h1>
-      <p>The rapid escalation of antimicrobial resistance (AMR) represents one of the most formidable challenges to global public health. While clinical attention has historically focused on the expansion of resistant pathogens, recent evidence suggests that the human gut microbiome acts as a critical "resistome" — a vast reservoir of antibiotic resistance genes (D'Costa et al., 2011). Among these, the <em>bla</em><sub>NDM-1</sub> gene is particularly alarming due to its ability to confer resistance to nearly all beta-lactam antibiotics, including carbapenems, which are often considered drugs of last resort (Yong et al., 2009). The dissemination of this gene is primarily driven by Horizontal Gene Transfer (HGT), where mobile genetic elements facilitate the "hopping" of resistance markers between different bacterial species. In the polymicrobial environment of the gastrointestinal tract, commensal organisms can serve as stable hosts, subsequently transferring these genes to opportunistic pathogens.</p>
+      <p>The rapid escalation of antimicrobial resistance (AMR) represents one of the most formidable challenges to global public health. While clinical attention has historically focused on the expansion of resistant pathogens, recent evidence suggests that the human gut microbiome acts as a critical "resistome," a vast reservoir of antibiotic resistance genes.<sup class="cite-ref"><a href="#ref1">1</a></sup> Among these, the <em>bla</em><sub>NDM-1</sub> gene is particularly alarming due to its ability to confer resistance to nearly all beta-lactam antibiotics, including carbapenems, which are often considered drugs of last resort.<sup class="cite-ref"><a href="#ref2">2</a></sup> The dissemination of this gene is primarily driven by Horizontal Gene Transfer (HGT), where mobile genetic elements facilitate the "hopping" of resistance markers between different bacterial species. In the polymicrobial environment of the gastrointestinal tract, commensal organisms can serve as stable hosts, subsequently transferring these genes to opportunistic pathogens.</p>
     </section>
 
     <section class="chapter" id="methods">
@@ -128,20 +128,20 @@
       <p>Genomic sequences were retrieved from the NCBI Pathogen Detection Browser, specifically targeting isolates containing the <em>bla</em><sub>NDM-1</sub> genotype. The search was restricted to human-host isolates collected between January 2022 and early 2026. A "multi-species cluster" approach was used to identify recent HGT events. Isolates were grouped based on Pathogen Detection SNP Cluster (PDS) IDs. Clusters containing at least two distinct bacterial species (e.g., <em>Escherichia coli</em> and <em>Klebsiella pneumoniae</em>) with a low SNP distance were prioritized as evidence of recent inter-species gene transfer. The flanking regions of the gene were further analyzed to identify the specific mobile genetic elements (MGEs) involved.</p>
 
       <h2 id="dataset-selection">2.1 Dataset Selection and Retrieval</h2>
-      <p>Genomic data was sourced from the NCBI Pathogen Detection Project, a centralized hub that integrates sequence data from global public health agencies. The MicroBIGG-E (Microbial Browser for Identification of Genetic and Genomic Elements) database was specifically queried. Search parameters were set to identify isolates containing the genotype within a temporal window of 2022 to 2026. To focus on clinical relevance, the host filter was restricted to <em>Homo sapiens</em>.</p>
+      <p>Genomic data was sourced from the NCBI Pathogen Detection Project, a centralized hub that integrates sequence data from global public health agencies.<sup class="cite-ref"><a href="#ref4">4</a></sup> The MicroBIGG-E (Microbial Browser for Identification of Genetic and Genomic Elements) database was specifically queried.<sup class="cite-ref"><a href="#ref5">5</a></sup> Search parameters were set to identify isolates containing the genotype within a temporal window of 2022 to 2026. To focus on clinical relevance, the host filter was restricted to <em>Homo sapiens</em>.</p>
 
       <h2 id="snp-cluster-analysis">2.2 Multi-species SNP Cluster Analysis</h2>
-      <p>To identify active Horizontal Gene Transfer (HGT), the Pathogen Detection SNP Cluster (PDS) hierarchy was used. Isolates were grouped using a high-resolution threshold (SNP distance &lt;20). Clusters were specifically screened for "multi-species clusters" — defined as a single PDS ID containing two or more distinct taxonomic genera (e.g., <em>Escherichia</em> and <em>Shigella</em>). This approach allowed "hopping" events to be pinpointed, where core genome similarity was high enough to suggest a recent common ancestor or immediate gene transfer.</p>
+      <p>To identify active Horizontal Gene Transfer (HGT), the Pathogen Detection SNP Cluster (PDS) hierarchy was used.<sup class="cite-ref"><a href="#ref4">4</a></sup> Isolates were grouped using a high-resolution threshold (SNP distance &lt;20). Clusters were specifically screened for "multi-species clusters" — defined as a single PDS ID containing two or more distinct taxonomic genera (e.g., <em>Escherichia</em> and <em>Shigella</em>). This approach allowed "hopping" events to be pinpointed, where core genome similarity was high enough to suggest a recent common ancestor or immediate gene transfer.</p>
 
       <h2 id="genetic-environment">2.3 Characterization of the Genetic Environment</h2>
-      <p>For identified clusters, the genetic architecture of the gene was analyzed. The Allele Detection and HMM (Hidden Markov Model) methods within MicroBIGG-E were used to verify gene identity and coverage. Analysis focused on the Contig ID to determine whether the resistance marker was localized on a mobile genetic element (MGE) rather than the chromosome. Percentage identity and percentage coverage were calculated to assess the conservation of the resistance cassette across different species.</p>
+      <p>For identified clusters, the genetic architecture of the gene was analyzed. The Allele Detection and HMM (Hidden Markov Model) methods within MicroBIGG-E were used to verify gene identity and coverage.<sup class="cite-ref"><a href="#ref3">3</a></sup><sup class="cite-ref"><a href="#ref5">5</a></sup> Analysis focused on the Contig ID to determine whether the resistance marker was localized on a mobile genetic element (MGE) rather than the chromosome. Percentage identity and percentage coverage were calculated to assess the conservation of the resistance cassette across different species.</p>
     </section>
 
     <section class="chapter" id="results">
       <h1 data-chapter="03">3. Results</h1>
 
       <h2 id="evidence-of-gene-hopping">3.1 Evidence of Gene Hopping</h2>
-      <p>The <em>bla</em><sub>NDM-1</sub> genotype was searched in the NCBI Pathogen browser, and evidence of organisms sharing this gene was identified. The most frequent finding was gene hopping between <em>E. coli</em> and <em>Shigella</em>, two examples of which are shown in the table below.</p>
+      <p>The <em>bla</em><sub>NDM-1</sub> genotype was searched in the NCBI Pathogen browser,<sup class="cite-ref"><a href="#ref4">4</a></sup> and evidence of organisms sharing this gene was identified. The most frequent finding was gene hopping between <em>E. coli</em> and <em>Shigella</em>, two examples of which are shown in the table below.</p>
 
       <div class="table-scroll">
         <table class="dataset-table">
@@ -175,10 +175,10 @@
       <p class="timeline-caption" style="color: var(--ink-soft); margin-top: -10px;">Table 1 — SNP gene-hopping evidence.</p>
 
       <h2 id="inter-species-reservoirs">3.2 Identification of Inter-species Resistance Reservoirs</h2>
-      <p>Large-scale genomic surveillance using the NCBI Pathogen Detection Browser identified a high-priority multi-species cluster, PDS000002968.262, containing isolates of both <em>Escherichia coli</em> and <em>Shigella</em> species. Notably, these isolates remained within a high-resolution SNP cluster (SNP distance &lt;20), indicating a shared evolutionary history and recent divergence. Both species within this cluster were found to carry the New Delhi metallo-beta-lactamase-1 genotype, confirming active transmission of carbapenem resistance across different enteric genera between 2022 and 2026.</p>
+      <p>Large-scale genomic surveillance using the NCBI Pathogen Detection Browser identified a high-priority multi-species cluster, PDS000002968.262, containing isolates of both <em>Escherichia coli</em> and <em>Shigella</em> species.<sup class="cite-ref"><a href="#ref4">4</a></sup> Notably, these isolates remained within a high-resolution SNP cluster (SNP distance &lt;20), indicating a shared evolutionary history and recent divergence. Both species within this cluster were found to carry the New Delhi metallo-beta-lactamase-1 genotype, confirming active transmission of carbapenem resistance across different enteric genera between 2022 and 2026.</p>
 
       <h2 id="genomic-environment-mge">3.3 Genomic Environment and Mobile Genetic Elements</h2>
-      <p>In-depth analysis via the MicroBIGG-E platform revealed that the gene in these isolates (specifically isolate PDT003013055.1) was localized on a highly conserved genetic platform, identified as contig ACBQRM010001011.1. Bioinformatic characterization of this contig showed:</p>
+      <p>In-depth analysis via the MicroBIGG-E platform revealed that the gene in these isolates (specifically isolate PDT003013055.1) was localized on a highly conserved genetic platform, identified as contig ACBQRM010001011.1.<sup class="cite-ref"><a href="#ref5">5</a></sup> Bioinformatic characterization of this contig showed:</p>
       <ul>
         <li><strong>Sequence conservation:</strong> the gene demonstrated 100% coverage and 100% identity against the reference allele (Class: Beta-lactam; Subclass: Carbapenem).</li>
         <li><strong>Genetic stability:</strong> the perfect conservation of the NDM-1 variant across different species within the same cluster suggests the resistance marker is moving as part of a stable, mobile genetic unit rather than undergoing rapid point mutations.</li>
@@ -222,16 +222,16 @@
     <section class="chapter" id="references">
       <h1 data-chapter="06">6. References</h1>
       <p><strong>Primary citations</strong></p>
-      <ul>
-        <li>D'Costa, V. M., et al. (2011). Sampling the antibiotic resistome. <em>Nature</em>, 477(7365), 457–461.</li>
-        <li>Yong, D., et al. (2009). Characterization of a new metallo-beta-lactamase gene <em>bla</em><sub>NDM-1</sub> and a novel erythromycin esterase gene carried on a unique genetic structure in <em>Klebsiella pneumoniae</em> sequence type 14 from India. <em>Antimicrobial Agents and Chemotherapy</em>, 53(12), 5046–5054.</li>
-        <li>Feldgarden, M., et al. (2021). AMRFinderPlus and the Reference Gene Catalog facilitate universal and systematic antimicrobial resistance gene annotation. <em>Scientific Reports</em>, 11(1), 12728. (Reference for the NCBI MicroBIGG-E methodology.)</li>
-      </ul>
+      <ol class="ref-list">
+        <li id="ref1"><span class="ref-number">1.</span><p>D'Costa, V. M., et al. (2011). Sampling the antibiotic resistome. <em>Nature</em>, 477(7365), 457–461.</p></li>
+        <li id="ref2"><span class="ref-number">2.</span><p>Yong, D., et al. (2009). Characterization of a new metallo-beta-lactamase gene <em>bla</em><sub>NDM-1</sub> and a novel erythromycin esterase gene carried on a unique genetic structure in <em>Klebsiella pneumoniae</em> sequence type 14 from India. <em>Antimicrobial Agents and Chemotherapy</em>, 53(12), 5046–5054.</p></li>
+        <li id="ref3"><span class="ref-number">3.</span><p>Feldgarden, M., et al. (2021). AMRFinderPlus and the Reference Gene Catalog facilitate universal and systematic antimicrobial resistance gene annotation. <em>Scientific Reports</em>, 11(1), 12728. (Reference for the NCBI MicroBIGG-E methodology.)</p></li>
+      </ol>
       <p><strong>Databases and software</strong></p>
-      <ul>
-        <li>NCBI Pathogen Detection. (2026). Pathogen Detection Isolates Browser: Escherichia/Shigella Cluster PDS000002968.262. National Center for Biotechnology Information (US).</li>
-        <li>NCBI MicroBIGG-E. (2026). Microbial Browser for Identification of Genetic and Genomic Elements (Isolate: PDT003013055.1). National Center for Biotechnology Information (US).</li>
-      </ul>
+      <ol class="ref-list" start="4">
+        <li id="ref4"><span class="ref-number">4.</span><p>NCBI Pathogen Detection. (2026). Pathogen Detection Isolates Browser: Escherichia/Shigella Cluster PDS000002968.262. National Center for Biotechnology Information (US).</p></li>
+        <li id="ref5"><span class="ref-number">5.</span><p>NCBI MicroBIGG-E. (2026). Microbial Browser for Identification of Genetic and Genomic Elements (Isolate: PDT003013055.1). National Center for Biotechnology Information (US).</p></li>
+      </ol>
     </section>
 
   </article>
