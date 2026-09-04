@@ -596,6 +596,53 @@ table.dataset-table tr:nth-child(even) td {
   line-height: 1.6;
 }
 
+/* Inline numbered citations, linking to the References section */
+.cite-ref {
+  font-family: var(--font-mono);
+  font-size: 0.7em;
+  font-weight: 600;
+  color: var(--rust);
+  text-decoration: none;
+  vertical-align: super;
+  line-height: 0;
+  padding: 0 1px;
+}
+.cite-ref:hover,
+.cite-ref:focus-visible {
+  text-decoration: underline;
+}
+
+.ref-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: refcounter;
+}
+.ref-list li {
+  display: flex;
+  gap: 12px;
+  align-items: baseline;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--line-on-parchment);
+  scroll-margin-top: 90px;
+}
+.ref-list li:last-child { border-bottom: none; }
+.ref-list li:target {
+  background: rgba(184, 134, 63, 0.1);
+  border-radius: 3px;
+  padding-left: 8px;
+  margin-left: -8px;
+}
+.ref-number {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--rust);
+  flex-shrink: 0;
+  min-width: 26px;
+}
+.ref-list p { margin: 0; }
+
 /* Mobile TOC */
 .toc-mobile-toggle { display: none; }
 
