@@ -605,6 +605,37 @@ table.dataset-table tr:nth-child(even) td {
   line-height: 1.6;
 }
 
+.equation-block {
+  font-family: var(--font-mono);
+  background: rgba(180, 160, 120, 0.08);
+  border: 1px solid var(--line-on-parchment);
+  border-radius: 4px;
+  padding: 18px 22px;
+  margin: 20px 0;
+  font-size: 0.95rem;
+  color: var(--ink);
+  line-height: 2;
+  overflow-x: auto;
+}
+.equation-block .eq-label {
+  display: block;
+  font-size: 0.7rem;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+.equation-block .eq-line { display: block; white-space: nowrap; }
+.equation-block .eq-note {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  line-height: 1.5;
+  margin-top: 4px;
+  white-space: normal;
+}
+
 /* Inline numbered citations, linking to the References section */
 .cite-ref {
   font-family: var(--font-mono);
