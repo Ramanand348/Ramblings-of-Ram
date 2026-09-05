@@ -87,7 +87,7 @@
       <span>Research · Biotechnology</span>
       <span>Science</span>
       <span>7 sections</span>
-      <span>~27 min read</span>
+      <span>~29 min read</span>
       <span>Published Sep 2026</span>
       <span>Author: Ramanand AV</span>
     </div>
@@ -298,16 +298,55 @@
 
     <section class="chapter" id="scaleup">
       <h1 data-chapter="05">5. Scale-Up Feasibility Model</h1>
-      <p>Sections 3 and 4 characterize what has been published. This section produces an original estimate: taking the most field-relevant published dataset identified in this review and extrapolating it, under explicitly stated assumptions, to a defined deployment target. The output is a reactor sizing, an enzyme-cost estimate, and a comparison against what Indian CETPs already pay to treat the same volume of effluent by conventional means. This is a first-order engineering estimate, not a validated pilot result, and its limitations are stated in §5.4.</p>
+      <p>Sections 3 and 4 characterize what has been published. This section produces an original estimate: taking the most field-relevant published dataset identified in this review and extrapolating it, under explicitly stated assumptions, to a defined deployment target. The output is a reactor sizing, an enzyme-cost estimate, and a comparison against what Indian CETPs already pay to treat the same volume of effluent by conventional means. This is a first-order engineering estimate, not a validated pilot result, and its limitations are stated in §5.5.</p>
 
       <h2 id="model-basis">5.1 Model Basis and Target</h2>
       <p>The model is built on the continuous-mode operating parameters reported for the IIT Delhi engineered <em>Cyathus bulleri</em> laccase system, the only identified Indian study reporting continuous-flow operation on real textile effluent with a defined hydraulic retention time (HRT). In continuous operation, the 0.3 litre membrane reactor was run at an HRT of 6 hours with a steady-state laccase dosage of approximately 120 U per litre of effluent, achieving roughly 95 percent decolorization and 96 percent detoxification.<sup class="cite-ref"><a href="#ref1">1</a></sup> The target deployment volume chosen for this model is 1 percent of Tirupur's combined CETP capacity, 530 cubic metres per day, a deliberately modest benchmark representing a supplementary polishing stage rather than a wholesale CETP replacement.</p>
 
-      <h2 id="reactor-enzyme-sizing">5.2 Reactor Sizing and Enzyme Demand</h2>
-      <p>Holding the tested HRT and enzyme dosage constant and scaling only the throughput volume, treating 530 m³/day requires a continuous flow rate of approximately 22,083 litres per hour. At a fixed 6-hour HRT, the reactor's working volume must scale proportionally to flow rate, giving a required reactor volume of approximately 132,500 litres, or roughly 132.5 cubic metres, a scale-up factor of approximately 440,000 times the volume actually tested. At the same 120 U/L steady-state dosage, daily enzyme demand works out to approximately 63.6 million enzyme units (63,600 kU) per day. This figure is a lower bound: the source study noted that continuous-mode laccase activity declined during operation and required periodic replenishment in two dosing regimes to maintain the 120 U/L level, meaning actual cumulative enzyme consumption per litre treated is likely higher than this steady-state estimate captures.</p>
+      <h2 id="mathematical-basis">5.2 Mathematical Basis</h2>
+      <p>The model rests on four relationships, each stated here explicitly so the results in §5.3 can be checked by hand rather than taken on faith. Reactor sizing follows from the definition of hydraulic retention time itself: for a continuously stirred or flow-through reactor, HRT (τ) is the working volume divided by the volumetric flow rate, so volume is flow rate multiplied by retention time. Enzyme demand follows from holding the tested dosage concentration constant and multiplying by the target throughput volume. Cost follows from applying a published price per unit of enzyme activity to that demand. All four steps assume linear scaling, an assumption examined critically in §5.5.</p>
 
-      <h2 id="cost-estimate">5.3 Cost Estimate and Comparison to Deployed Treatment</h2>
-      <p>A 2024 techno-economic analysis of fungal laccase production for wastewater treatment, using submerged fermentation of <em>Trametes hirsuta</em>, estimated the cost of crude laccase at 3.90 Canadian dollars per thousand units (kU).<sup class="cite-ref"><a href="#ref18">18</a></sup> Applying that figure to the 63,600 kU/day demand calculated above gives an enzyme cost of approximately 248,000 CAD per day, or roughly 470 CAD per cubic metre treated. At representative 2026 exchange rates, that converts to approximately $340 USD, or roughly ₹28,500, per cubic metre, enzyme cost alone, before reactor capital, membrane replacement, aeration, or labour.</p>
+      <div class="equation-block">
+        <span class="eq-label">Notation</span>
+        <span class="eq-line">τ = hydraulic retention time (h, held constant at the tested value)</span>
+        <span class="eq-line">V = reactor working volume (L)</span>
+        <span class="eq-line">Q = volumetric flow rate (L/h)</span>
+        <span class="eq-line">V<sub>d</sub> = target throughput volume (L/day)</span>
+        <span class="eq-line">C = enzyme dosage concentration (U/L, held constant at the tested value)</span>
+        <span class="eq-line">E<sub>d</sub> = daily enzyme demand (U/day)</span>
+        <span class="eq-line">P = enzyme price (currency per kU)</span>
+        <span class="eq-line">S = scale-up factor (dimensionless)</span>
+      </div>
+
+      <div class="equation-block">
+        <span class="eq-label">Eq. 1 — Reactor volume from retention time</span>
+        <span class="eq-line">τ = V / Q  ⟹  V = Q · τ,  where Q = V<sub>d</sub> / 24</span>
+        <span class="eq-note">Substituting V<sub>d</sub> = 530,000 L/day and τ = 6 h: Q = 530,000 / 24 = 22,083.3 L/h, so V = 22,083.3 × 6 ≈ 132,500 L ≈ 132.5 m³.</span>
+      </div>
+
+      <div class="equation-block">
+        <span class="eq-label">Eq. 2 — Scale-up factor</span>
+        <span class="eq-line">S = V<sub>target</sub> / V<sub>tested</sub></span>
+        <span class="eq-note">Substituting V<sub>target</sub> = 132,500 L and V<sub>tested</sub> = 0.3 L: S = 132,500 / 0.3 ≈ 441,667, roughly 4.4 × 10⁵.</span>
+      </div>
+
+      <div class="equation-block">
+        <span class="eq-label">Eq. 3 — Daily enzyme demand</span>
+        <span class="eq-line">E<sub>d</sub> = V<sub>d</sub> · C</span>
+        <span class="eq-note">Substituting V<sub>d</sub> = 530,000 L/day and C = 120 U/L: E<sub>d</sub> = 530,000 × 120 = 63,600,000 U/day = 63,600 kU/day. This treats C as a fixed steady-state concentration; §5.5 explains why this makes E<sub>d</sub> a lower bound rather than a full consumption estimate.</span>
+      </div>
+
+      <div class="equation-block">
+        <span class="eq-label">Eq. 4 — Daily and per-volume cost</span>
+        <span class="eq-line">Cost<sub>d</sub> = (E<sub>d</sub> / 1000) · P,  Cost<sub>m³</sub> = Cost<sub>d</sub> / (V<sub>d</sub> / 1000)</span>
+        <span class="eq-note">Substituting E<sub>d</sub> = 63,600 kU/day and P = 3.90 CAD/kU: Cost<sub>d</sub> = 63,600 × 3.90 = 248,040 CAD/day. Dividing by the 530 m³/day target: Cost<sub>m³</sub> = 248,040 / 530 ≈ 468 CAD/m³, converting at representative 2026 rates to roughly $340 USD or ₹28,500 per cubic metre.</span>
+      </div>
+
+      <h2 id="reactor-enzyme-sizing">5.3 Reactor Sizing and Enzyme Demand</h2>
+      <p>Holding the tested HRT and enzyme dosage constant and scaling only the throughput volume, treating 530 m³/day requires a continuous flow rate of approximately 22,083 litres per hour. At a fixed 6-hour HRT, the reactor's working volume must scale proportionally to flow rate, giving a required reactor volume of approximately 132,500 litres, or roughly 132.5 cubic metres, a scale-up factor of approximately 440,000 times the volume actually tested (Eq. 1, Eq. 2). At the same 120 U/L steady-state dosage, daily enzyme demand works out to approximately 63.6 million enzyme units (63,600 kU) per day (Eq. 3). This figure is a lower bound: the source study noted that continuous-mode laccase activity declined during operation and required periodic replenishment in two dosing regimes to maintain the 120 U/L level, meaning actual cumulative enzyme consumption per litre treated is likely higher than this steady-state estimate captures.</p>
+
+      <h2 id="cost-estimate">5.4 Cost Estimate and Comparison to Deployed Treatment</h2>
+      <p>A 2024 techno-economic analysis of fungal laccase production for wastewater treatment, using submerged fermentation of <em>Trametes hirsuta</em>, estimated the cost of crude laccase at 3.90 Canadian dollars per thousand units (kU).<sup class="cite-ref"><a href="#ref18">18</a></sup> Applying that figure to the 63,600 kU/day demand calculated above gives an enzyme cost of approximately 248,000 CAD per day, or roughly 470 CAD per cubic metre treated (Eq. 4). At representative 2026 exchange rates, that converts to approximately $340 USD, or roughly ₹28,500, per cubic metre, enzyme cost alone, before reactor capital, membrane replacement, aeration, or labour.</p>
       <p>Indian industry sources place the running cost of existing CETP and ZLD treatment trains, the physico-chemical, reverse-osmosis, and evaporation systems actually operating at Tirupur, in the range of ₹15 to ₹200 per kilolitre (one kilolitre equals one cubic metre) depending on effluent strength and technology.<sup class="cite-ref"><a href="#ref19">19</a></sup> The modelled enzyme cost of ₹28,500 per kilolitre is therefore between roughly 140 and 1,900 times higher than what Indian textile clusters already pay, using existing technology, to treat the same volume of effluent.</p>
       <table class="dataset-table" style="margin: 20px 0;">
         <thead><tr><th>Metric</th><th>Value</th></tr></thead>
@@ -321,7 +360,7 @@
         </tbody>
       </table>
 
-      <h2 id="model-limitations">5.4 Interpretation and Model Limitations</h2>
+      <h2 id="model-limitations">5.5 Interpretation and Model Limitations</h2>
       <p>This comparison, generated by combining two published figures that were never presented together in either source, gives the discussion in §4.1 a number rather than a general claim: enzyme production cost is not a minor line item standing in the way of an otherwise-ready technology, it is, at current laboratory-demonstrated dosages and commercial enzyme prices, the dominant cost by a wide margin. That reframes what "closing the gap" would actually require. It is not primarily a scale-up engineering problem, the 440,000-fold reactor scale-up is large but not qualitatively different from ordinary bioprocess scale-up. It is an enzyme economics problem: either the required dosage needs to fall substantially through improved enzyme engineering or immobilization and reuse (the kind of step demonstrated at small scale in the immobilized <em>Geotrichum candidum</em> study<sup class="cite-ref"><a href="#ref3">3</a></sup>), or production costs need to fall through cheaper substrates and fermentation routes, before a fungal treatment stage becomes cost-competitive with what CETPs already pay.</p>
       <p>The model rests on several assumptions that should be stated plainly rather than absorbed into the headline numbers. It assumes linear scalability of both HRT and dosage from a 0.3 litre reactor to a 132.5 cubic metre one, an assumption that does not generally hold in bioreactor engineering, where mixing, oxygen transfer, and fouling dynamics change non-linearly with scale, meaning real-world reactor and enzyme requirements could differ substantially in either direction. It uses a single laccase cost benchmark from a different fungal species (<em>Trametes hirsuta</em> rather than the engineered <em>Cyathus bulleri</em> variant actually tested), produced in a different national market, as a stand-in for Indian production costs, which may not transfer directly given differing labour, energy, and regulatory costs between Canada and India. And it treats the 120 U/L steady-state dosage as the full cost driver while acknowledging, without being able to quantify, that periodic re-dosing likely raises true consumption further. Despite these caveats, the gap between the modelled cost and the deployed benchmark is large enough, well over two orders of magnitude at the low end, that it is unlikely to close entirely even after correcting for the assumptions above. The most direct implication for future research is that publishing the cost of achieving a given decolorization efficiency, not only the efficiency itself, would let subsequent studies and this kind of model track progress toward economic viability directly, rather than only toward technical performance.</p>
     </section>
