@@ -35,7 +35,7 @@ body {
   color: var(--ink);
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
-  cursor: url('cursor-default.png') 3 2, auto;
+  cursor: url('cursor-default.png') 2 1, auto;
 }
 
 a, button,
@@ -46,7 +46,16 @@ a, button,
 .citation-tab,
 .citation-copy-btn,
 .tl-point {
-  cursor: url('cursor-pointer.png') 14 14, pointer;
+  cursor: url('cursor-pointer.png') 9 9, pointer;
+}
+
+/* Selectable body text keeps the native cursor (I-beam on hover, normal
+   text-selection behaviour) rather than the custom brand cursor, since a
+   custom pointer image over long-form reading text makes it harder to see
+   exactly where a selection will start. */
+p, li, blockquote, td, th, dd, dt,
+.article-body, .hero-sub, .subtitle, .citation-text {
+  cursor: auto;
 }
 
 a { color: inherit; }
