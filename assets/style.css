@@ -1271,3 +1271,87 @@ body { animation: page-fade-in 0.4s ease; }
   .footnote-highlight { animation: none; }
 }
 
+/* ============================================================
+   Print stylesheet
+   Optimized for saving/printing long-form Research and Notebook
+   articles: strips navigation chrome, forces light/high-contrast
+   colors regardless of dark mode, and keeps figures/tables/citations
+   intact and legible on paper.
+   ============================================================ */
+@media print {
+  /* Force light, ink-on-paper colors regardless of the site's dark-mode
+     toggle, since a dark background wastes ink and reads poorly printed. */
+  :root, :root[data-theme="dark"] {
+    --ink-night: #14182B;
+    --parchment: #ffffff;
+    --parchment-2: #ffffff;
+    --ink: #14100a;
+    --ink-soft: #3a342a;
+    --card-bg: #ffffff;
+    --cream: #ffffff;
+    --line-on-parchment: rgba(20, 16, 10, 0.25);
+    --shadow: none;
+  }
+
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  body { background: #fff; cursor: auto; }
+
+  /* Chrome that has no purpose on paper */
+  .site-header, .search-overlay, .hero, .section, .empty-state,
+  .site-footer, .related-articles, .scroll-top-btn, .reading-progress,
+  .citation-copy-btn, .citation-tabs, .back-link, .breadcrumb-nav,
+  .toc, .card-grid, .timeline-wrap, .timeline-legend,
+  script { display: none !important; }
+
+  /* Reading header: keep title/subtitle/meta, drop the dark banner styling */
+  .reading-header {
+    background: none !important;
+    color: var(--ink) !important;
+    padding: 0 0 18px;
+    border-bottom: 2px solid var(--ink);
+    margin-bottom: 24px;
+  }
+  .reading-header h1 { color: var(--ink) !important; }
+  .reading-header .subtitle { color: var(--ink-soft) !important; }
+  .reading-meta { color: var(--ink-soft) !important; }
+
+  .reading-layout { grid-template-columns: 1fr !important; padding: 0 !important; }
+
+  .article-body {
+    max-width: 100% !important;
+    font-size: 11pt;
+    line-height: 1.5;
+    color: #14100a;
+  }
+  .article-body a { color: inherit; text-decoration: underline; }
+  .article-body h1, .article-body h2, .article-body h3 { color: #000; page-break-after: avoid; }
+  .article-body .chapter { page-break-before: always; }
+  .article-body .chapter:first-of-type { page-break-before: avoid; }
+
+  /* Keep figures, tables, and equations from splitting awkwardly across pages */
+  .thesis-figure, .table-scroll, .equation-block, table.dataset-table,
+  .footnote-note, .citation-box { page-break-inside: avoid; }
+
+  /* Interactive maps can't render on paper; swap in a plain-text pointer
+     to the live version instead of printing a blank iframe box. */
+  .thesis-figure iframe { display: none !important; }
+  .thesis-figure:has(iframe)::before {
+    content: "[Interactive map, view online at the URL in the caption below]";
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 9pt;
+    color: var(--ink-soft);
+    border: 1px dashed var(--ink-soft);
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  .citation-box { border: 1px solid #000; background: none !important; }
+
+  /* Numbered citation links: keep the visible number, drop the color/underline
+     styling that only makes sense on an interactive screen. */
+  .cite-ref, .cite-ref a { color: inherit !important; text-decoration: none; }
+  .ref-list li:target { background: none !important; }
+}
+
