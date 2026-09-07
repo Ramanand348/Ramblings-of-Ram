@@ -33,6 +33,46 @@ document.addEventListener('DOMContentLoaded', function () {
   targets.forEach(function (t) { observer.observe(t.el); });
 });
 
+// Mobile TOC collapse: turns the static "Contents" title into a tap target
+// that expands/collapses the chapter list, so a long research piece's table
+// of contents doesn't push the reader past a screenful before any actual
+// article text appears. Desktop is untouched (sticky sidebar, always open);
+// this only takes effect within the site's existing 880px mobile breakpoint.
+document.addEventListener('DOMContentLoaded', function () {
+  var toc = document.querySelector('.toc');
+  if (!toc) return;
+  var title = toc.querySelector('.toc-title');
+  var list = toc.querySelector('ol');
+  if (!title || !list) return;
+
+  list.id = list.id || 'toc-list';
+
+  var btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'toc-mobile-toggle';
+  btn.setAttribute('aria-expanded', 'false');
+  btn.setAttribute('aria-controls', list.id);
+  btn.innerHTML =
+    '<span>' + title.textContent + '</span>' +
+    '<svg class="toc-toggle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>';
+
+  title.replaceWith(btn);
+
+  btn.addEventListener('click', function () {
+    var isOpen = toc.classList.toggle('toc-open');
+    btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+
+  list.querySelectorAll('a').forEach(function (link) {
+    link.addEventListener('click', function () {
+      if (window.innerWidth <= 880) {
+        toc.classList.remove('toc-open');
+        btn.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+});
+
 // Scroll-to-top button: fades in once the reader has scrolled past one
 // viewport height, smooth-scrolls back to top on click.
 document.addEventListener('DOMContentLoaded', function () {
