@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Browse by Topic — Retrocalculated</title>
+<meta name="description" content="Every Retrocalculated piece organized by cross-cutting topic, independent of whether it's Research or Notebook, History or Science.">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="alternate" type="application/rss+xml" title="Retrocalculated" href="./rss.xml">
+<link rel="manifest" href="./site.webmanifest">
+<link rel="apple-touch-icon" href="./assets/favicon.svg">
+<meta name="theme-color" content="#14182B">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Browse by Topic — Retrocalculated">
+<meta property="og:description" content="Every Retrocalculated piece organized by cross-cutting topic.">
+<meta property="og:url" content="https://ramanand348.github.io/Ramblings-of-Ram/tags.html">
+<meta property="og:image" content="https://ramanand348.github.io/Ramblings-of-Ram/assets/og-default.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Browse by Topic — Retrocalculated">
+<meta name="twitter:description" content="Every Retrocalculated piece organized by cross-cutting topic.">
+<meta name="twitter:image" content="https://ramanand348.github.io/Ramblings-of-Ram/assets/og-default.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="wordmark" href="index.html">Retro<em>calculated</em></a>
+    <div class="site-header-right">
+      <nav class="site-nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="research/index.html">Research</a>
+        <a href="blog/index.html">Notebook</a>
+      </nav>
+      <button class="header-icon-btn theme-toggle" type="button" aria-label="Toggle dark mode">
+        <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+        <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+      </button>
+      <button class="header-icon-btn search-toggle" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<div class="search-overlay">
+  <div class="search-panel">
+    <div class="search-input-row">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input type="text" class="search-input" placeholder="Search articles..." aria-label="Search articles">
+      <button type="button" class="search-close-btn">Esc</button>
+    </div>
+    <div class="search-results"></div>
+  </div>
+</div>
+
+<div class="reading-header">
+  <div class="reading-header-inner">
+    <a class="back-link" href="index.html">← Back home</a>
+    <h1>Browse by Topic</h1>
+    <p class="subtitle">Every piece, organized by what it's actually about, independent of whether it landed in Research or Notebook, History or Science.</p>
+  </div>
+</div>
+
+<div class="section" style="padding-top: 40px;">
+  <div id="tag-cloud" class="tag-cloud" aria-label="Topics"></div>
+  <div id="tag-results" class="card-grid" style="margin-top: 32px;"></div>
+  <div id="tag-empty" class="empty-state" style="display:none;">
+    <p class="article-kicker">No matches</p>
+    <p id="tag-empty-msg">Nothing tagged with that topic yet.</p>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <span>Retrocalculated</span>
+    <span><a href="archive.html" style="color:inherit;">Archive</a> · <a href="index.html" style="color:inherit;text-decoration:none;">← Back home</a></span>
+  </div>
+</footer>
+
+<script src="assets/site.js"></script>
+<script>
+(function () {
+  var cloudEl = document.getElementById('tag-cloud');
+  var resultsEl = document.getElementById('tag-results');
+  var emptyEl = document.getElementById('tag-empty');
+
+  function getActiveTag() {
+    var params = new URLSearchParams(window.location.search);
+    return params.get('tag');
+  }
+
+  function cardHTML(item) {
+    var href = item.url.replace(/^\//, '');
+    var section = item.section || '';
+    var category = item.category || '';
+    var kicker = [section, category].filter(Boolean).join(' · ');
+    return (
+      '<a class="article-card" href="' + href + '">' +
+      '<p class="article-kicker">' + kicker + '</p>' +
+      '<h3>' + item.title + '</h3>' +
+      '<p>' + (item.description || '') + '</p>' +
+      '<div class="article-meta"><span class="read-link">Read →</span></div>' +
+      '</a>'
+    );
+  }
+
+  function render(data, activeTag) {
+    // Build tag -> count map
+    var counts = {};
+    data.forEach(function (item) {
+      (item.tags || []).forEach(function (t) {
+        counts[t] = (counts[t] || 0) + 1;
+      });
+    });
+    var tags = Object.keys(counts).sort(function (a, b) {
+      return counts[b] - counts[a] || a.localeCompare(b);
+    });
+
+    var cloudHTML = '<a class="tag-pill' + (!activeTag ? ' active' : '') + '" href="tags.html">All <span class="tag-count">' + data.length + '</span></a>';
+    tags.forEach(function (t) {
+      var isActive = t === activeTag;
+      cloudHTML += '<a class="tag-pill' + (isActive ? ' active' : '') + '" href="tags.html?tag=' + encodeURIComponent(t) + '">' + t + ' <span class="tag-count">' + counts[t] + '</span></a>';
+    });
+    cloudEl.innerHTML = cloudHTML;
+
+    var matches = activeTag ? data.filter(function (item) { return (item.tags || []).indexOf(activeTag) !== -1; }) : data;
+
+    if (!matches.length) {
+      resultsEl.innerHTML = '';
+      emptyEl.style.display = 'block';
+      return;
+    }
+    emptyEl.style.display = 'none';
+    resultsEl.innerHTML = matches.map(cardHTML).join('');
+  }
+
+  fetch('assets/search-index.json')
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      render(data, getActiveTag());
+    })
+    .catch(function () {
+      resultsEl.innerHTML = '';
+      emptyEl.style.display = 'block';
+      emptyEl.querySelector('#tag-empty-msg').textContent = 'Could not load the topic index right now.';
+    });
+
+  window.addEventListener('popstate', function () {
+    fetch('assets/search-index.json')
+      .then(function (r) { return r.json(); })
+      .then(function (data) { render(data, getActiveTag()); });
+  });
+})();
+</script>
+</body>
+</html>
