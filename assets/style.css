@@ -683,7 +683,10 @@ table.dataset-table tr:nth-child(even) td {
 }
 .ref-list p { margin: 0; }
 
-/* Mobile TOC */
+/* Mobile TOC: collapsed by default, expands on tap. The toggle button is
+   injected by site.js to replace the static .toc-title; on desktop this
+   class never renders (see .toc-mobile-toggle base rule below), so the
+   sticky sidebar TOC there is unaffected and always fully visible. */
 .toc-mobile-toggle { display: none; }
 
 @media (max-width: 880px) {
@@ -698,11 +701,39 @@ table.dataset-table tr:nth-child(even) td {
     border-radius: 4px;
     background: var(--card-bg);
   }
-  .toc-title {
-    padding: 14px 16px 0;
+  .toc-mobile-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background: none;
+    border: none;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--rust);
+    padding: 14px 16px;
+    text-align: left;
   }
+  .toc-toggle-icon {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+  .toc.toc-open .toc-toggle-icon { transform: rotate(180deg); }
   .toc ol {
     border-left: none;
+    padding: 0 16px 0;
+    margin: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.25s ease, padding 0.25s ease;
+  }
+  .toc.toc-open ol {
+    max-height: 640px;
     padding: 4px 16px 14px;
   }
   .toc a { padding: 5px 0 5px 12px; }
