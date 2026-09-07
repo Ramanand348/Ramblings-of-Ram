@@ -386,6 +386,41 @@ img { max-width: 100%; display: block; }
 }
 .empty-state .article-kicker { color: var(--verdigris); }
 
+/* Topic tag cloud (tags.html) */
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  color: var(--ink-soft);
+  background: var(--card-bg);
+  border: 1px solid var(--line-on-parchment);
+  border-radius: 999px;
+  padding: 8px 16px;
+  transition: border-color 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+.tag-pill:hover {
+  border-color: var(--brass);
+  color: var(--ink);
+}
+.tag-pill.active {
+  background: var(--ink-night);
+  border-color: var(--ink-night);
+  color: var(--cream);
+}
+.tag-count {
+  font-size: 0.72rem;
+  opacity: 0.65;
+}
+
 /* ============================================================
    Footer
    ============================================================ */
