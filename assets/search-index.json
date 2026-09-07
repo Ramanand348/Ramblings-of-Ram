@@ -4,48 +4,87 @@
     "url": "/research/history/rajendra-chola-srivijaya-campaign.html",
     "section": "Research",
     "category": "History",
-    "description": "Rajendra Chola I's 1025 CE naval raid on Srivijaya, and why the popular blue-water navy, total-conquest, and royal-marriage version of the story doesn't survive contact with the inscriptions."
+    "description": "Rajendra Chola I's 1025 CE naval raid on Srivijaya, and why the popular blue-water navy, total-conquest, and royal-marriage version of the story doesn't survive contact with the inscriptions.",
+    "tags": [
+      "India",
+      "Ancient History",
+      "Naval History"
+    ]
   },
   {
     "title": "The Mahabharata War: A Meta-Analysis of Astronomical Dating Claims",
     "url": "/research/history/the-mahabharata-war.html",
     "section": "Research",
     "category": "History",
-    "description": "Nineteen proposed dates for the Mahabharata war, spanning 5561 BCE to 900 BCE, scored against a shared evidentiary rubric."
+    "description": "Nineteen proposed dates for the Mahabharata war, spanning 5561 BCE to 900 BCE, scored against a shared evidentiary rubric.",
+    "tags": [
+      "India",
+      "Ancient History",
+      "Historiography",
+      "Meta-Analysis"
+    ]
   },
   {
     "title": "In Silico Identification of Horizontal Gene Transfer: Tracking blaNDM-1 Across Multi-Species Gut Reservoirs",
     "url": "/research/science/hgt-blandm1-gut-resistome.html",
     "section": "Research",
     "category": "Science",
-    "description": "A comparative genomics study tracing the carbapenem-resistance gene blaNDM-1 as it hops between E. coli and Shigella within the human gut."
+    "description": "A comparative genomics study tracing the carbapenem-resistance gene blaNDM-1 as it hops between E. coli and Shigella within the human gut.",
+    "tags": [
+      "India",
+      "Genomics",
+      "Biotechnology",
+      "Public Health"
+    ]
   },
   {
     "title": "The Navy Nobody Talks About: Rajendra Chola's War Across the Sea",
     "url": "/blog/history/the-navy-nobody-talks-about.html",
     "section": "Notebook",
     "category": "History",
-    "description": "A fleet of repurposed merchant ships, a captured king, and a story that's been oversold in almost every retelling since."
+    "description": "A fleet of repurposed merchant ships, a captured king, and a story that's been oversold in almost every retelling since.",
+    "tags": [
+      "India",
+      "Ancient History",
+      "Naval History"
+    ]
   },
   {
     "title": "The Iron Gap: Why More Than Half of Indian Women Are Anaemic, and Why It Got Worse",
     "url": "/blog/science/the-iron-gap.html",
     "section": "Notebook",
     "category": "Science",
-    "description": "NFHS-5 found 57 percent of Indian women anaemic, up from 53 percent five years earlier, despite a national program built specifically to bring the number down."
+    "description": "NFHS-5 found 57 percent of Indian women anaemic, up from 53 percent five years earlier, despite a national program built specifically to bring the number down.",
+    "tags": [
+      "India",
+      "Public Health",
+      "Nutrition"
+    ]
   },
   {
     "title": "Half of India's Pregnancies Are Now High-Risk",
     "url": "/blog/science/high-risk-pregnancies-india.html",
     "section": "Notebook",
     "category": "Science",
-    "description": "NFHS data shows nearly half of pregnancies in India now classified high-risk, driven by rising metabolic disease and answered, unevenly, with surgery."
+    "description": "NFHS data shows nearly half of pregnancies in India now classified high-risk, driven by rising metabolic disease and answered, unevenly, with surgery.",
+    "tags": [
+      "India",
+      "Public Health",
+      "Maternal Health"
+    ]
   },
   {
     "title": "Mycoremediation of Textile Dye Effluent in India: A Scoping Review of the Gap Between Laboratory Evidence and Field Deployment",
     "url": "/research/science/mycoremediation-textile-effluent-india.html",
     "section": "Research",
     "category": "Science",
-    "description": "Fungal enzymes can break down the azo dyes that make Indian textile effluent so persistent. Almost none of that research has left the lab bench for the dyeing clusters producing the pollution."
+    "description": "Fungal enzymes can break down the azo dyes that make Indian textile effluent so persistent. Almost none of that research has left the lab bench for the dyeing clusters producing the pollution.",
+    "tags": [
+      "India",
+      "Biotechnology",
+      "Public Health",
+      "Environmental Science",
+      "Meta-Analysis"
+    ]
   }
 ]
