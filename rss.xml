@@ -6,7 +6,16 @@
   <description>Long-form research articles and shorter Notebook posts spanning history, science, and data-driven topics.</description>
   <language>en</language>
   <atom:link href="https://ramanand348.github.io/Ramblings-of-Ram/rss.xml" rel="self" type="application/rss+xml"/>
-  <lastBuildDate>Thu, 03 Sep 2026 00:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Tue, 08 Sep 2026 00:00:00 GMT</lastBuildDate>
+
+  <item>
+    <title>The Thermodynamic Cost of Fresh Water: A Second-Law Efficiency Analysis of Chennai's Seawater Desalination Plants</title>
+    <link>https://ramanand348.github.io/Ramblings-of-Ram/research/science/chennai-desalination-thermodynamics.html</link>
+    <guid>https://ramanand348.github.io/Ramblings-of-Ram/research/science/chennai-desalination-thermodynamics.html</guid>
+    <description>A first-principles thermodynamic derivation applied to Chennai's Nemmeli plant using its actual feed salinity and recovery ratio, finding a second-law efficiency of roughly 33 percent.</description>
+    <category>Science</category>
+    <pubDate>Tue, 08 Sep 2026 00:00:00 GMT</pubDate>
+  </item>
 
   <item>
     <title>Mycoremediation of Textile Dye Effluent in India: A Scoping Review of the Gap Between Laboratory Evidence and Field Deployment</title>
