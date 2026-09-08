@@ -33,6 +33,265 @@ document.addEventListener('DOMContentLoaded', function () {
   targets.forEach(function (t) { observer.observe(t.el); });
 });
 
+// Instagram share-card generator: renders a branded, on-theme square or
+// story-format image straight from an article card's own title, kicker,
+// and description (no separate data source needed), previews it in a
+// modal, and offers a PNG download for manual posting. Auto-posting isn't
+// possible from a static site (Instagram requires a server-side app with
+// OAuth token handling), so this covers the "generate the graphic" half.
+document.addEventListener('DOMContentLoaded', function () {
+  var BRAND = {
+    inkNight: '#14182B',
+    inkNight2: '#1C2140',
+    inkNight3: '#262C52',
+    brass: '#B8863F',
+    brassLight: '#D8B570',
+    cream: '#F4EEDD',
+    creamSoft: 'rgba(244, 238, 221, 0.72)'
+  };
+
+  function wrapLines(ctx, text, maxWidth) {
+    var words = text.split(/\s+/);
+    var lines = [];
+    var current = '';
+    words.forEach(function (word) {
+      var test = current ? current + ' ' + word : word;
+      if (ctx.measureText(test).width > maxWidth && current) {
+        lines.push(current);
+        current = word;
+      } else {
+        current = test;
+      }
+    });
+    if (current) lines.push(current);
+    return lines;
+  }
+
+  function fitTitle(ctx, text, maxWidth, maxLines, maxSize, minSize, weight) {
+    var size = maxSize;
+    var lines;
+    while (size > minSize) {
+      ctx.font = weight + ' ' + size + 'px Fraunces, Georgia, serif';
+      lines = wrapLines(ctx, text, maxWidth);
+      if (lines.length <= maxLines) break;
+      size -= 2;
+    }
+    return { size: size, lines: lines };
+  }
+
+  function drawSpacedText(ctx, text, x, y, spacing) {
+    var cx = x;
+    for (var i = 0; i < text.length; i++) {
+      ctx.fillText(text[i], cx, y);
+      cx += ctx.measureText(text[i]).width + spacing;
+    }
+    return cx - spacing;
+  }
+
+  function drawPost(canvas, data, format) {
+    var W = format === 'story' ? 1080 : 1080;
+    var H = format === 'story' ? 1920 : 1080;
+    canvas.width = W;
+    canvas.height = H;
+    var ctx = canvas.getContext('2d');
+
+    var grad = ctx.createLinearGradient(0, 0, W, H);
+    grad.addColorStop(0, BRAND.inkNight);
+    grad.addColorStop(1, BRAND.inkNight2);
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, W, H);
+
+    var margin = 88;
+    var contentW = W - margin * 2;
+
+    // Corner accent: a thin brass frame in the top-right, purely decorative
+    ctx.strokeStyle = BRAND.brass;
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(W - margin, margin - 24);
+    ctx.lineTo(W - margin, margin);
+    ctx.lineTo(W - margin - 90, margin);
+    ctx.stroke();
+
+    var topY = format === 'story' ? margin + 140 : margin + 20;
+
+    // Kicker
+    ctx.fillStyle = BRAND.brassLight;
+    ctx.font = '600 26px "IBM Plex Mono", ui-monospace, monospace';
+    var kickerText = (data.kicker || 'RETROCALCULATED').toUpperCase();
+    drawSpacedText(ctx, kickerText, margin, topY, 2.2);
+
+    ctx.strokeStyle = 'rgba(216, 181, 112, 0.5)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(margin, topY + 26);
+    ctx.lineTo(margin + 64, topY + 26);
+    ctx.stroke();
+
+    // Title, auto-fit
+    var titleMaxSize = format === 'story' ? 84 : 72;
+    var titleMinSize = 40;
+    var titleMaxLines = format === 'story' ? 7 : 5;
+    var fit = fitTitle(ctx, data.title || '', contentW, titleMaxLines, titleMaxSize, titleMinSize, '600');
+    ctx.font = '600 ' + fit.size + 'px Fraunces, Georgia, serif';
+    ctx.fillStyle = BRAND.cream;
+    var lineHeight = fit.size * 1.18;
+    var titleStartY = topY + 90;
+    fit.lines.forEach(function (line, i) {
+      ctx.fillText(line, margin, titleStartY + i * lineHeight);
+    });
+    var afterTitleY = titleStartY + fit.lines.length * lineHeight + 20;
+
+    // Description
+    if (data.description) {
+      ctx.font = '400 32px "Source Serif 4", Georgia, serif';
+      ctx.fillStyle = BRAND.creamSoft;
+      var descLines = wrapLines(ctx, data.description, contentW).slice(0, 4);
+      descLines.forEach(function (line, i) {
+        ctx.fillText(line, margin, afterTitleY + 46 + i * 44);
+      });
+    }
+
+    // Footer: brand wordmark + url
+    var footerY = H - margin - 8;
+    ctx.strokeStyle = 'rgba(216, 181, 112, 0.35)';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(margin, footerY - 46);
+    ctx.lineTo(W - margin, footerY - 46);
+    ctx.stroke();
+
+    ctx.font = '600 34px Fraunces, Georgia, serif';
+    ctx.fillStyle = BRAND.cream;
+    var wm = 'Retro';
+    ctx.fillText(wm, margin, footerY);
+    var wmWidth = ctx.measureText(wm).width;
+    ctx.font = 'italic 600 34px Fraunces, Georgia, serif';
+    ctx.fillStyle = BRAND.brassLight;
+    ctx.fillText('calculated', margin + wmWidth, footerY);
+
+    ctx.font = '400 22px "IBM Plex Mono", ui-monospace, monospace';
+    ctx.fillStyle = 'rgba(244, 238, 221, 0.55)';
+    ctx.textAlign = 'right';
+    ctx.fillText('ramanand348.github.io/Ramblings-of-Ram', W - margin, footerY);
+    ctx.textAlign = 'left';
+  }
+
+  function buildModal() {
+    var overlay = document.createElement('div');
+    overlay.className = 'ig-modal-overlay';
+    overlay.innerHTML =
+      '<div class="ig-modal">' +
+      '  <button type="button" class="ig-modal-close" aria-label="Close">&times;</button>' +
+      '  <div class="ig-modal-canvas-wrap"><canvas class="ig-modal-canvas"></canvas></div>' +
+      '  <div class="ig-modal-controls">' +
+      '    <div class="ig-format-toggle">' +
+      '      <button type="button" class="ig-format-btn active" data-format="square">Square</button>' +
+      '      <button type="button" class="ig-format-btn" data-format="story">Story</button>' +
+      '    </div>' +
+      '    <button type="button" class="ig-download-btn">Download PNG</button>' +
+      '  </div>' +
+      '</div>';
+    document.body.appendChild(overlay);
+    return overlay;
+  }
+
+  function openShareModal(data) {
+    var overlay = buildModal();
+    var canvas = overlay.querySelector('.ig-modal-canvas');
+    var closeBtn = overlay.querySelector('.ig-modal-close');
+    var downloadBtn = overlay.querySelector('.ig-download-btn');
+    var formatBtns = overlay.querySelectorAll('.ig-format-btn');
+    var currentFormat = 'square';
+
+    var ready = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
+    ready.then(function () { drawPost(canvas, data, currentFormat); });
+
+    formatBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        formatBtns.forEach(function (b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        currentFormat = btn.getAttribute('data-format');
+        drawPost(canvas, data, currentFormat);
+      });
+    });
+
+    function close() { overlay.remove(); }
+    closeBtn.addEventListener('click', close);
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) close();
+    });
+    document.addEventListener('keydown', function esc(e) {
+      if (e.key === 'Escape') { close(); document.removeEventListener('keydown', esc); }
+    });
+
+    downloadBtn.addEventListener('click', function () {
+      var link = document.createElement('a');
+      var slug = (data.title || 'retrocalculated').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      link.download = 'retrocalculated-' + slug + '-' + currentFormat + '.png';
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    });
+  }
+
+  function shareIconSVG() {
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>';
+  }
+
+  // Inject a share button onto each real content card in a listing (skips
+  // navigational "Browse"/"Category" cards, which aren't articles).
+  document.querySelectorAll('.article-card').forEach(function (card) {
+    var kickerEl = card.querySelector('.article-kicker');
+    var titleEl = card.querySelector('h3');
+    if (!titleEl || !kickerEl) return;
+    var kickerText = kickerEl.textContent.trim();
+    if (/^(Browse|Category)$/i.test(kickerText)) return;
+
+    var descEl = card.querySelector('p:not(.article-kicker)');
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'ig-share-btn';
+    btn.setAttribute('aria-label', 'Generate Instagram post for this article');
+    btn.innerHTML = shareIconSVG();
+    card.style.position = card.style.position || 'relative';
+    card.appendChild(btn);
+
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      openShareModal({
+        kicker: kickerText,
+        title: titleEl.textContent.trim(),
+        description: descEl ? descEl.textContent.trim() : ''
+      });
+    });
+  });
+
+  // Inject a share button into an individual article's reading header, if
+  // this page is one (has a .reading-header with an h1 and reading-meta).
+  var readingHeader = document.querySelector('.reading-header');
+  if (readingHeader) {
+    var h1 = readingHeader.querySelector('h1');
+    var subtitle = readingHeader.querySelector('.subtitle');
+    var metaSpans = readingHeader.querySelectorAll('.reading-meta span');
+    if (h1 && metaSpans.length) {
+      var kicker = metaSpans[0].textContent.trim();
+      var shareBtn = document.createElement('button');
+      shareBtn.type = 'button';
+      shareBtn.className = 'ig-share-btn ig-share-btn-inline';
+      shareBtn.innerHTML = shareIconSVG() + '<span>Instagram post</span>';
+      readingHeader.querySelector('.reading-header-inner').appendChild(shareBtn);
+      shareBtn.addEventListener('click', function () {
+        openShareModal({
+          kicker: kicker,
+          title: h1.textContent.trim(),
+          description: subtitle ? subtitle.textContent.trim() : ''
+        });
+      });
+    }
+  }
+});
+
 // Mobile TOC collapse: turns the static "Contents" title into a tap target
 // that expands/collapses the chapter list, so a long research piece's table
 // of contents doesn't push the reader past a screenful before any actual
