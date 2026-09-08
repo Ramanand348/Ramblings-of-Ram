@@ -1338,6 +1338,124 @@ body { animation: page-fade-in 0.4s ease; }
 }
 
 /* ============================================================
+   Instagram share-card generator
+   ============================================================ */
+.ig-share-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(20, 24, 43, 0.55);
+  border: 1px solid rgba(244, 238, 221, 0.25);
+  border-radius: 50%;
+  color: var(--cream);
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
+}
+.ig-share-btn svg { width: 16px; height: 16px; }
+.article-card:hover .ig-share-btn,
+.ig-share-btn:focus-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.ig-share-btn:hover { border-color: var(--brass-light); }
+
+.ig-share-btn-inline {
+  position: static;
+  width: auto;
+  height: auto;
+  border-radius: 999px;
+  padding: 8px 16px 8px 12px;
+  margin-top: 18px;
+  gap: 8px;
+  opacity: 1;
+  transform: none;
+  background: rgba(244, 238, 221, 0.08);
+  border: 1px solid rgba(244, 238, 221, 0.3);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+}
+.ig-share-btn-inline svg { width: 15px; height: 15px; }
+.ig-share-btn-inline:hover { background: rgba(244, 238, 221, 0.14); }
+
+.ig-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 24, 43, 0.78);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+  padding: 24px;
+}
+.ig-modal {
+  position: relative;
+  background: var(--card-bg);
+  border-radius: 8px;
+  padding: 20px;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: var(--shadow);
+}
+.ig-modal-close {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--ink-soft);
+}
+.ig-modal-close:hover { color: var(--ink); }
+.ig-modal-canvas-wrap {
+  width: 100%;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--line-on-parchment);
+}
+.ig-modal-canvas { display: block; width: 100%; height: auto; }
+.ig-modal-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+  gap: 12px;
+}
+.ig-format-toggle {
+  display: flex;
+  border: 1px solid var(--line-on-parchment);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.ig-format-btn {
+  background: none;
+  border: none;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  padding: 7px 14px;
+  color: var(--ink-soft);
+}
+.ig-format-btn.active { background: var(--ink-night); color: var(--cream); }
+.ig-download-btn {
+  background: var(--brass);
+  color: var(--ink-night);
+  border: none;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 9px 18px;
+}
+.ig-download-btn:hover { background: var(--brass-light); }
+
+/* ============================================================
    Print stylesheet
    Optimized for saving/printing long-form Research and Notebook
    articles: strips navigation chrome, forces light/high-contrast
@@ -1368,6 +1486,7 @@ body { animation: page-fade-in 0.4s ease; }
   .site-footer, .related-articles, .scroll-top-btn, .reading-progress,
   .citation-copy-btn, .citation-tabs, .back-link, .breadcrumb-nav,
   .toc, .card-grid, .timeline-wrap, .timeline-legend,
+  .ig-share-btn, .ig-modal-overlay,
   script { display: none !important; }
 
   /* Reading header: keep title/subtitle/meta, drop the dark banner styling */
