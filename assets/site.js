@@ -561,4 +561,63 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
+// Automatic related-articles: replaces the hand-picked related-grid cards
+// with ones computed from shared topic tags in search-index.json, so new
+// articles automatically surface as related to existing ones without
+// needing to hand-edit every past piece's related-articles block.
+document.addEventListener('DOMContentLoaded', function () {
+  var grid = document.querySelector('.related-articles .related-grid');
+  if (!grid) return;
+
+  var canonical = document.querySelector('link[rel="canonical"]');
+  if (!canonical) return;
+  var currentPath = canonical.href.replace(/^https?:\/\/[^/]+\/Ramblings-of-Ram/, '');
+
+  fetch('../../assets/search-index.json')
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      var current = data.find(function (item) { return item.url === currentPath; });
+      if (!current || !current.tags || !current.tags.length) return;
+
+      var scored = data
+        .filter(function (item) { return item.url !== currentPath; })
+        .map(function (item) {
+          var shared = (item.tags || []).filter(function (t) { return current.tags.indexOf(t) !== -1; });
+          return { item: item, score: shared.length };
+        })
+        .filter(function (x) { return x.score > 0; })
+        .sort(function (a, b) { return b.score - a.score; });
+
+      if (!scored.length) return;
+
+      var top = scored.slice(0, 2);
+      var sectionLabel = current.section === 'Research' ? 'All research' : 'All notebook posts';
+      var sectionHref = current.section === 'Research' ? '../index.html' : '../index.html';
+
+      var html = top.map(function (entry) {
+        var it = entry.item;
+        var href = '../../' + it.url.replace(/^\//, '');
+        var readLabel = it.section === 'Research' ? 'Read the paper →' : 'Read →';
+        return (
+          '<a class="article-card" href="' + href + '">' +
+          '<p class="article-kicker">' + it.section + '</p>' +
+          '<h3 style="font-size: 1.2rem;">' + it.title + '</h3>' +
+          '<p>' + it.description + '</p>' +
+          '<div class="article-meta"><span class="read-link">' + readLabel + '</span></div>' +
+          '</a>'
+        );
+      }).join('') + (
+        '<a class="article-card" href="' + sectionHref + '">' +
+        '<p class="article-kicker">Browse</p>' +
+        '<h3 style="font-size: 1.2rem;">' + sectionLabel + '</h3>' +
+        '<p>Every long-form piece, organized by category.</p>' +
+        '<div class="article-meta"><span class="read-link">See all →</span></div>' +
+        '</a>'
+      );
+
+      grid.innerHTML = html;
+    })
+    .catch(function () { /* leave the hand-picked fallback cards in place on failure */ });
+});
+
 
