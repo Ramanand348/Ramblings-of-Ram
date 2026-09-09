@@ -6,6 +6,11 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://ramanand348.github.io/Ramblings-of-Ram/about.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://ramanand348.github.io/Ramblings-of-Ram/archive.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
