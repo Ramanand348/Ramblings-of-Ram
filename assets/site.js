@@ -204,6 +204,14 @@ document.addEventListener('DOMContentLoaded', function () {
     var formatBtns = overlay.querySelectorAll('.ig-format-btn');
     var currentFormat = 'square';
 
+    // Label reflects what will actually happen on this device: a share
+    // sheet on phones that support it, a direct file download elsewhere.
+    var canUseShare = !!(navigator.canShare && (function () {
+      try { return navigator.canShare({ files: [new File([], 'test.png', { type: 'image/png' })] }); }
+      catch (e) { return false; }
+    })());
+    downloadBtn.textContent = canUseShare ? 'Save / Share' : 'Download PNG';
+
     var ready = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
     ready.then(function () { drawPost(canvas, data, currentFormat); });
 
@@ -226,11 +234,37 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     downloadBtn.addEventListener('click', function () {
-      var link = document.createElement('a');
       var slug = (data.title || 'retrocalculated').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-      link.download = 'retrocalculated-' + slug + '-' + currentFormat + '.png';
-      link.href = canvas.toDataURL('image/png');
-      link.click();
+      var filename = 'retrocalculated-' + slug + '-' + currentFormat + '.png';
+
+      canvas.toBlob(function (blob) {
+        if (!blob) return;
+
+        // Prefer the native share sheet where available (this is what
+        // actually lets a phone save straight to Photos or hand the image
+        // to the Instagram app directly, and it's the only reliable path
+        // on iOS Safari, which does not support the <a download> trick
+        // for data URLs).
+        var file = new File([blob], filename, { type: 'image/png' });
+        if (navigator.canShare && navigator.canShare({ files: [file] })) {
+          navigator.share({
+            files: [file],
+            title: data.title || 'Retrocalculated'
+          }).catch(function () { /* user cancelled the share sheet; not an error */ });
+          return;
+        }
+
+        // Desktop-browser fallback: the <a download> trick, which works
+        // fine everywhere except iOS Safari.
+        var url = URL.createObjectURL(blob);
+        var link = document.createElement('a');
+        link.download = filename;
+        link.href = url;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+      }, 'image/png');
     });
   }
 
