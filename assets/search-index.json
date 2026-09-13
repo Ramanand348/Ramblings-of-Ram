@@ -100,5 +100,18 @@
       "Thermodynamics",
       "Water Engineering"
     ]
+  },
+  {
+    "title": "Scripting, Engagement, and the Limits of Skill in EA Sports FC",
+    "url": "/research/technology/ea-fc-scripting-engagement-systems.html",
+    "section": "Research",
+    "category": "Technology",
+    "description": "EA holds real, granted patents for adjusting difficulty and matchmaking around engagement rather than fairness, and has published peer-reviewed research testing exactly that on its own game data.",
+    "tags": [
+      "Game Design",
+      "Software",
+      "Technology",
+      "Patents"
+    ]
   }
 ]
