@@ -6,7 +6,16 @@
   <description>Long-form research articles and shorter Notebook posts spanning history, science, and data-driven topics.</description>
   <language>en</language>
   <atom:link href="https://ramanand348.github.io/Ramblings-of-Ram/rss.xml" rel="self" type="application/rss+xml"/>
-  <lastBuildDate>Tue, 08 Sep 2026 00:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Sat, 12 Sep 2026 00:00:00 GMT</lastBuildDate>
+
+  <item>
+    <title>Scripting, Engagement, and the Limits of Skill in EA Sports FC</title>
+    <link>https://ramanand348.github.io/Ramblings-of-Ram/research/technology/ea-fc-scripting-engagement-systems.html</link>
+    <guid>https://ramanand348.github.io/Ramblings-of-Ram/research/technology/ea-fc-scripting-engagement-systems.html</guid>
+    <description>EA holds real, granted patents for adjusting difficulty and matchmaking around engagement rather than fairness, and has published peer-reviewed research testing exactly that on its own game data.</description>
+    <category>Technology</category>
+    <pubDate>Sat, 12 Sep 2026 00:00:00 GMT</pubDate>
+  </item>
 
   <item>
     <title>The Thermodynamic Cost of Fresh Water: A Second-Law Efficiency Analysis of Chennai's Seawater Desalination Plants</title>
