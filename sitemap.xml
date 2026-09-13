@@ -90,6 +90,16 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://ramanand348.github.io/Ramblings-of-Ram/research/technology/index.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ramanand348.github.io/Ramblings-of-Ram/research/technology/ea-fc-scripting-engagement-systems.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
 
 
