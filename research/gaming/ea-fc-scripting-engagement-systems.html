@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
+<script>document.documentElement.classList.add("js-reveal");</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="canonical" href="https://ramanand348.github.io/Ramblings-of-Ram/research/gaming/ea-fc-scripting-engagement-systems.html">
+<title>Scripting, Engagement, and the Limits of Skill in EA Sports FC - Retrocalculated</title>
+<meta name="description" content="EA holds real, granted patents for adjusting difficulty and matchmaking around engagement rather than fairness, and has published peer-reviewed research testing exactly that on its own game data. None of it proves individual matches are rigged, and that gap is the actual story.">
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+<link rel="alternate" type="application/rss+xml" title="Retrocalculated" href="../../rss.xml">
+<link rel="manifest" href="../../site.webmanifest">
+<link rel="apple-touch-icon" href="../../assets/favicon.svg">
+<meta name="theme-color" content="#14182B">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Scripting, Engagement, and the Limits of Skill in EA Sports FC">
+<meta property="og:description" content="EA holds real, granted patents for adjusting difficulty and matchmaking around engagement rather than fairness. None of it proves individual matches are rigged, and that gap is the actual story.">
+<meta property="og:url" content="https://ramanand348.github.io/Ramblings-of-Ram/research/gaming/ea-fc-scripting-engagement-systems.html">
+<meta property="og:image" content="https://ramanand348.github.io/Ramblings-of-Ram/assets/og-default.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Scripting, Engagement, and the Limits of Skill in EA Sports FC">
+<meta name="twitter:description" content="EA holds real, granted patents for adjusting difficulty and matchmaking around engagement rather than fairness. None of it proves individual matches are rigged.">
+<meta name="twitter:image" content="https://ramanand348.github.io/Ramblings-of-Ram/assets/og-default.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/style.css">
+<script data-goatcounter="https://retrocalculated.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "headline": "Scripting, Engagement, and the Limits of Skill in EA Sports FC",
+  "description": "EA holds real, granted patents for adjusting difficulty and matchmaking around engagement rather than fairness, and has published peer-reviewed research testing exactly that on its own game data.",
+  "author": {"@type": "Person", "name": "A. V. Ramanand"},
+  "publisher": {"@type": "Organization", "name": "Retrocalculated"},
+  "datePublished": "2026-09-12",
+  "mainEntityOfPage": "https://ramanand348.github.io/Ramblings-of-Ram/research/gaming/ea-fc-scripting-engagement-systems.html",
+  "about": ["Gaming", "Game Design", "Software", "EA Sports FC"]
+}
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="wordmark" href="../../index.html">Retro<em>calculated</em></a>
+    <div class="site-header-right">
+      <nav class="site-nav" aria-label="Primary">
+      <a href="../../index.html">Home</a>
+      <a href="../index.html" aria-current="page">Research</a>
+      <a href="../../blog/index.html">Notebook</a>
+      <a href="../../about.html">About</a>
+    </nav>
+      <button class="header-icon-btn theme-toggle" type="button" aria-label="Toggle dark mode">
+        <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      </button>
+      <button class="header-icon-btn search-toggle" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<div class="search-overlay">
+  <div class="search-panel">
+    <div class="search-input-row">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input type="text" class="search-input" placeholder="Search articles..." aria-label="Search articles">
+      <button type="button" class="search-close-btn">Esc</button>
+    </div>
+    <div class="search-results"></div>
+  </div>
+</div>
+
+<div class="reading-header">
+  <div class="reading-header-inner">
+    <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+  <ol>
+    <li><a href="../../index.html">Home</a></li>
+    <li><a href="../index.html">Research</a></li>
+    <li><a href="index.html">Gaming</a></li>
+    <li aria-current="page">Scripting &amp; Engagement Systems</li>
+  </ol>
+</nav>
+    <a class="back-link" href="../../index.html">← Back to all writing</a>
+    <h1>Scripting, Engagement, and the Limits of Skill in EA Sports FC</h1>
+    <p class="subtitle">EA holds real, granted patents for adjusting difficulty and matchmaking around engagement rather than fairness, and has published peer-reviewed research testing exactly that on its own game data. None of it proves individual matches are rigged, and that gap is the actual story.</p>
+    <div class="reading-meta">
+      <span>Research · Game Design &amp; Software</span>
+      <span>Gaming</span>
+      <span>6 sections</span>
+      <span>~20 min read</span>
+      <span>Published Sep 2026</span>
+      <span>Author: Ramanand AV</span>
+    </div>
+  </div>
+</div>
+
+<div class="reading-layout">
+  <nav class="toc" aria-label="Table of contents">
+    <p class="toc-title">Contents</p>
+    <ol>
+      <li><a href="#abstract">Abstract</a></li>
+      <li><a href="#introduction">1. Introduction</a></li>
+      <li><a href="#methods">2. Methods</a></li>
+      <li><a href="#results">3. Results</a></li>
+      <li><a href="#discussion">4. Discussion</a></li>
+      <li><a href="#conclusion">5. Conclusion</a></li>
+      <li><a href="#references">6. References</a></li>
+    </ol>
+  </nav>
+
+  <article class="article-body">
+
+    <section class="chapter" id="abstract">
+      <h1>Abstract</h1>
+      <p>"Scripting," the belief that EA Sports FC (formerly FIFA) secretly manipulates match outcomes to manufacture drama and drive engagement, is one of the most persistent and consistent complaints in the game's community, spanning at least six years of forum threads, user reviews, and a formal lawsuit, across multiple game titles and platforms. This paper separates two questions that are usually conflated: whether EA deliberately rigs individual matches, and whether skill reliably determines who wins. The first question has real, checkable evidence behind it. EA holds a granted U.S. patent (10,286,323) for Dynamic Difficulty Adjustment (DDA), a separate granted patent for Engagement Optimized Matchmaking (EOMM), and has co-published peer-reviewed research (Chen et al., 2017, presented at the International World Wide Web Conference) that builds and tests an EOMM framework using real data from one of its own games. EA has, on multiple occasions since 2019, stated on the record that the DDA patent specifically is not used in FIFA or EA Sports FC. A 2020 class-action lawsuit alleging DDA-driven manipulation in FIFA, Madden, and NHL Ultimate Team was dropped in 2021 after EA gave the plaintiffs access to its engineers.</p>
+      <p>None of this constitutes proof that any specific match was manipulated. What the patent and research record does establish is that EA has built, tested, and patented the technical capability to prioritize player retention over competitive fairness, in at least one of its own games, using real player data, a materially different fact than "EA denies using it in FIFA" would suggest if taken in isolation. Separately, this paper documents concrete, non-conspiratorial reasons why skill does not reliably determine outcomes in EA Sports FC regardless of whether any engagement system is active: EA's own patch notes have acknowledged skill-independent AI behaviour (defenders outrunning attackers regardless of pace attributes, fixed in a January 2025 update), skill-based matchmaking carries well-documented fairness-versus-engagement trade-offs industry-wide, and the game's animation-priority and input-read systems create outcomes that look identical to "scripting" from a player's seat regardless of their true cause. The paper closes by examining why the scripting belief persists as strongly as it does even without a smoking gun, and what would actually constitute proof one way or the other.</p>
+    </section>
+
+    <section class="chapter" id="introduction">
+      <h1 data-chapter="01">1. Introduction</h1>
+      <p>This piece starts from a personal, admittedly biased place: enough matches have gone sideways in ways that felt engineered rather than earned, a dominant lead evaporating inside ten minutes, a goalkeeper suddenly saving everything, a defender who has tracked back perfectly all match freezing at the one moment it costs a goal, that the question stopped feeling like idle forum paranoia and started feeling worth actually researching properly. That experience is not unusual. It is, by a wide margin, one of the most common complaints about this specific game, repeated in almost identical language across years and game versions by people who have never spoken to each other.</p>
+      <p>The trouble with "scripting" as a topic is that the community conversation almost always collapses two separate questions into one. The first is whether EA deliberately manipulates the outcome of individual matches, nudging a specific game toward a comeback or a loss to manufacture drama or push a player toward a purchase. The second, quieter question is whether skill reliably determines who wins at all, which could be true even if the first answer is a flat no, if the game's underlying systems (matchmaking, AI behaviour, animation priority, netcode) introduce enough outcome variance on their own. Community discussion treats these as the same claim. They are not, and the evidence available for each is very different in kind and in strength.</p>
+      <p>This paper treats both questions seriously and keeps them separate throughout. It is not a defence of EA, and it is not an endorsement of the scripting theory as stated by its most confident proponents. It is an attempt to establish, as precisely as the available public record allows, what is actually known, what is patented but denied, what is alleged but unproven, and what is a documented bug rather than either.</p>
+    </section>
+
+    <section class="chapter" id="methods">
+      <h1 data-chapter="02">2. Methods</h1>
+      <p>Evidence for this paper falls into four categories, each treated with a different evidentiary weight. <strong>Primary legal and technical documents</strong> (patent filings and grants, retrieved via Google Patents; court filings and lawsuit coverage) are treated as the strongest tier, since they are EA's own filed statements of what it has built or claimed capability to build. <strong>Peer-reviewed research</strong> (the Chen et al. EOMM paper, published through the ACM digital library and hosted on arXiv) is treated with comparable weight, since it went through academic review and used real EA game data, though the specific game tested was not named in the paper. <strong>Official public statements</strong> from EA (community manager statements, forum posts, and EA's own patch notes) are treated as a lower but still meaningful tier: companies have obvious incentive to deny manipulation regardless of the truth, but a specific, falsifiable technical denial ("this patent is not used in this game") is a different kind of claim than a vague reassurance, and patch notes acknowledging a specific bug are a different kind of admission than a marketing statement. <strong>Community-reported experience</strong> (Steam and EA forum threads, user reviews, and secondary coverage of Reddit discussion) is treated as evidence of a real, persistent, and consistent <em>phenomenon</em>, thousands of people independently reporting similar experiences over years is itself a fact worth documenting, but not as evidence of the underlying <em>mechanism</em> those people allege. A widely and consistently reported experience can be real without the community's preferred explanation for it being correct.</p>
+    </section>
+
+    <section class="chapter" id="results">
+      <h1 data-chapter="03">3. Results</h1>
+
+      <h2 id="patent-record">3.1 The Patent Record</h2>
+      <p>EA's Dynamic Difficulty Adjustment patent has a long filing history. An initial application was filed in 2016; EA resubmitted it in October 2020, and it was published on March 25, 2021 as part of granted U.S. Patent 10,286,323 (application US20170259177A1).<sup class="cite-ref"><a href="#ref1">1</a></sup> The patent's own language is explicit about its goal: to "perform automatic granular difficulty adjustment" that is, in the patent's words, "undetectable by the user," using a "game retention prediction model" built from historical player activity data to estimate how long a given player is likely to keep playing, then adjusting difficulty to extend that session.<sup class="cite-ref"><a href="#ref1">1</a></sup> The patent's own background section states the underlying business logic plainly: "games that are too difficult or too easy will result in less enjoyment for a user," and a disengaged user is "likely to play the game less."<sup class="cite-ref"><a href="#ref1">1</a></sup></p>
+      <p>Separately, EA holds a patent for Engagement Optimized Matchmaking (EOMM), filed and granted in 2017. Where DDA adjusts difficulty within a match, EOMM adjusts who a player is matched against in the first place, explicitly weighing "churn risk," EA's term for a player's likelihood of quitting, alongside skill, sportsmanship, and playstyle when building a matchmaking pool.<sup class="cite-ref"><a href="#ref5">5</a></sup> A player on a losing streak, under this system, could be deliberately matched against weaker opponents specifically to reduce their odds of quitting, a materially different goal from matching players of comparable skill for a fair contest.<sup class="cite-ref"><a href="#ref5">5</a></sup></p>
+
+      <h2 id="academic-evidence">3.2 The Academic Evidence</h2>
+      <p>The strongest piece of evidence in this paper is not a patent but a peer-reviewed paper. Chen et al. (2017), "EOMM: An Engagement Optimized Matchmaking Framework," was presented at the International World Wide Web Conference and is indexed through the ACM Digital Library and arXiv.<sup class="cite-ref"><a href="#ref6">6</a></sup> The paper's authors explicitly set out to test whether matchmaking built around player engagement, rather than competitive fairness, produces better retention outcomes than conventional skill-based matching. Their conclusion is direct: "equal-skill based matchmaking is a special case of EOMM on a highly simplified assumption that rarely holds in reality," and their simulation, run on <em>real data from a popular game made by Electronic Arts, Inc.</em>, showed "significant improvement in enhancing player engagement compared to existing matchmaking methods."<sup class="cite-ref"><a href="#ref6">6</a></sup> The paper does not name the specific EA game the data came from. What it does establish, unambiguously, is that EA has built and empirically tested, on real player data from at least one of its own titles, a matchmaking approach that treats competitive fairness as one input among several rather than the primary goal.</p>
+
+      <h2 id="eas-position">3.3 EA's Public Position</h2>
+      <p>EA's response to scripting allegations has been consistent since at least 2019: the DDA patent exists, but it is not implemented in FIFA, Madden, or NHL. In 2019, EA community manager Corey Andress stated on record that "none of this is in FIFA now, or previously," adding that EA had specifically delayed its response until it could confirm "this patent didn't exist in the game."<sup class="cite-ref"><a href="#ref2">2</a></sup> EA has attributed player-reported anomalies, misplaced passes, unexpected saves, to systems modelling ordinary football variance, such as individual player fatigue, rather than to any overarching momentum or DDA system.<sup class="cite-ref"><a href="#ref2">2</a></sup> As recently as 2023, EA reiterated the same position nearly verbatim: "that technology never was in FIFA, Madden or NHL, and never will be. We would not use DDA technology to give players an advantage or disadvantage in online multiplayer modes in any of our games."<sup class="cite-ref"><a href="#ref3">3</a></sup></p>
+      <p>It is worth being precise about what this denial does and does not cover. EA's public statements address the DDA patent specifically. They do not, in any public statement identified for this paper, address the EOMM patent or the retention-optimized matchmaking approach validated in Chen et al. (2017) with the same specificity. A denial that one named system is not in use is not a denial that a related but distinct system, matchmaking built around churn risk rather than skill, is also absent.</p>
+
+      <h2 id="lawsuit">3.4 The 2020–2021 Lawsuit</h2>
+      <p>In November 2020, a class-action lawsuit was filed against EA alleging that DDA technology was used across FIFA, Madden, and NHL Ultimate Team modes to manipulate outcomes and encourage real-money spending on card packs.<sup class="cite-ref"><a href="#ref4">4</a></sup> The case was dropped in 2021 after EA reportedly gave the plaintiffs' side access to "detailed technical information and access to speak with our engineers."<sup class="cite-ref"><a href="#ref4">4</a></sup> The lawsuit's withdrawal is sometimes cited by both sides of the scripting debate as evidence for their position, EA supporters point to the dropped case as vindication, while sceptics note that a settlement reached through private technical briefings, rather than a public technical audit or independent code review, does not constitute the kind of verifiable evidence that would actually settle the underlying factual question.</p>
+
+      <h2 id="community-record">3.5 The Community Record</h2>
+      <p>Independent of what EA has patented or denied, the scripting complaint itself is a documented, persistent phenomenon rather than a fringe view. Steam community discussions raise near-identical complaints across at least six annual releases, FIFA 21 through EA Sports FC 26, phrased in strikingly similar terms each year: a 4-0 lead collapsing to a 4-4 draw, a goalkeeper suddenly making "the most unrealistic saves," defenders who "stand static" at decisive moments, goals disproportionately clustering around kickoff and the 90th minute.<sup class="cite-ref"><a href="#ref7">7</a></sup><sup class="cite-ref"><a href="#ref8">8</a></sup> A detailed EA Forums feedback post from December 2025 catalogued specific, structured versions of this claim: a perceived pattern of weakened defensive AI immediately following a goal, and a "pervasive feeling that goals are statistically more likely to occur right around the 45-minute and 90-minute marks, regardless of the run of play."<sup class="cite-ref"><a href="#ref9">9</a></sup> These specific claims (kickoff vulnerability, late-game clustering) have not been independently verified with match-level statistical data in any source identified for this paper, and are reported here as a documented community belief, not a confirmed pattern.</p>
+      <p>Professional review coverage corroborates a narrower, more defensible version of the same complaint: persistent, multi-year issues with defensive AI specifically. OpenCritic's aggregated review summary for EA Sports FC 26 notes that competent defending requires the game's highest difficulty setting, "as anything below that exposes poor defending by the AI."<sup class="cite-ref"><a href="#ref10">10</a></sup> Notebookcheck's review of FC 25 was blunter: "when any mediocre striker under aggressive manual control gets head to head with your defense line, ratings and all forms of logic fly out the window."<sup class="cite-ref"><a href="#ref11">11</a></sup> Critically, EA's own January 2025 patch notes for FC 25's Title Update 8 acknowledged a concrete, skill-independent bug in the same family: "defenders outrunning attackers, even if the attacking player had a higher pace attribute," a defect EA describes fixing by bringing "these unnaturally fast players back down to more human levels."<sup class="cite-ref"><a href="#ref12">12</a></sup> This is the single clearest piece of evidence in this entire investigation that outcomes in this game have, at points, been determined by something other than player skill or player-controlled attributes, stated by EA itself, in an official patch note, independent of any scripting allegation.</p>
+
+      <h2 id="comparison-case">3.6 A Comparison Case: Nintendo's Rubber-Banding</h2>
+      <p>It is worth contrasting EA's posture with a different publisher's handling of a related idea. Nintendo holds a patent (U.S. 7,278,913) covering the "rubber band AI" used in Mario Kart, a system that gives trailing racers stronger catch-up items and can boost or hinder karts to keep a race competitive.<sup class="cite-ref"><a href="#ref13">13</a></sup> Nintendo has never denied this system exists; it is openly discussed in reviews, patch notes, and Nintendo's own marketing as a deliberate design choice intended to keep races close and enjoyable for players of mixed skill.<sup class="cite-ref"><a href="#ref13">13</a></sup> The mechanism, adjusting outcomes based on standing rather than pure skill execution, is structurally similar to what EA's DDA patent describes. The difference is entirely one of transparency: one company patents and denies, the other patents and openly names the feature in its own promotional material. That contrast does not prove EA is lying. It does mean that outcome-adjusting technology in games is not a fringe or hypothetical concept; it is patented, real, shipped, and in at least one major franchise, publicly acknowledged.</p>
+    </section>
+
+    <section class="chapter" id="discussion">
+      <h1 data-chapter="04">4. Discussion</h1>
+
+      <h2 id="what-would-prove-it">4.1 What Would Actually Prove Per-Match Scripting</h2>
+      <p>The evidence assembled in Section 3 is substantial, but it is worth being explicit about what it does not show. A granted patent proves EA built and filed intellectual property around a capability. It does not prove that capability is switched on in a specific game, still less that it altered a specific match. An academic paper using "real data from a popular EA game" proves EA has tested engagement-optimized matchmaking empirically. It does not identify which game, nor confirm the tested approach shipped to players rather than remaining a research exercise. A dropped lawsuit, settled through private briefings rather than independent code audit, proves EA was willing to make the case go away. It does not prove the underlying technical claim was false, only that it was no longer worth litigating for either side.</p>
+      <p>What would constitute actual proof is a narrower, harder bar than anything currently public: an independent, reproducible statistical analysis of match outcome data, at a scale large enough to rule out ordinary variance, showing systematic deviation correlated with score state, session length, or spending history, ideally paired with decompiled or leaked game code confirming the mechanism. No source identified for this paper meets that bar. Community-posted video clips, however numerous, show individual moments consistent with several different explanations (input lag, animation-priority conflicts, genuine AI misjudgement, or deliberate manipulation) and cannot by themselves distinguish between them.</p>
+
+      <h2 id="structural-reasons">4.2 Why Skill Doesn't Reliably Win, With or Without Deliberate Scripting</h2>
+      <p>Setting the unproven scripting claim aside entirely, several well-documented and much more mundane factors reduce the correlation between skill and outcome in EA Sports FC specifically.</p>
+      <p>First, skill-based matchmaking carries a known, industry-wide trade-off between fairness and enjoyment that has nothing to do with hidden manipulation. SBMM traces to genuinely rigorous origins, Microsoft Research's TrueSkill system, built on Bayesian inference, was developed for Xbox Live in 2006 and is one of the most cited applications of Bayesian ranking at scale.<sup class="cite-ref"><a href="#ref14">14</a></sup> But matching players of similar skill mechanically raises match closeness and outcome variance by design: a system that works exactly as intended will still produce plenty of matches that come down to a single bad bounce, because that is what happens when opponents are genuinely, deliberately matched to be evenly capable. Players report this as "the game punishing me for winning" when it is functioning as the matchmaking system's designers intended.</p>
+      <p>Second, EA's own patch history confirms that skill-independent bugs in exactly this area have shipped and persisted long enough to require a dedicated fix, the defender pace-attribute bug described in Section 3.5 is direct, EA-confirmed evidence that a player's on-paper attributes and a player's actual in-match performance have, at points, come apart for reasons having nothing to do with either player's skill or any deliberate design choice.</p>
+      <p>Third, animation-priority and input-read systems, standard in modern sports games, create situations that are functionally indistinguishable from scripting to the player experiencing them, even when no engagement algorithm is involved. When two players commit to a tackle simultaneously, the game's engine has to resolve which animation plays and which player "wins" the physical interaction, based on underlying rules (timing windows, player ratings, positioning) that are largely invisible to the players involved. A resolution that goes against the more skilled player in a given instant is often just how the animation system works, but from inside a single match it is experienced identically to deliberate manipulation.</p>
+      <p>Fourth, and less technical: EA Sports FC's Ultimate Team mode ties squad strength directly to real-money spending, and a mode with a low skill floor for certain high-value tactics (rapid low-risk crossing patterns, specific meta-abusing player types acquired through packs) means match outcomes are influenced by spending as much as by mechanical skill, a dynamic several reviewers have criticised directly and one that doesn't require any hidden algorithm to reduce the correlation between skill and winning.<sup class="cite-ref"><a href="#ref10">10</a></sup></p>
+
+      <h2 id="why-belief-persists">4.3 Why the Belief Persists Regardless of Mechanism</h2>
+      <p>Even setting aside whether scripting is real, the belief in it is unusually durable, and that durability itself has a plausible, non-mysterious explanation. Losses that feel unearned are more memorable and more discussed than wins that feel deserved; a player who dominates a match and wins as expected has little reason to post about it, while a player who concedes a last-minute equaliser after dominating has strong reason to. This asymmetry alone would produce exactly the pattern of persistent, vivid, dramatic-loss anecdotes documented in Section 3.5, regardless of whether any underlying system is actually biased.</p>
+      <p>That said, the community's underlying suspicion is not irrational or baseless in the way "the game hates me" complaints in other titles sometimes are. EA has, as a matter of public record, filed for and been granted patents describing exactly the category of system players suspect, has published peer-reviewed research validating an engagement-first matchmaking approach on real EA game data, and operates a business model (Ultimate Team packs) that would financially benefit from exactly the kind of retention-maximising behaviour those patents describe. A prior belief that EA might be doing this is reasonable given that record, even without direct proof that it is happening in this specific game, in this specific way, right now.</p>
+
+      <h2 id="limitations">4.4 Limitations</h2>
+      <p>This paper is a synthesis of public documents, not an independent technical audit. No game code was examined, no match-outcome dataset was statistically analysed, and no source in this paper can confirm or rule out whether any engagement-optimizing system is active in EA Sports FC's online modes today. The community-reported patterns described in Section 3.5 (kickoff vulnerability, late-game goal clustering) are documented here as beliefs with wide currency, not as verified statistical facts, and a proper resolution of those specific claims would require match-level timing data at a scale no source consulted here provides. Finally, EA's denials, while specific and repeated, remain self-reported and have not been independently verified by a party without commercial interest in the outcome; the 2021 lawsuit's resolution through private engineering briefings, rather than a public or independently audited review, means the strongest real-world test of EA's claims never actually produced public evidence either way.</p>
+    </section>
+
+    <section class="chapter" id="conclusion">
+      <h1 data-chapter="05">5. Conclusion</h1>
+      <p>Two things are true at once, and most discussion of "scripting" in EA Sports FC collapses them into one. EA has patented, and at least once published peer-reviewed research validating, technology capable of prioritizing player engagement over competitive fairness, in matchmaking and in difficulty adjustment, using real data from its own games. EA has also, repeatedly and specifically, denied using the difficulty-adjustment version of that technology in FIFA or EA Sports FC, and no source examined for this paper provides independent, reproducible evidence strong enough to contradict that denial directly.</p>
+      <p>Separately, and more defensibly, skill does not reliably determine who wins in this game, for reasons that need no conspiracy to explain: matchmaking that works as designed still produces high-variance matches, EA's own confirmed bugs have decoupled player attributes from in-match performance, animation-priority systems resolve contested moments in ways indistinguishable from manipulation regardless of cause, and a pack-driven economy rewards spending alongside mechanical skill. A player experiencing all four of these at once, as most competitive players do, will reasonably conclude something is rigged even if nothing, in the specific sense of a human or algorithm deliberately altering that particular match, actually is. The honest answer to "is EA FC scripted" is not yes or no. It is that the company has built exactly the kind of system players suspect, has sworn under specific and repeated denial that it isn't switched on, and has, through its own patch notes, confirmed that something in the neighbourhood of that suspicion has been true at least once. Proving more than that would take an independent statistical audit nobody outside EA has yet performed.</p>
+    </section>
+
+    <section class="chapter" id="cite">
+      <h1>How to Cite This Piece</h1>
+      <div class="citation-box">
+        <div class="citation-tabs">
+          <button type="button" class="citation-tab active" data-citation="Ramanand, A. V. (2026). Scripting, Engagement, and the Limits of Skill in EA Sports FC. Retrocalculated. https://ramanand348.github.io/Ramblings-of-Ram/research/gaming/ea-fc-scripting-engagement-systems.html">APA</button>
+          <button type="button" class="citation-tab" data-citation="@misc{ramanand2026scripting,&#10;  author = {Ramanand, A. V.},&#10;  title = {Scripting, Engagement, and the Limits of Skill in EA Sports FC},&#10;  year = {2026},&#10;  howpublished = {\url{https://ramanand348.github.io/Ramblings-of-Ram/research/gaming/ea-fc-scripting-engagement-systems.html}},&#10;  note = {Retrocalculated}&#10;}">BibTeX</button>
+        </div>
+        <p class="citation-text">Ramanand, A. V. (2026). Scripting, Engagement, and the Limits of Skill in EA Sports FC. Retrocalculated. https://ramanand348.github.io/Ramblings-of-Ram/research/gaming/ea-fc-scripting-engagement-systems.html</p>
+        <button type="button" class="citation-copy-btn">Copy</button>
+      </div>
+    </section>
+
+    <section class="chapter" id="references">
+      <h1 data-chapter="06">6. References</h1>
+      <p><strong>Patents</strong></p>
+      <ol class="ref-list">
+        <li id="ref1"><span class="ref-number">1.</span><p>Method and apparatus for dynamic determination of computer program difficulty (Dynamic Difficulty Adjustment). U.S. Patent 10,286,323 / Application US20170259177A1. Filed 2016, resubmitted October 6, 2020, published March 25, 2021. Google Patents.</p></li>
+        <li id="ref5"><span class="ref-number">5.</span><p>Engagement Optimized Matchmaking (EOMM) patent. Electronic Arts Inc. Filed and granted 2017. Coverage: "Two EA patents paint a worrying future for online matchmaking." KitGuru, 2018; "EA Files Patent for Matchmaking System Algorithm that Can Track Player Spending." MMORPG.com, 2018.</p></li>
+        <li id="ref13"><span class="ref-number">13.</span><p>Rubber band AI. U.S. Patent 7,278,913 (Mario Kart: Double Dash!!, Nintendo). Description via Giant Bomb Video Game Wiki.</p></li>
+      </ol>
+      <p><strong>Peer-reviewed research</strong></p>
+      <ol class="ref-list" start="6">
+        <li id="ref6"><span class="ref-number">6.</span><p>Chen, Z., et al. (2017). EOMM: An Engagement Optimized Matchmaking Framework. <em>Proceedings of the 26th International Conference on World Wide Web (WWW '17)</em>. ACM Digital Library, DOI: 10.1145/3038912.3052559. Also available: arXiv:1702.06820.</p></li>
+        <li id="ref14"><span class="ref-number">14.</span><p>Herbrich, R., Minka, T., &amp; Graepel, T. (2006). TrueSkill: A Bayesian Skill Rating System. <em>Advances in Neural Information Processing Systems</em>, 569–576. Cited via Wikipedia, "Skill-based matchmaking."</p></li>
+      </ol>
+      <p><strong>Official EA statements and documentation</strong></p>
+      <ol class="ref-list" start="2">
+        <li id="ref2"><span class="ref-number">2.</span><p>EA insists, again, that FIFA does not have dynamic difficulty adjustment. PCGamesN, 2019. (Corey Andress community statement.)</p></li>
+        <li id="ref3"><span class="ref-number">3.</span><p>What is DDA in gaming and why is it so controversial? FIFA 23, EA patent &amp; more. Dexerto, 2023.</p></li>
+        <li id="ref4"><span class="ref-number">4.</span><p>FIFA 21 and Madden 21 aren't designed to screw you over – you just suck. TechRadar, 2021. (Lawsuit filed November 2020, dropped 2021.)</p></li>
+        <li id="ref12"><span class="ref-number">12.</span><p>EA Sports FC 25 Title Update 8 has big balance changes. ESPN Africa, January 2025. (Defender pace-attribute bug and fix.)</p></li>
+      </ol>
+      <p><strong>Professional reviews and community record</strong></p>
+      <ol class="ref-list" start="7">
+        <li id="ref7"><span class="ref-number">7.</span><p>EA SPORTS FC 24 Steam Community discussions, "Closed Beta impressions - scripting/momentum still running rampant" (2023) and "Clearly the most rigged fifa" (2023).</p></li>
+        <li id="ref8"><span class="ref-number">8.</span><p>EA SPORTS FIFA 21 Steam Community discussion, "Scripting helped someone down 0-4 to come back and tie it 4-4" (2021).</p></li>
+        <li id="ref9"><span class="ref-number">9.</span><p>Feedback and Concerns Regarding Core Gameplay Mechanics and AI in EA Sports FC. EA Forums, FC 26 Feedback, December 2025.</p></li>
+        <li id="ref10"><span class="ref-number">10.</span><p>EA Sports FC 26 Critic Reviews (aggregated). OpenCritic, 2025.</p></li>
+        <li id="ref11"><span class="ref-number">11.</span><p>EA Sports FC 25 review: More of the same. Notebookcheck, 2024.</p></li>
+      </ol>
+    </section>
+
+  </article>
+</div>
+
+<div class="related-articles">
+  <h2>More from Retrocalculated</h2>
+  <div class="related-grid">
+    <a class="article-card" href="../science/chennai-desalination-thermodynamics.html">
+      <p class="article-kicker">Research</p>
+      <h3 style="font-size: 1.2rem;">The Thermodynamic Cost of Fresh Water</h3>
+      <p>A first-principles second-law efficiency analysis of Chennai's seawater desalination plants.</p>
+      <div class="article-meta"><span class="read-link">Read the paper →</span></div>
+    </a>
+    <a class="article-card" href="index.html">
+      <p class="article-kicker">Browse</p>
+      <h3 style="font-size: 1.2rem;">All Gaming research</h3>
+      <p>Every long-form piece in this category.</p>
+      <div class="article-meta"><span class="read-link">See all →</span></div>
+    </a>
+  </div>
+</div>
+
+<div class="giscus-wrap">
+  <p class="giscus-wrap-title">Discussion</p>
+  <div class="giscus"></div>
+</div>
+<script src="https://giscus.app/client.js"
+        data-repo="Ramanand348/Ramblings-of-Ram"
+        data-repo-id="R_kgDOUBPn4w"
+        data-category="General"
+        data-category-id="DIC_kwDOUBPn484DFS0f"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <span>Retrocalculated</span>
+    <span><a href="../../archive.html" style="color:inherit;">Archive</a> · <a href="../../index.html" style="color:inherit;text-decoration:none;">← Back home</a></span>
+  </div>
+</footer>
+
+<script src="../../assets/site.js"></script>
+</body>
+</html>
