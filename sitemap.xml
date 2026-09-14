@@ -100,6 +100,16 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://ramanand348.github.io/Ramblings-of-Ram/blog/gaming/index.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://ramanand348.github.io/Ramblings-of-Ram/blog/gaming/elden-ring-completion-rate-design.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
 </urlset>
 
 
