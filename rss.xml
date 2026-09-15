@@ -6,7 +6,15 @@
   <description>Long-form research articles and shorter Notebook posts spanning history, science, and data-driven topics.</description>
   <language>en</language>
   <atom:link href="https://ramanand348.github.io/Ramblings-of-Ram/rss.xml" rel="self" type="application/rss+xml"/>
-  <lastBuildDate>Sat, 12 Sep 2026 00:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Mon, 14 Sep 2026 00:00:00 GMT</lastBuildDate>
+  <item>
+    <title>The Live-Service Graveyard: A Comparative Case Study of Why These Games Keep Failing</title>
+    <link>https://ramanand348.github.io/Ramblings-of-Ram/research/gaming/live-service-game-graveyard.html</link>
+    <guid>https://ramanand348.github.io/Ramblings-of-Ram/research/gaming/live-service-game-graveyard.html</guid>
+    <description>Highguard lasted 45 days. Concord lasted 14. The Day Before lasted 4. Launch numbers, budget, and studio pedigree predict almost nothing about survival.</description>
+    <category>Gaming</category>
+    <pubDate>Mon, 14 Sep 2026 00:00:00 GMT</pubDate>
+  </item>
 
   <item>
     <title>The Completion Rate Elden Ring Was Built to Fix</title>
