@@ -6,7 +6,16 @@
   <description>Long-form research articles and shorter Notebook posts spanning history, science, and data-driven topics.</description>
   <language>en</language>
   <atom:link href="https://ramanand348.github.io/Ramblings-of-Ram/rss.xml" rel="self" type="application/rss+xml"/>
-  <lastBuildDate>Mon, 14 Sep 2026 00:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Fri, 18 Sep 2026 00:00:00 GMT</lastBuildDate>
+  <item>
+    <title>The Last Disc: Sony's 2028 Exit From Physical PlayStation Games, by the Numbers, the Messaging, and the Backlash</title>
+    <link>https://ramanand348.github.io/Ramblings-of-Ram/research/gaming/sony-physical-disc-discontinuation.html</link>
+    <guid>https://ramanand348.github.io/Ramblings-of-Ram/research/gaming/sony-physical-disc-discontinuation.html</guid>
+    <description>Sony calls the end of PlayStation discs a natural response to consumer preference. A 330,000-signature petition, a repurposed disc factory, and two lawsuits suggest otherwise.</description>
+    <category>Gaming</category>
+    <pubDate>Fri, 18 Sep 2026 00:00:00 GMT</pubDate>
+  </item>
+
   <item>
     <title>The Live-Service Graveyard: A Comparative Case Study of Why These Games Keep Failing</title>
     <link>https://ramanand348.github.io/Ramblings-of-Ram/research/gaming/live-service-game-graveyard.html</link>
@@ -108,3 +117,4 @@
 
 </channel>
 </rss>
+
