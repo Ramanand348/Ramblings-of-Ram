@@ -462,7 +462,7 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener('DOMContentLoaded', function () {
   if (!document.documentElement.classList.contains('js-reveal')) return;
 
-  var items = document.querySelectorAll('.article-card, .section-head, .empty-state');
+  var items = document.querySelectorAll('.article-card, .section-head, .empty-state, .thesis-figure, .table-scroll');
   if (!items.length) return;
 
   items.forEach(function (el) { el.classList.add('reveal-item'); });
