@@ -240,6 +240,25 @@ img { max-width: 100%; display: block; }
 .tl-point:focus circle {
   r: 9;
 }
+
+/* Hover/focus interactivity for inline data-figure charts (line/bar charts
+   embedded in article bodies, distinct from the homepage timeline above) */
+.thesis-figure .chart-point {
+  transition: r 0.15s ease;
+  cursor: default;
+}
+.thesis-figure .chart-point:hover,
+.thesis-figure .chart-point:focus-visible {
+  r: 7;
+}
+.thesis-figure .chart-bar {
+  transition: opacity 0.15s ease;
+  cursor: default;
+}
+.thesis-figure .chart-bar:hover,
+.thesis-figure .chart-bar:focus-visible {
+  opacity: 0.8;
+}
 @keyframes pop-in {
   from { opacity: 0; transform: scale(0.3); }
   to { opacity: 1; transform: scale(1); }
@@ -322,7 +341,7 @@ img { max-width: 100%; display: block; }
   border: 1px solid var(--line-on-parchment);
   border-radius: 4px;
   padding: 28px 30px;
-  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease, background-color 0.2s ease, color 0.2s ease;
 }
 .article-card:hover {
   transform: translateY(-2px);
@@ -1046,6 +1065,15 @@ html {
 .article-card.cat-gaming .article-kicker,
 .article-card.cat-gaming .read-link {
   color: var(--plum);
+}
+
+/* ============================================================
+   Motion polish: smooth dark/light mode crossfade
+   ============================================================ */
+body, .site-header, .hero, .reading-header, .site-footer, .section,
+.empty-state, .thesis-figure, table.dataset-table, .footnote-note,
+.toc, .citation-box {
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 /* ============================================================
