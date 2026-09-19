@@ -1040,6 +1040,13 @@ html {
 .article-card.cat-history {
   border-left: 3px solid var(--rust);
 }
+.article-card.cat-gaming {
+  border-left: 3px solid var(--plum);
+}
+.article-card.cat-gaming .article-kicker,
+.article-card.cat-gaming .read-link {
+  color: var(--plum);
+}
 
 /* ============================================================
    Motion polish: scroll-reveal + table row hover
