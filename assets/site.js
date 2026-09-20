@@ -654,4 +654,56 @@ document.addEventListener('DOMContentLoaded', function () {
     .catch(function () { /* leave the hand-picked fallback cards in place on failure */ });
 });
 
+// Count-up animation for clean single-value statistics in data tables.
+// The real, final value always sits in the markup as plain text (correct
+// for no-JS, SEO, and screen readers); JS only overwrites it temporarily
+// to animate from 0, then restores the exact original text at the end.
+document.addEventListener('DOMContentLoaded', function () {
+  var counters = document.querySelectorAll('.count-up[data-count-to]');
+  if (!counters.length) return;
+
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduceMotion) return;
+
+  var animate = function (el) {
+    var target = parseFloat(el.getAttribute('data-count-to'));
+    if (isNaN(target)) return;
+    var prefix = el.getAttribute('data-prefix') || '';
+    var suffix = el.getAttribute('data-suffix') || '';
+    var decimals = el.getAttribute('data-decimals') ? parseInt(el.getAttribute('data-decimals'), 10) : 0;
+    var original = el.textContent;
+    var duration = 900;
+    var start = null;
+
+    function format(n) {
+      return n.toLocaleString(undefined, { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+    }
+
+    function step(ts) {
+      if (!start) start = ts;
+      var progress = Math.min((ts - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = prefix + format(target * eased) + suffix;
+      if (progress < 1) {
+        requestAnimationFrame(step);
+      } else {
+        el.textContent = original;
+      }
+    }
+    requestAnimationFrame(step);
+  };
+
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        animate(entry.target);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.6 });
+
+  counters.forEach(function (el) { observer.observe(el); });
+});
+
+
 
