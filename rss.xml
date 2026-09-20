@@ -6,7 +6,16 @@
   <description>Long-form research articles and shorter Notebook posts spanning history, science, and data-driven topics.</description>
   <language>en</language>
   <atom:link href="https://ramanand348.github.io/Ramblings-of-Ram/rss.xml" rel="self" type="application/rss+xml"/>
-  <lastBuildDate>Fri, 18 Sep 2026 00:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Sun, 20 Sep 2026 00:00:00 GMT</lastBuildDate>
+  <item>
+    <title>Wootz: The South Indian Steel Europe Spent Two Centuries Trying to Reverse-Engineer</title>
+    <link>https://ramanand348.github.io/Ramblings-of-Ram/research/history/wootz-steel-crucible-metallurgy.html</link>
+    <guid>https://ramanand348.github.io/Ramblings-of-Ram/research/history/wootz-steel-crucible-metallurgy.html</guid>
+    <description>Crucible steel made in Tamil Nadu and the Deccan from at least the third century BCE traveled west and became famous as Damascus steel. What the archaeometallurgy actually shows.</description>
+    <category>History</category>
+    <pubDate>Sun, 20 Sep 2026 00:00:00 GMT</pubDate>
+  </item>
+
   <item>
     <title>The Last Disc: Sony's 2028 Exit From Physical PlayStation Games, by the Numbers, the Messaging, and the Backlash</title>
     <link>https://ramanand348.github.io/Ramblings-of-Ram/research/gaming/sony-physical-disc-discontinuation.html</link>
