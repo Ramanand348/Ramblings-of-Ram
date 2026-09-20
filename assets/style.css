@@ -1092,6 +1092,9 @@ body, .site-header, .hero, .reading-header, .site-footer, .section,
 table.dataset-table tbody tr:hover td {
   background: rgba(184, 134, 63, 0.14);
 }
+.count-up {
+  font-variant-numeric: tabular-nums;
+}
 
 /* ============================================================
    Dark mode
