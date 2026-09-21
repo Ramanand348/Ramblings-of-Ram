@@ -102,11 +102,11 @@
     <p class="toc-title">Contents</p>
     <ol>
       <li><a href="#abstract">Abstract</a></li>
-      <li><a href="#introduction">1. Introduction</a></li>
-      <li><a href="#methods">2. Methods</a></li>
-      <li><a href="#results">3. Results</a></li>
-      <li><a href="#discussion">4. Discussion</a></li>
-      <li><a href="#conclusion">5. Conclusion</a></li>
+      <li><a href="#introduction">1. The Scripting Accusation EA Has Faced for a Decade</a></li>
+      <li><a href="#methods">2. Weighing Patents, Lawsuits, and Player Testimony Against Each Other</a></li>
+      <li><a href="#results">3. What the Patents, the Lawsuit, and the Community Actually Show</a></li>
+      <li><a href="#discussion">4. Why Skill Feels Unreliable Even Without a Conspiracy</a></li>
+      <li><a href="#conclusion">5. What Would Actually Settle This</a></li>
       <li><a href="#references">6. References</a></li>
     </ol>
   </nav>
@@ -120,19 +120,19 @@
     </section>
 
     <section class="chapter" id="introduction">
-      <h1 data-chapter="01">1. Introduction</h1>
+      <h1 data-chapter="01">1. The Scripting Accusation EA Has Faced for a Decade</h1>
       <p>This piece starts from a personal, admittedly biased place: enough matches have gone sideways in ways that felt engineered rather than earned, a dominant lead evaporating inside ten minutes, a goalkeeper suddenly saving everything, a defender who has tracked back perfectly all match freezing at the one moment it costs a goal, that the question stopped feeling like idle forum paranoia and started feeling worth actually researching properly. That experience is not unusual. It is, by a wide margin, one of the most common complaints about this specific game, repeated in almost identical language across years and game versions by people who have never spoken to each other.</p>
       <p>The trouble with "scripting" as a topic is that the community conversation almost always collapses two separate questions into one. The first is whether EA deliberately manipulates the outcome of individual matches, nudging a specific game toward a comeback or a loss to manufacture drama or push a player toward a purchase. The second, quieter question is whether skill reliably determines who wins at all, which could be true even if the first answer is a flat no, if the game's underlying systems (matchmaking, AI behaviour, animation priority, netcode) introduce enough outcome variance on their own. Community discussion treats these as the same claim. They are not, and the evidence available for each is very different in kind and in strength.</p>
       <p>This paper treats both questions seriously and keeps them separate throughout. It is not a defence of EA, and it is not an endorsement of the scripting theory as stated by its most confident proponents. It is an attempt to establish, as precisely as the available public record allows, what is actually known, what is patented but denied, what is alleged but unproven, and what is a documented bug rather than either.</p>
     </section>
 
     <section class="chapter" id="methods">
-      <h1 data-chapter="02">2. Methods</h1>
+      <h1 data-chapter="02">2. Weighing Patents, Lawsuits, and Player Testimony Against Each Other</h1>
       <p>Evidence for this paper falls into four categories, each treated with a different evidentiary weight. <strong>Primary legal and technical documents</strong> (patent filings and grants, retrieved via Google Patents; court filings and lawsuit coverage) are treated as the strongest tier, since they are EA's own filed statements of what it has built or claimed capability to build. <strong>Peer-reviewed research</strong> (the Chen et al. EOMM paper, published through the ACM digital library and hosted on arXiv) is treated with comparable weight, since it went through academic review and used real EA game data, though the specific game tested was not named in the paper. <strong>Official public statements</strong> from EA (community manager statements, forum posts, and EA's own patch notes) are treated as a lower but still meaningful tier: companies have obvious incentive to deny manipulation regardless of the truth, but a specific, falsifiable technical denial ("this patent is not used in this game") is a different kind of claim than a vague reassurance, and patch notes acknowledging a specific bug are a different kind of admission than a marketing statement. <strong>Community-reported experience</strong> (Steam and EA forum threads, user reviews, and secondary coverage of Reddit discussion) is treated as evidence of a real, persistent, and consistent <em>phenomenon</em>, thousands of people independently reporting similar experiences over years is itself a fact worth documenting, but not as evidence of the underlying <em>mechanism</em> those people allege. A widely and consistently reported experience can be real without the community's preferred explanation for it being correct.</p>
     </section>
 
     <section class="chapter" id="results">
-      <h1 data-chapter="03">3. Results</h1>
+      <h1 data-chapter="03">3. What the Patents, the Lawsuit, and the Community Actually Show</h1>
 
       <h2 id="patent-record">3.1 The Patent Record</h2>
       <p>EA's Dynamic Difficulty Adjustment patent has a long filing history. An initial application was filed in 2016; EA resubmitted it in October 2020, and it was published on March 25, 2021 as part of granted U.S. Patent 10,286,323 (application US20170259177A1).<sup class="cite-ref"><a href="#ref1">1</a></sup> The patent's own language is explicit about its goal: to "perform automatic granular difficulty adjustment" that is, in the patent's words, "undetectable by the user," using a "game retention prediction model" built from historical player activity data to estimate how long a given player is likely to keep playing, then adjusting difficulty to extend that session.<sup class="cite-ref"><a href="#ref1">1</a></sup> The patent's own background section states the underlying business logic plainly: "games that are too difficult or too easy will result in less enjoyment for a user," and a disengaged user is "likely to play the game less."<sup class="cite-ref"><a href="#ref1">1</a></sup></p>
@@ -157,7 +157,7 @@
     </section>
 
     <section class="chapter" id="discussion">
-      <h1 data-chapter="04">4. Discussion</h1>
+      <h1 data-chapter="04">4. Why Skill Feels Unreliable Even Without a Conspiracy</h1>
 
       <h2 id="what-would-prove-it">4.1 What Would Actually Prove Per-Match Scripting</h2>
       <p>The evidence assembled in Section 3 is substantial, but it is worth being explicit about what it does not show. A granted patent proves EA built and filed intellectual property around a capability. It does not prove that capability is switched on in a specific game, still less that it altered a specific match. An academic paper using "real data from a popular EA game" proves EA has tested engagement-optimized matchmaking empirically. It does not identify which game, nor confirm the tested approach shipped to players rather than remaining a research exercise. A dropped lawsuit, settled through private briefings rather than independent code audit, proves EA was willing to make the case go away. It does not prove the underlying technical claim was false, only that it was no longer worth litigating for either side.</p>
@@ -179,7 +179,7 @@
     </section>
 
     <section class="chapter" id="conclusion">
-      <h1 data-chapter="05">5. Conclusion</h1>
+      <h1 data-chapter="05">5. What Would Actually Settle This</h1>
       <p>Two things are true at once, and most discussion of "scripting" in EA Sports FC collapses them into one. EA has patented, and at least once published peer-reviewed research validating, technology capable of prioritizing player engagement over competitive fairness, in matchmaking and in difficulty adjustment, using real data from its own games. EA has also, repeatedly and specifically, denied using the difficulty-adjustment version of that technology in FIFA or EA Sports FC, and no source examined for this paper provides independent, reproducible evidence strong enough to contradict that denial directly.</p>
       <p>Separately, and more defensibly, skill does not reliably determine who wins in this game, for reasons that need no conspiracy to explain: matchmaking that works as designed still produces high-variance matches, EA's own confirmed bugs have decoupled player attributes from in-match performance, animation-priority systems resolve contested moments in ways indistinguishable from manipulation regardless of cause, and a pack-driven economy rewards spending alongside mechanical skill. A player experiencing all four of these at once, as most competitive players do, will reasonably conclude something is rigged even if nothing, in the specific sense of a human or algorithm deliberately altering that particular match, actually is. The honest answer to "is EA FC scripted" is not yes or no. It is that the company has built exactly the kind of system players suspect, has sworn under specific and repeated denial that it isn't switched on, and has, through its own patch notes, confirmed that something in the neighbourhood of that suspicion has been true at least once. Proving more than that would take an independent statistical audit nobody outside EA has yet performed.</p>
     </section>
