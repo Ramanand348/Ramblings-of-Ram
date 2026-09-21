@@ -103,11 +103,11 @@
     <p class="toc-title">Contents</p>
     <ol>
       <li><a href="#abstract">Abstract</a></li>
-      <li><a href="#introduction">1. Introduction</a></li>
-      <li><a href="#methods">2. Methods</a></li>
-      <li><a href="#results">3. Results</a></li>
-      <li><a href="#discussion">4. Discussion</a></li>
-      <li><a href="#conclusion">5. Conclusion</a></li>
+      <li><a href="#introduction">1. Why a Thermodynamic Floor Matters for Chennai's Water Math</a></li>
+      <li><a href="#methods">2. Deriving the Minimum-Energy Benchmark</a></li>
+      <li><a href="#results">3. Where Nemmeli and Minjur Sit Against That Floor</a></li>
+      <li><a href="#discussion">4. Reading the Gap, and the Brine Problem Underneath It</a></li>
+      <li><a href="#conclusion">5. What the Numbers Do and Don't Settle</a></li>
       <li><a href="#references">6. References</a></li>
     </ol>
   </nav>
@@ -122,14 +122,14 @@
     </section>
 
     <section class="chapter" id="introduction">
-      <h1 data-chapter="01">1. Introduction</h1>
+      <h1 data-chapter="01">1. Why a Thermodynamic Floor Matters for Chennai's Water Math</h1>
       <p>Chennai's water supply problem is structural rather than occasional. The city draws roughly 985 million litres per day (MLD) from groundwater, reservoirs, and river sources against a demand already estimated at 1,200 MLD, a gap projected to widen sharply as demand climbs toward roughly 2,700 MLD by 2031.<sup class="cite-ref"><a href="#ref1">1</a></sup> Groundwater extraction along the coast has, in turn, allowed seawater to intrude into freshwater aquifers, a separate but related problem documented in bore-well salinity surveys along Chennai's coastal suburbs.<sup class="cite-ref"><a href="#ref2">2</a></sup> Seawater reverse osmosis desalination has been the state government's primary structural response: the 100 MLD Minjur plant, commissioned in July 2010 at a reported project cost of roughly ₹500 to 550 crore, figures vary somewhat by source, and the Nemmeli plant, commissioned in February 2013 and since expanded from its original 100 MLD design to 110 MLD and, with a third unit, toward 150 MLD.<sup class="cite-ref"><a href="#ref3">3</a></sup><sup class="cite-ref"><a href="#ref4">4</a></sup><sup class="cite-ref"><a href="#ref13">13</a></sup> A fourth, larger plant is under discussion at the time of writing.<sup class="cite-ref"><a href="#ref5">5</a></sup></p>
       <p>Public commentary on these plants tends to describe them as energy-intensive in a general, unquantified way, "a high energy guzzler," as one environmental commentator put it regarding the proposed fourth plant, without a clear reference point for what energy-intensive actually means here.<sup class="cite-ref"><a href="#ref5">5</a></sup> That reference point exists, and it comes from thermodynamics rather than engineering opinion: separating any solution into pure solvent and a more concentrated remainder has an irreducible minimum energy cost, set by the second law, regardless of what technology performs the separation. Comparing a real plant's actual energy consumption against that minimum, rather than against other real plants or against intuition, is what allows a specific, falsifiable answer to the question of how much of a given plant's energy consumption is fundamental physics and how much is engineering margin still open to improvement.</p>
       <p>This paper does that comparison for Chennai's two established plants, using their own publicly documented feed salinity, recovery ratio, and reported energy consumption rather than the generic seawater benchmark (35,000 mg/L total dissolved solids, 50 percent recovery) that most published thermodynamic-minimum figures are built around. Bay of Bengal water at the Nemmeli intake is reported at 41,900 mg/L, appreciably higher than that generic benchmark,<sup class="cite-ref"><a href="#ref4">4</a></sup> and the plant's actual recovery ratio of 45.4 percent differs from the textbook 50 percent case as well. Both differences shift the thermodynamic minimum, and the paper derives by how much before comparing that adjusted minimum against what the plant actually consumes.</p>
     </section>
 
     <section class="chapter" id="methods">
-      <h1 data-chapter="02">2. Methods</h1>
+      <h1 data-chapter="02">2. Deriving the Minimum-Energy Benchmark</h1>
       <h2 id="data-sources">2.1 Data Sources</h2>
       <p>Operating parameters for the Nemmeli plant, feed total dissolved solids (TDS), recovery ratio, operating temperature range, and reported specific energy consumption (SEC), are drawn from the plant operator's own published technical project page.<sup class="cite-ref"><a href="#ref4">4</a></sup> Minjur's capacity, intake volume, and capital cost are drawn from Chennai Metrowater's official project documentation and a published case study on the plant's energy recovery equipment.<sup class="cite-ref"><a href="#ref3">3</a></sup><sup class="cite-ref"><a href="#ref6">6</a></sup> Minjur's recovery ratio is not separately published and is derived in this paper (§3.3) from its publicly stated intake and output volumes. Where a figure is reported as a range in the source (Nemmeli's SEC and operating temperature), that full range is carried through the analysis rather than collapsed to a single point estimate.</p>
 
@@ -171,7 +171,7 @@
     </section>
 
     <section class="chapter" id="results">
-      <h1 data-chapter="03">3. Results</h1>
+      <h1 data-chapter="03">3. Where Nemmeli and Minjur Sit Against That Floor</h1>
 
       <h2 id="validation">3.1 Validating the Derivation Against a Published Benchmark</h2>
       <p>Before applying Eq. 3 to Chennai's actual plants, it needs to be checked against a known reference point. The most widely cited thermodynamic-minimum figure in the desalination literature is 1.06 kWh/m³, for the generic case of 35,000 mg/L feed TDS, 50 percent recovery, and 25°C.<sup class="cite-ref"><a href="#ref7">7</a></sup> Substituting those same conditions into Eq. 3, using the ideal Van't Hoff relation (φ = 1) and approximating seawater as NaCl (molar mass 58.44 g/mol), gives 1.14 kWh/m³, about 8 percent above the published figure.</p>
@@ -205,7 +205,7 @@
     </section>
 
     <section class="chapter" id="discussion">
-      <h1 data-chapter="04">4. Discussion</h1>
+      <h1 data-chapter="04">4. Reading the Gap, and the Brine Problem Underneath It</h1>
 
       <h2 id="why-the-gap">4.1 Why Real Plants Exceed the Thermodynamic Minimum</h2>
       <p>A 33 percent second-law efficiency means Nemmeli spends roughly three times the theoretically minimum energy for the separation it performs. That gap is not unexplained overhead; it traces to specific, well-characterized physical causes, each adding its own energy penalty on top of Eq. 3's reversible limit.</p>
@@ -224,7 +224,7 @@
     </section>
 
     <section class="chapter" id="conclusion">
-      <h1 data-chapter="05">5. Conclusion</h1>
+      <h1 data-chapter="05">5. What the Numbers Do and Don't Settle</h1>
       <p>Chennai's Nemmeli desalination plant consumes 3.6 to 3.78 kWh to produce each cubic metre of fresh water from Bay of Bengal seawater. Derived from first principles and validated against a published benchmark to within 0.1 percent after a standard non-ideality correction, the thermodynamic minimum for the plant's own actual feed salinity and recovery ratio, not the generic textbook case usually cited, comes to roughly 1.22 to 1.25 kWh/m³. The resulting second-law efficiency of approximately 33 percent places Nemmeli within the range reported for SWRO plants globally rather than notably outside it, which reframes the plant's energy consumption from an open question into a specific, quantified, and largely explained one: roughly a third of the theoretical limit, with the remaining gap traceable to driving-pressure requirements above osmotic pressure, concentration polarization, mechanical losses in pumps and energy recovery devices, and pre/post-treatment load, each a known and separately improvable engineering target rather than an unavoidable cost of physics.</p>
       <p>What this analysis doesn't resolve is the other side of the same mass balance. Roughly 1.22 litres of concentrated brine leaves the plant for every litre of product water, and while the general physical behaviour of such brine discharges, dense, sinking plumes affecting benthic sediment near the outfall, is well characterized in the global literature, no site-specific study of that impact at Minjur or Nemmeli was located during this research. A coastal plume-mapping study, of the kind that has been done at several other global SWRO sites, would be the natural next step to close that gap the same way this paper closes the energy one: replacing a generic, industry-wide expectation with a number specific to these two plants and this stretch of the Bay of Bengal.</p>
     </section>
