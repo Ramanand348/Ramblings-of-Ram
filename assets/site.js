@@ -529,7 +529,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (!indexData) return;
     var q = query.trim().toLowerCase();
     var matches = !q ? indexData : indexData.filter(function (item) {
-      return (item.title + ' ' + item.description + ' ' + item.section + ' ' + item.category)
+      return (item.title + ' ' + item.description + ' ' + item.section + ' ' + item.category + ' ' + (item.tags || []).join(' '))
         .toLowerCase().indexOf(q) !== -1;
     });
     if (!matches.length) {
