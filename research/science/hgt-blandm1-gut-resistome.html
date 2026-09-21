@@ -103,11 +103,11 @@
     <p class="toc-title">Contents</p>
     <ol>
       <li><a href="#abstract">Abstract</a></li>
-      <li><a href="#introduction">1. Introduction</a></li>
-      <li><a href="#methods">2. Methods</a></li>
-      <li><a href="#results">3. Results</a></li>
-      <li><a href="#discussion">4. Discussion</a></li>
-      <li><a href="#conclusion">5. Conclusion</a></li>
+      <li><a href="#introduction">1. Tracking a Resistance Gene Across Species Lines</a></li>
+      <li><a href="#methods">2. Building a Cross-Species SNP and Mobile-Element Dataset</a></li>
+      <li><a href="#results">3. Where blaNDM-1 Actually Jumps, and What Carries It</a></li>
+      <li><a href="#discussion">4. The Enteric Resistome as a Surveillance Blind Spot</a></li>
+      <li><a href="#conclusion">5. What This Means for Resistance Surveillance</a></li>
       <li><a href="#references">6. References</a></li>
     </ol>
   </nav>
@@ -122,12 +122,12 @@
     </section>
 
     <section class="chapter" id="introduction">
-      <h1 data-chapter="01">1. Introduction</h1>
+      <h1 data-chapter="01">1. Tracking a Resistance Gene Across Species Lines</h1>
       <p>Antimicrobial resistance (AMR) is escalating fast enough that it now counts as one of the more formidable challenges facing global public health. Clinical attention has historically gone to resistant pathogens themselves, but there's growing evidence that the human gut microbiome works as a "resistome," a large standing reservoir of resistance genes.<sup class="cite-ref"><a href="#ref1">1</a></sup> The <em>bla</em><sub>NDM-1</sub> gene is a particularly worrying member of that reservoir, since it confers resistance to nearly all beta-lactam antibiotics, carbapenems included, drugs that are often the last option available.<sup class="cite-ref"><a href="#ref2">2</a></sup> It spreads mainly through Horizontal Gene Transfer (HGT), where mobile genetic elements carry resistance markers from one bacterial species to another. In the crowded, mixed-species environment of the gastrointestinal tract, a commensal organism can act as a stable host for a while and then pass the gene on to something more dangerous.</p>
     </section>
 
     <section class="chapter" id="methods">
-      <h1 data-chapter="02">2. Methods</h1>
+      <h1 data-chapter="02">2. Building a Cross-Species SNP and Mobile-Element Dataset</h1>
       <p>Genomic sequences came from the NCBI Pathogen Detection Browser, targeting isolates carrying the <em>bla</em><sub>NDM-1</sub> genotype. The search was limited to human-host isolates collected between January 2022 and early 2026. To catch recent HGT events specifically, isolates were grouped by Pathogen Detection SNP Cluster (PDS) ID, and clusters containing at least two distinct bacterial species (say, <em>Escherichia coli</em> and <em>Klebsiella pneumoniae</em>) at low SNP distance were flagged as likely evidence of recent inter-species transfer. The regions flanking the gene were analyzed further to pin down which mobile genetic elements (MGEs) were actually involved.</p>
 
       <h2 id="dataset-selection">2.1 Dataset Selection and Retrieval</h2>
@@ -141,7 +141,7 @@
     </section>
 
     <section class="chapter" id="results">
-      <h1 data-chapter="03">3. Results</h1>
+      <h1 data-chapter="03">3. Where blaNDM-1 Actually Jumps, and What Carries It</h1>
 
       <h2 id="evidence-of-gene-hopping">3.1 Evidence of Gene Hopping</h2>
       <p>Searching the NCBI Pathogen browser for the <em>bla</em><sub>NDM-1</sub> genotype<sup class="cite-ref"><a href="#ref4">4</a></sup> turned up multiple organisms sharing the gene. The most frequent case was hopping between <em>E. coli</em> and <em>Shigella</em>; two examples appear in the table below.</p>
@@ -191,7 +191,7 @@
     </section>
 
     <section class="chapter" id="discussion">
-      <h1 data-chapter="04">4. Discussion</h1>
+      <h1 data-chapter="04">4. The Enteric Resistome as a Surveillance Blind Spot</h1>
 
       <h2 id="resistome-hub">4.1 The Role of the Enteric "Resistome" Hub</h2>
       <p>Finding <em>bla</em><sub>NDM-1</sub> inside an identical PDS cluster spanning both <em>E. coli</em> and <em>Shigella</em> is solid evidence of Horizontal Gene Transfer (HGT) within the human gut resistome. <em>E. coli</em> and <em>Shigella</em> are genetically close but clinically very different, so their shared occupancy of a low-SNP cluster shows how quiet, commensal reservoirs can directly feed the spread of more dangerous, resistant pathogens.</p>
@@ -204,7 +204,7 @@
     </section>
 
     <section class="chapter" id="conclusion">
-      <h1 data-chapter="05">5. Conclusion</h1>
+      <h1 data-chapter="05">5. What This Means for Resistance Surveillance</h1>
       <p>This study's findings show that <em>bla</em><sub>NDM-1</sub> spread within the human gut resistome reached a genuinely concerning point between 2024 and 2026. High-resolution in silico genomic surveillance turned up clear evidence of active Horizontal Gene Transfer within the PDS000002968.262 multi-species cluster, and the near-perfect conservation of the resistance cassette on contig ACBQRM010001011.1 across both <em>Escherichia coli</em> and <em>Shigella</em> shows that species boundaries matter less and less once mobile genetic elements are involved.</p>
       <p>The resistance gene also sits alongside fitness-boosting siderophore systems (<em>iutA</em>, for one), which points to a shift toward plasmids that do double duty, carrying both resistance and a survival edge even without antibiotic pressure in the picture. That suggests this threat is settling into the commensal gut flora more permanently, which makes it harder to root out with standard clinical approaches.</p>
       <p>The bigger takeaway is that AMR monitoring needs to move past species-specific diagnostics. A gene-centric surveillance model, one built around tracking these mobile elements across species rather than watching any single organism, looks like the better way to catch high-traffic resistance hubs early. Identifying the specific genetic shuttles behind these transfers gives public health agencies a real shot at staying ahead of pan-resistant enteric pathogens, and keeping carbapenems useful for longer.</p>
