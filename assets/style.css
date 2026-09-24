@@ -1623,3 +1623,67 @@ body { animation: page-fade-in 0.4s ease; }
   .ref-list li:target { background: none !important; }
 }
 
+/* ============================================================
+   Elsewhere card (About page) — distinct treatment for external
+   channels like Instagram, instead of a plain inline text link.
+   ============================================================ */
+.elsewhere-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  color: var(--ink);
+  background: var(--card-bg);
+  border: 1px solid var(--line-on-parchment);
+  border-radius: 6px;
+  padding: 18px 20px;
+  margin: 16px 0 22px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease, background-color 0.2s ease, color 0.2s ease;
+}
+.elsewhere-card:hover,
+.elsewhere-card:active {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+  border-color: var(--brass);
+}
+.elsewhere-card-icon {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--ink-night);
+  color: var(--brass-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.elsewhere-card-icon svg {
+  width: 22px;
+  height: 22px;
+}
+.elsewhere-card-body {
+  flex: 1;
+  min-width: 0;
+}
+.elsewhere-card-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--rust);
+  margin: 0 0 6px;
+  font-weight: 600;
+}
+.elsewhere-card-desc {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+.elsewhere-card-arrow {
+  flex-shrink: 0;
+  font-family: var(--font-mono);
+  color: var(--rust);
+  font-size: 1.1rem;
+}
+
