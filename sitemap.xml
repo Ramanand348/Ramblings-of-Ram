@@ -101,6 +101,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://ramanand348.github.io/Ramblings-of-Ram/research/science/chicxulub-asteroid-impact-yucatan.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://ramanand348.github.io/Ramblings-of-Ram/research/gaming/index.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
