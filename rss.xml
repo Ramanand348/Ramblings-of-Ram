@@ -6,7 +6,16 @@
   <description>Long-form research articles and shorter Notebook posts spanning history, science, and data-driven topics.</description>
   <language>en</language>
   <atom:link href="https://ramanand348.github.io/Ramblings-of-Ram/rss.xml" rel="self" type="application/rss+xml"/>
-  <lastBuildDate>Tue, 22 Sep 2026 00:00:00 GMT</lastBuildDate>
+  <lastBuildDate>Fri, 25 Sep 2026 00:00:00 GMT</lastBuildDate>
+  <item>
+    <title>Beyond the Documentary Version: What's Actually New About the Asteroid That Hit the Yucatán</title>
+    <link>https://ramanand348.github.io/Ramblings-of-Ram/research/science/chicxulub-asteroid-impact-yucatan.html</link>
+    <guid>https://ramanand348.github.io/Ramblings-of-Ram/research/science/chicxulub-asteroid-impact-yucatan.html</guid>
+    <description>An oil company found the crater first and nobody noticed for over a decade. The impact struck at close to the worst possible angle. A North Dakota fossil bed may have captured the actual hour.</description>
+    <category>Science</category>
+    <pubDate>Fri, 25 Sep 2026 00:00:00 GMT</pubDate>
+  </item>
+
   <item>
     <title>Two and a Half Centuries Before Newton: Madhava, the Kerala School, and the Infinite Series Behind Calculus</title>
     <link>https://ramanand348.github.io/Ramblings-of-Ram/research/history/kerala-school-madhava-infinite-series.html</link>
