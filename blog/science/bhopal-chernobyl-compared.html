@@ -113,60 +113,78 @@
 
     <div class="thesis-figure">
       <div class="timeline-wrap">
-        <svg class="timeline-svg" viewBox="0 0 700 230" role="img" aria-labelledby="fig1-title fig1-desc">
-          <title id="fig1-title">Bhopal and Chernobyl compared stage by stage</title>
-          <desc id="fig1-desc">Two parallel timelines showing five matching stages for each disaster: an ignored warning, the trigger event, delayed public disclosure, the accountability outcome, and the site's status today.</desc>
-
-          <text x="90" y="18" text-anchor="middle" class="lane-label">Warning</text>
-          <text x="230" y="18" text-anchor="middle" class="lane-label">Trigger</text>
-          <text x="370" y="18" text-anchor="middle" class="lane-label">Disclosure</text>
-          <text x="510" y="18" text-anchor="middle" class="lane-label">Accountability</text>
-          <text x="650" y="18" text-anchor="middle" class="lane-label">Site today</text>
-
-          <text x="10" y="72" class="lane-label" fill="var(--brass-light)">BHOPAL</text>
-          <line class="axis-line" x1="40" y1="80" x2="660" y2="80"></line>
-          <g class="tl-point" tabindex="0"><circle cx="90" cy="80" r="5" fill="var(--brass)"><title>1982 safety audit flagged 61 hazards; none confirmed fixed</title></circle></g>
-          <text class="axis-label" x="90" y="102" text-anchor="middle" font-size="11">1982 audit</text>
-          <text class="axis-label" x="90" y="116" text-anchor="middle" font-size="11">ignored</text>
-
-          <g class="tl-point" tabindex="0"><circle cx="230" cy="80" r="5" fill="var(--rust)"><title>Dec 2-3, 1984: water enters the MIC tank</title></circle></g>
-          <text class="axis-label" x="230" y="102" text-anchor="middle" font-size="11">Dec 1984</text>
-          <text class="axis-label" x="230" y="116" text-anchor="middle" font-size="11">MIC leak</text>
-
-          <g class="tl-point" tabindex="0"><circle cx="370" cy="80" r="5" fill="var(--rust)"><title>Hospitals initially told it was ammonia, not MIC</title></circle></g>
-          <text class="axis-label" x="370" y="102" text-anchor="middle" font-size="11">Told</text>
-          <text class="axis-label" x="370" y="116" text-anchor="middle" font-size="11">"ammonia"</text>
-
-          <g class="tl-point" tabindex="0"><circle cx="510" cy="80" r="5" fill="var(--verdigris)"><title>2010: seven Indian executives convicted; Anderson never tried</title></circle></g>
-          <text class="axis-label" x="510" y="102" text-anchor="middle" font-size="11">Anderson</text>
-          <text class="axis-label" x="510" y="116" text-anchor="middle" font-size="11">never tried</text>
-
-          <g class="tl-point" tabindex="0"><circle cx="650" cy="80" r="5" fill="var(--verdigris)"><title>No exclusion zone; hazardous waste only fully removed in 2025</title></circle></g>
-          <text class="axis-label" x="650" y="102" text-anchor="middle" font-size="11">Waste cleared</text>
-          <text class="axis-label" x="650" y="116" text-anchor="middle" font-size="11">in 2025</text>
-
-          <text x="10" y="172" class="lane-label" fill="var(--brass-light)">CHERNOBYL</text>
-          <line class="axis-line" x1="40" y1="180" x2="660" y2="180"></line>
-          <g class="tl-point" tabindex="0"><circle cx="90" cy="180" r="5" fill="var(--brass)"><title>RBMK reactor design flaw known but not passed to operators</title></circle></g>
-          <text class="axis-label" x="90" y="202" text-anchor="middle" font-size="11">Reactor flaw</text>
-          <text class="axis-label" x="90" y="216" text-anchor="middle" font-size="11">not shared</text>
-
-          <g class="tl-point" tabindex="0"><circle cx="230" cy="180" r="5" fill="var(--rust)"><title>Apr 25-26, 1986: botched safety test</title></circle></g>
-          <text class="axis-label" x="230" y="202" text-anchor="middle" font-size="11">Apr 1986</text>
-          <text class="axis-label" x="230" y="216" text-anchor="middle" font-size="11">test, explosion</text>
-
-          <g class="tl-point" tabindex="0"><circle cx="370" cy="180" r="5" fill="var(--rust)"><title>Three-day media blackout, forced open by Swedish radiation sensors</title></circle></g>
-          <text class="axis-label" x="370" y="202" text-anchor="middle" font-size="11">3-day</text>
-          <text class="axis-label" x="370" y="216" text-anchor="middle" font-size="11">blackout</text>
-
-          <g class="tl-point" tabindex="0"><circle cx="510" cy="180" r="5" fill="var(--verdigris)"><title>1987: Dyatlov and two others convicted</title></circle></g>
-          <text class="axis-label" x="510" y="202" text-anchor="middle" font-size="11">Dyatlov</text>
-          <text class="axis-label" x="510" y="216" text-anchor="middle" font-size="11">convicted</text>
-
-          <g class="tl-point" tabindex="0"><circle cx="650" cy="180" r="5" fill="var(--verdigris)"><title>30km exclusion zone, expected uninhabitable for millennia</title></circle></g>
-          <text class="axis-label" x="650" y="202" text-anchor="middle" font-size="11">Zone empty,</text>
-          <text class="axis-label" x="650" y="216" text-anchor="middle" font-size="11">millennia</text>
-        </svg>
+        <div class="vtimeline">
+          <div class="vtimeline-item">
+            <span class="vtimeline-dot" style="background: var(--brass);"></span>
+            <p class="vtimeline-date">Warning ignored</p>
+            <div class="vtimeline-pair">
+              <div>
+                <p class="vtimeline-pair-label" style="color: var(--brass-light);">Bhopal</p>
+                <p class="vtimeline-desc">1982 safety audit flagged 61 hazards; none confirmed fixed</p>
+              </div>
+              <div>
+                <p class="vtimeline-pair-label" style="color: var(--brass-light);">Chernobyl</p>
+                <p class="vtimeline-desc">RBMK reactor design flaw known, never passed to operators</p>
+              </div>
+            </div>
+          </div>
+          <div class="vtimeline-item">
+            <span class="vtimeline-dot" style="background: var(--rust);"></span>
+            <p class="vtimeline-date">Trigger</p>
+            <div class="vtimeline-pair">
+              <div>
+                <p class="vtimeline-pair-label" style="color: var(--brass-light);">Bhopal</p>
+                <p class="vtimeline-desc">Dec 2–3, 1984: water enters the MIC tank</p>
+              </div>
+              <div>
+                <p class="vtimeline-pair-label" style="color: var(--brass-light);">Chernobyl</p>
+                <p class="vtimeline-desc">Apr 25–26, 1986: a botched safety test</p>
+              </div>
+            </div>
+          </div>
+          <div class="vtimeline-item">
+            <span class="vtimeline-dot" style="background: var(--rust);"></span>
+            <p class="vtimeline-date">Disclosure delayed</p>
+            <div class="vtimeline-pair">
+              <div>
+                <p class="vtimeline-pair-label" style="color: var(--brass-light);">Bhopal</p>
+                <p class="vtimeline-desc">Hospitals initially told it was ammonia, not MIC</p>
+              </div>
+              <div>
+                <p class="vtimeline-pair-label" style="color: var(--brass-light);">Chernobyl</p>
+                <p class="vtimeline-desc">Three-day media blackout, forced open by Swedish sensors</p>
+              </div>
+            </div>
+          </div>
+          <div class="vtimeline-item">
+            <span class="vtimeline-dot" style="background: var(--verdigris);"></span>
+            <p class="vtimeline-date">Accountability</p>
+            <div class="vtimeline-pair">
+              <div>
+                <p class="vtimeline-pair-label" style="color: var(--brass-light);">Bhopal</p>
+                <p class="vtimeline-desc">2010: seven Indian executives convicted; Anderson never tried</p>
+              </div>
+              <div>
+                <p class="vtimeline-pair-label" style="color: var(--brass-light);">Chernobyl</p>
+                <p class="vtimeline-desc">1987: Dyatlov and two others convicted</p>
+              </div>
+            </div>
+          </div>
+          <div class="vtimeline-item">
+            <span class="vtimeline-dot" style="background: var(--verdigris);"></span>
+            <p class="vtimeline-date">Site today</p>
+            <div class="vtimeline-pair">
+              <div>
+                <p class="vtimeline-pair-label" style="color: var(--brass-light);">Bhopal</p>
+                <p class="vtimeline-desc">No exclusion zone; hazardous waste only fully removed in 2025</p>
+              </div>
+              <div>
+                <p class="vtimeline-pair-label" style="color: var(--brass-light);">Chernobyl</p>
+                <p class="vtimeline-desc">30km exclusion zone, expected uninhabitable for millennia</p>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="timeline-legend">
           <span><span class="legend-dot" style="background: var(--brass);"></span>Known risk beforehand</span>
           <span><span class="legend-dot" style="background: var(--rust);"></span>The disaster itself</span>
@@ -174,7 +192,7 @@
         </div>
       </div>
     </div>
-    <p class="timeline-caption" style="color: var(--ink-soft); margin: -10px 0 28px;">Figure 1 — The same five stages, side by side. Tap or hover any point for the full detail. The first three columns line up closely; the last two are where the two disasters' aftermaths diverge sharply.</p>
+    <p class="timeline-caption" style="color: var(--ink-soft); margin: -10px 0 28px;">Figure 1 — The same five stages, side by side. The first three line up closely; the last two are where the two disasters' aftermaths diverge sharply.</p>
 
     <h2>Where they diverge, and it isn't a small difference</h2>
     <p>The most consequential difference isn't in what happened during either disaster. It's in what happened to the people responsible afterward. Chernobyl's plant director, chief engineer, and deputy chief engineer Anatoly Dyatlov were tried by a Soviet court in July 1987 on charges of gross violation of safety regulations, convicted, and sentenced to labor camp terms. Warren Anderson, the Union Carbide chairman at the time of the Bhopal leak, was arrested on arrival in Bhopal days after the disaster, released on bail, and left India, never to return for the criminal proceedings still technically pending against him. The United States declined India's extradition requests. Anderson died in 2014, in New York, having never faced an Indian court. A Bhopal court did eventually convict seven Indian former UCIL executives, in 2010, but on the lesser charge of death by negligence rather than the culpable-homicide charge originally sought, and Union Carbide Corporation itself has never appeared in an Indian courtroom to answer the same charge still standing against it.</p>
