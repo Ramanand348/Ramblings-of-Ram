@@ -1687,3 +1687,66 @@ body { animation: page-fade-in 0.4s ease; }
   font-size: 1.1rem;
 }
 
+
+/* ============================================================
+   Vertical timeline (mobile-safe replacement for the SVG
+   multi-point timeline: plain HTML/CSS text reflows naturally
+   at any width instead of relying on fixed SVG text positions,
+   which cannot adapt to narrow screens.
+   ============================================================ */
+.vtimeline {
+  padding: 4px 4px 0;
+}
+.vtimeline-item {
+  position: relative;
+  padding-left: 22px;
+  padding-bottom: 16px;
+  border-left: 2px solid var(--line-on-night);
+  margin-left: 5px;
+}
+.vtimeline-item:last-child {
+  border-left-color: transparent;
+  padding-bottom: 2px;
+}
+.vtimeline-dot {
+  position: absolute;
+  left: -6px;
+  top: 3px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px var(--ink-night);
+}
+.vtimeline-date {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.02em;
+  color: var(--brass-light);
+  margin: 0 0 3px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.vtimeline-desc {
+  font-size: 0.9rem;
+  color: rgba(244, 238, 221, 0.85);
+  margin: 0;
+  line-height: 1.45;
+}
+.vtimeline-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+@media (max-width: 560px) {
+  .vtimeline-pair {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+}
+.vtimeline-pair-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin: 0 0 2px;
+}
