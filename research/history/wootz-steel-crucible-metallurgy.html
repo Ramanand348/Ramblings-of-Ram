@@ -164,67 +164,49 @@
 
     <div class="thesis-figure">
       <div class="timeline-wrap">
-        <p class="lane-label" style="margin: 0 0 6px 4px; color: var(--brass-light); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.03em; text-transform: uppercase;">Wootz steel: key dates</p>
-        <svg class="timeline-svg" viewBox="0 0 700 220" role="img" aria-labelledby="fig1-title fig1-desc">
-          <title id="fig1-title">Timeline of wootz and Damascus steel, from ancient South Indian production to modern reconstruction</title>
-          <desc id="fig1-desc">Eight key dates spanning roughly 2,300 years, from Kodumanal's third-century-BCE furnaces to a 2006 nanotube finding flagged as a single, unreplicated sample.</desc>
-          <line class="axis-line" x1="40" y1="110" x2="660" y2="110"></line>
-          <g class="tl-point" tabindex="0">
-            <circle cx="50" cy="110" r="5" fill="var(--brass)"><title>c. 300–200 BCE</title></circle>
-          </g>
-          <text class="axis-label" x="50" y="90" font-size="11">c. 300–200 BCE</text>
-          <text class="axis-label" x="50" y="74" font-size="11">Kodumanal furnaces,</text>
-          <text class="axis-label" x="50" y="60" font-size="11">Tamil Nadu</text>
-
-          <g class="tl-point" tabindex="0">
-            <circle cx="136" cy="110" r="5" fill="var(--brass)"><title>c. 77 CE</title></circle>
-          </g>
-          <text class="axis-label" x="136" y="132" font-size="11">c. 77 CE</text>
-          <text class="axis-label" x="136" y="148" font-size="11">Pliny records</text>
-          <text class="axis-label" x="136" y="162" font-size="11">"Seric iron"</text>
-
-          <g class="tl-point" tabindex="0">
-            <circle cx="221" cy="110" r="5" fill="var(--brass)"><title>c. 900 CE</title></circle>
-          </g>
-          <text class="axis-label" x="221" y="90" font-size="11">c. 900 CE</text>
-          <text class="axis-label" x="221" y="74" font-size="11">Earliest surviving</text>
-          <text class="axis-label" x="221" y="60" font-size="11">patterned blades</text>
-
-          <g class="tl-point" tabindex="0">
-            <circle cx="307" cy="110" r="5" fill="var(--rust)"><title>c. 1750 CE</title></circle>
-          </g>
-          <text class="axis-label" x="307" y="132" font-size="11">c. 1750</text>
-          <text class="axis-label" x="307" y="148" font-size="11">Last genuine wootz</text>
-          <text class="axis-label" x="307" y="162" font-size="11">Damascus blades made</text>
-
-          <g class="tl-point" tabindex="0">
-            <circle cx="393" cy="110" r="5" fill="var(--rust)"><title>1819</title></circle>
-          </g>
-          <text class="axis-label" x="393" y="90" font-size="11">1819</text>
-          <text class="axis-label" x="393" y="74" font-size="11">Faraday's analysis</text>
-          <text class="axis-label" x="393" y="60" font-size="11">(inconclusive)</text>
-
-          <g class="tl-point" tabindex="0">
-            <circle cx="479" cy="110" r="5" fill="var(--rust)"><title>1830s</title></circle>
-          </g>
-          <text class="axis-label" x="479" y="132" font-size="11">1830s</text>
-          <text class="axis-label" x="479" y="148" font-size="11">Anosov's Russian</text>
-          <text class="axis-label" x="479" y="162" font-size="11">"bulat" attempts</text>
-
-          <g class="tl-point" tabindex="0">
-            <circle cx="564" cy="110" r="5" fill="var(--verdigris)"><title>1990–2004</title></circle>
-          </g>
-          <text class="axis-label" x="564" y="90" font-size="11">1990–2004</text>
-          <text class="axis-label" x="564" y="74" font-size="11">Verhoeven &amp; Pendray</text>
-          <text class="axis-label" x="564" y="60" font-size="11">explain the banding</text>
-
-          <g class="tl-point unverified" tabindex="0">
-            <circle cx="650" cy="110" r="5" fill="var(--plum)"><title>2006 — single sample, not independently replicated</title></circle>
-          </g>
-          <text class="axis-label" x="650" y="132" font-size="11">2006</text>
-          <text class="axis-label" x="650" y="148" font-size="11">Paufler team reports</text>
-          <text class="axis-label" x="650" y="162" font-size="11">nanotubes (1 sample)</text>
-        </svg>
+        <p class="lane-label" style="margin: 0 0 8px 4px; color: var(--brass-light); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.03em; text-transform: uppercase;">Wootz steel: key dates</p>
+        <div class="vtimeline">
+          <div class="vtimeline-item">
+            <span class="vtimeline-dot" style="background: var(--brass);"></span>
+            <p class="vtimeline-date">c. 300–200 BCE</p>
+            <p class="vtimeline-desc">Kodumanal furnaces, Tamil Nadu</p>
+          </div>
+          <div class="vtimeline-item">
+            <span class="vtimeline-dot" style="background: var(--brass);"></span>
+            <p class="vtimeline-date">c. 77 CE</p>
+            <p class="vtimeline-desc">Pliny records "Seric iron"</p>
+          </div>
+          <div class="vtimeline-item">
+            <span class="vtimeline-dot" style="background: var(--brass);"></span>
+            <p class="vtimeline-date">c. 900 CE</p>
+            <p class="vtimeline-desc">Earliest surviving patterned blades</p>
+          </div>
+          <div class="vtimeline-item">
+            <span class="vtimeline-dot" style="background: var(--rust);"></span>
+            <p class="vtimeline-date">c. 1750</p>
+            <p class="vtimeline-desc">Last genuine wootz Damascus blades made</p>
+          </div>
+          <div class="vtimeline-item">
+            <span class="vtimeline-dot" style="background: var(--rust);"></span>
+            <p class="vtimeline-date">1819</p>
+            <p class="vtimeline-desc">Faraday's analysis (inconclusive)</p>
+          </div>
+          <div class="vtimeline-item">
+            <span class="vtimeline-dot" style="background: var(--rust);"></span>
+            <p class="vtimeline-date">1830s</p>
+            <p class="vtimeline-desc">Anosov's Russian "bulat" attempts</p>
+          </div>
+          <div class="vtimeline-item">
+            <span class="vtimeline-dot" style="background: var(--verdigris);"></span>
+            <p class="vtimeline-date">1990–2004</p>
+            <p class="vtimeline-desc">Verhoeven &amp; Pendray explain the banding</p>
+          </div>
+          <div class="vtimeline-item">
+            <span class="vtimeline-dot" style="background: var(--plum); border: 1px dashed rgba(244,238,221,0.5);"></span>
+            <p class="vtimeline-date">2006</p>
+            <p class="vtimeline-desc">Paufler team reports nanotubes (single sample, unreplicated)</p>
+          </div>
+        </div>
         <div class="timeline-legend">
           <span><span class="legend-dot" style="background: var(--brass);"></span>South Indian production era</span>
           <span><span class="legend-dot" style="background: var(--rust);"></span>Decline and early study</span>
@@ -233,7 +215,7 @@
         </div>
       </div>
     </div>
-    <p class="timeline-caption" style="color: var(--ink-soft); margin: -10px 0 28px;">Figure 1 — Key dates in the wootz and Damascus steel story, spanning roughly 2,300 years. Spacing is even for legibility, not linear against elapsed time. See Notes 3, 6, 17–19, 22, and 24–27 for sourcing on individual points.</p>
+    <p class="timeline-caption" style="color: var(--ink-soft); margin: -10px 0 28px;">Figure 1 — Key dates in the wootz and Damascus steel story, spanning roughly 2,300 years. See Notes 3, 6, 17–19, 22, and 24–27 for sourcing on individual points.</p>
 
     <section class="chapter" id="why-it-ended">
       <h2>7. Why the Tradition Ended</h2>
