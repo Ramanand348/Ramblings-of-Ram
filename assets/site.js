@@ -705,5 +705,360 @@ document.addEventListener('DOMContentLoaded', function () {
   counters.forEach(function (el) { observer.observe(el); });
 });
 
+// ============================================================
+// Reader enhancements: tap-to-preview citations, reader controls,
+// resume reading, correction link, table fades, figure zoom, mobile
+// bottom bar, follow box. All progressive: pages work without JS.
+// ============================================================
+(function () {
+  // Paste your Buttondown (or similar) embed-subscribe URL here to turn on
+  // the email box, e.g. 'https://buttondown.com/api/emails/embed-subscribe/USERNAME'
+  var SUBSCRIBE_URL = '';
+  var ISSUES_URL = 'https://github.com/Ramanand348/Ramblings-of-Ram/issues/new';
 
+  var mem = {
+    get: function (k) { try { return window.localStorage.getItem(k); } catch (e) { return null; } },
+    set: function (k, v) { try { window.localStorage.setItem(k, v); } catch (e) {} }
+  };
+  function el(tag, cls, html) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (html != null) n.innerHTML = html;
+    return n;
+  }
+  function siteRoot() {
+    var s = document.querySelector('script[src$="assets/site.js"]');
+    return s ? s.getAttribute('src').replace('assets/site.js', '') : '';
+  }
+  function articleProgress(article) {
+    var rect = article.getBoundingClientRect();
+    var top = rect.top + window.scrollY;
+    var scrolled = window.scrollY - top + window.innerHeight * 0.5;
+    return Math.min(1, Math.max(0, scrolled / article.offsetHeight));
+  }
 
+  /* ---------- Follow box (RSS, optional email) ---------- */
+  function initFollow() {
+    var footer = document.querySelector('.site-footer');
+    if (!footer) return;
+    var box = el('section', 'follow-box');
+    var html = '<div class="follow-inner"><p class="follow-title">Follow along</p>' +
+      '<p class="follow-text">New research and notes are posted as they are finished.</p>' +
+      '<div class="follow-actions"><a class="follow-link" href="' + siteRoot() + 'rss.xml">RSS feed</a></div>';
+    if (SUBSCRIBE_URL) {
+      html += '<form class="follow-form" action="' + SUBSCRIBE_URL + '" method="post" target="_blank">' +
+        '<label class="visually-hidden" for="follow-email">Email address</label>' +
+        '<input id="follow-email" type="email" name="email" placeholder="you@example.com" required>' +
+        '<button type="submit">Subscribe by email</button></form>';
+    }
+    html += '</div>';
+    box.innerHTML = html;
+    footer.parentNode.insertBefore(box, footer);
+  }
+
+  /* ---------- Reader controls (text size, spacing, width) ---------- */
+  function initReader() {
+    var SIZES = [0.9, 1, 1.1, 1.2, 1.35], LH = [1.55, 1.75, 2.0], WIDTH = [600, 700, 820];
+    var st = { s: 1, l: 1, w: 1 };
+    try { var sv = JSON.parse(mem.get('rc-read') || 'null'); if (sv) { st.s = +sv.s; st.l = +sv.l; st.w = +sv.w; } } catch (e) {}
+    var root = document.documentElement;
+    function apply() {
+      var def = st.s === 1 && st.l === 1 && st.w === 1;
+      if (def) { root.removeAttribute('data-read'); }
+      else {
+        root.setAttribute('data-read', '1');
+        root.style.setProperty('--read-scale', SIZES[st.s]);
+        root.style.setProperty('--read-lh', LH[st.l]);
+        root.style.setProperty('--read-width', WIDTH[st.w] + 'px');
+      }
+      mem.set('rc-read', JSON.stringify(st));
+      panel.querySelectorAll('[data-group]').forEach(function (g) {
+        var k = g.getAttribute('data-group');
+        g.querySelectorAll('button').forEach(function (b) {
+          b.classList.toggle('on', +b.getAttribute('data-v') === st[k]);
+        });
+      });
+    }
+    var panel = el('div', 'reader-panel',
+      '<div class="rp-row"><span>Text size</span><div class="rp-seg"><button type="button" data-act="s-">A-</button><button type="button" data-act="s+">A+</button></div></div>' +
+      '<div class="rp-row"><span>Spacing</span><div class="rp-seg" data-group="l"><button type="button" data-v="0">Tight</button><button type="button" data-v="1">Normal</button><button type="button" data-v="2">Roomy</button></div></div>' +
+      '<div class="rp-row"><span>Width</span><div class="rp-seg" data-group="w"><button type="button" data-v="0">Narrow</button><button type="button" data-v="1">Normal</button><button type="button" data-v="2">Wide</button></div></div>' +
+      '<button type="button" class="rp-reset">Reset</button>');
+    panel.setAttribute('role', 'dialog');
+    panel.setAttribute('aria-label', 'Reading settings');
+    panel.hidden = true;
+    document.body.appendChild(panel);
+
+    var btn = el('button', 'header-icon-btn reader-btn', 'Aa');
+    btn.type = 'button';
+    btn.setAttribute('aria-label', 'Reading settings');
+    btn.setAttribute('aria-expanded', 'false');
+    var right = document.querySelector('.site-header-right');
+    var theme = right && right.querySelector('.theme-toggle');
+    if (right) right.insertBefore(btn, theme || right.firstChild);
+    else { var hi = document.querySelector('.site-header-inner'); if (hi) hi.appendChild(btn); }
+
+    function toggle(open) {
+      panel.hidden = !open;
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    }
+    btn.addEventListener('click', function (e) { e.stopPropagation(); toggle(panel.hidden); });
+    panel.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var b = e.target.closest('button');
+      if (!b) return;
+      if (b.classList.contains('rp-reset')) { st = { s: 1, l: 1, w: 1 }; }
+      else if (b.getAttribute('data-act') === 's+') { st.s = Math.min(SIZES.length - 1, st.s + 1); }
+      else if (b.getAttribute('data-act') === 's-') { st.s = Math.max(0, st.s - 1); }
+      else if (b.hasAttribute('data-v')) { st[b.parentNode.getAttribute('data-group')] = +b.getAttribute('data-v'); }
+      apply();
+    });
+    document.addEventListener('click', function () { if (!panel.hidden) toggle(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !panel.hidden) toggle(false); });
+    apply();
+  }
+
+  /* ---------- Tap-to-preview citations ---------- */
+  function initCitations(article) {
+    var pop = el('div', 'cite-pop');
+    pop.setAttribute('role', 'dialog');
+    pop.setAttribute('aria-label', 'Source preview');
+    pop.hidden = true;
+    document.body.appendChild(pop);
+    function close() { pop.hidden = true; }
+    function refText(node) {
+      var c = node.cloneNode(true);
+      c.querySelectorAll('a').forEach(function (a) {
+        if (/^[\s\u21a9\u2191\u21a5]*$/.test(a.textContent) || /back|return/i.test(a.className)) a.remove();
+      });
+      return c.textContent.replace(/[\u21a9\u2191]/g, '').replace(/\s+/g, ' ').replace(/^\s*\[?\d+\.?\]?\s*/, '').trim();
+    }
+    function show(anchor, target) {
+      var id = target.id;
+      pop.innerHTML = '<button type="button" class="cp-close" aria-label="Close">\u00d7</button>' +
+        '<p class="cp-num"></p><p class="cp-text"></p><a class="cp-jump" href="#' + id + '">Jump to reference</a>';
+      pop.querySelector('.cp-num').textContent = 'Source ' + anchor.textContent.replace(/[\[\]]/g, '').trim();
+      pop.querySelector('.cp-text').textContent = refText(target);
+      pop.hidden = false;
+      var rect = anchor.getBoundingClientRect();
+      var w = Math.min(360, window.innerWidth - 24);
+      pop.style.width = w + 'px';
+      var left = Math.min(Math.max(rect.left - 20, 12), window.innerWidth - w - 12);
+      var h = pop.offsetHeight;
+      var top = rect.bottom + 8;
+      if (top + h > window.innerHeight - 12) top = Math.max(12, rect.top - h - 8);
+      pop.style.left = left + 'px';
+      pop.style.top = top + 'px';
+      pop.querySelector('.cp-close').addEventListener('click', close);
+      pop.querySelector('.cp-jump').addEventListener('click', function () {
+        close();
+        setTimeout(function () {
+          target.classList.remove('footnote-highlight');
+          void target.offsetWidth;
+          target.classList.add('footnote-highlight');
+        }, 50);
+      });
+    }
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest ? e.target.closest('a') : null;
+      if (a && article.contains(a) && a.closest('sup') && /^#(ref|fn)/.test(a.getAttribute('href') || '')) {
+        var t = document.getElementById(a.getAttribute('href').slice(1));
+        if (t) { e.preventDefault(); e.stopPropagation(); show(a, t); return; }
+      }
+      if (!pop.hidden && !pop.contains(e.target)) close();
+    }, true);
+    window.addEventListener('scroll', function () { if (!pop.hidden && window.innerWidth > 600) close(); }, { passive: true });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+  }
+
+  /* ---------- Resume reading ---------- */
+  function initResume() {
+    var key = 'rc-pos:' + location.pathname;
+    var h1 = document.querySelector('.reading-header h1');
+    var title = (h1 ? h1.textContent : document.title).trim();
+    var saved = null;
+    try { saved = JSON.parse(mem.get(key) || 'null'); } catch (e) {}
+    function frac() {
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      return max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+    }
+    if (saved && saved.p > 0.04 && saved.p < 0.96 && !location.hash && window.scrollY < 200) {
+      var toast = el('div', 'resume-toast',
+        '<span>Pick up where you left off (' + Math.round(saved.p * 100) + '%)?</span>' +
+        '<button type="button" class="rt-go">Resume</button><button type="button" class="rt-x">Start over</button>');
+      document.body.appendChild(toast);
+      var gone = setTimeout(function () { toast.remove(); }, 15000);
+      toast.querySelector('.rt-go').addEventListener('click', function () {
+        var max = document.documentElement.scrollHeight - window.innerHeight;
+        window.scrollTo({ top: saved.p * max, behavior: 'smooth' });
+        clearTimeout(gone); toast.remove();
+      });
+      toast.querySelector('.rt-x').addEventListener('click', function () {
+        mem.set(key, JSON.stringify({ p: 0, t: title, h: location.pathname, ts: Date.now() }));
+        clearTimeout(gone); toast.remove();
+      });
+    }
+    var tm = null;
+    window.addEventListener('scroll', function () {
+      clearTimeout(tm);
+      tm = setTimeout(function () {
+        mem.set(key, JSON.stringify({ p: frac(), t: title, h: location.pathname, ts: Date.now() }));
+      }, 350);
+    }, { passive: true });
+  }
+
+  function initContinueStrip() {
+    var main = document.querySelector('main');
+    if (!main || !document.querySelector('.hero-compact')) return;
+    var best = null;
+    try {
+      for (var i = 0; i < window.localStorage.length; i++) {
+        var k = window.localStorage.key(i);
+        if (k && k.indexOf('rc-pos:') === 0) {
+          var v = JSON.parse(window.localStorage.getItem(k));
+          if (v && v.p > 0.04 && v.p < 0.96 && v.h && v.t && (!best || v.ts > best.ts)) best = v;
+        }
+      }
+    } catch (e) {}
+    if (!best) return;
+    var sec = el('section', 'section continue-section');
+    var a = el('a', 'continue-strip');
+    a.href = best.h;
+    a.innerHTML = '<span class="cs-label">Continue reading</span><span class="cs-title"></span><span class="cs-pct">' + Math.round(best.p * 100) + '%</span>';
+    a.querySelector('.cs-title').textContent = best.t;
+    sec.appendChild(a);
+    main.insertBefore(sec, main.firstChild);
+  }
+
+  /* ---------- Correction link (research pages) ---------- */
+  function initCorrections(article) {
+    if (location.pathname.indexOf('/research/') === -1) return;
+    var h1 = document.querySelector('.reading-header h1');
+    var title = (h1 ? h1.textContent : document.title).trim();
+    var url = ISSUES_URL + '?title=' + encodeURIComponent('Correction: ' + title) +
+      '&body=' + encodeURIComponent('Page: ' + location.href + '\n\nWhat is wrong or missing:\n\nBetter source (if any):\n');
+    var box = el('aside', 'correction-box',
+      '<p class="cb-title">Spot an error or a better source?</p>' +
+      '<p>Research pieces here are sourced, and sources can be wrong or go out of date. If something looks off, tell me and I will check it.</p>' +
+      '<a class="cb-link" href="' + url + '" target="_blank" rel="noopener">Send a correction</a>');
+    article.appendChild(box);
+  }
+
+  /* ---------- Scrollable tables: edge fades ---------- */
+  function initTables(article) {
+    article.querySelectorAll('.table-scroll').forEach(function (sc) {
+      var wrap = el('div', 'table-scroll-wrap');
+      sc.parentNode.insertBefore(wrap, sc);
+      wrap.appendChild(sc);
+      function upd() {
+        var max = sc.scrollWidth - sc.clientWidth;
+        wrap.classList.toggle('can-left', sc.scrollLeft > 4);
+        wrap.classList.toggle('can-right', sc.scrollLeft < max - 4);
+      }
+      sc.addEventListener('scroll', upd, { passive: true });
+      window.addEventListener('resize', upd);
+      upd();
+    });
+  }
+
+  /* ---------- Figure zoom ---------- */
+  function initZoom(article) {
+    var targets = article.querySelectorAll('.thesis-figure img, figure img, .thesis-figure svg, figure svg');
+    if (!targets.length) return;
+    var box = el('div', 'lightbox',
+      '<button type="button" class="lb-close" aria-label="Close image">\u00d7</button>' +
+      '<div class="lb-stage"></div><p class="lb-hint">Tap the image to zoom, pinch for more</p>');
+    box.hidden = true;
+    document.body.appendChild(box);
+    var stage = box.querySelector('.lb-stage');
+    function close() {
+      box.hidden = true; stage.innerHTML = '';
+      box.classList.remove('zoomed'); document.body.classList.remove('lb-open');
+    }
+    function open(t) {
+      var c = t.cloneNode(true);
+      c.removeAttribute('width'); c.removeAttribute('height'); c.removeAttribute('class');
+      stage.innerHTML = ''; stage.appendChild(c);
+      box.classList.remove('zoomed'); box.hidden = false;
+      document.body.classList.add('lb-open');
+    }
+    targets.forEach(function (t) {
+      t.classList.add('zoomable');
+      t.setAttribute('tabindex', '0');
+      t.addEventListener('click', function () { open(t); });
+      t.addEventListener('keydown', function (e) { if (e.key === 'Enter') open(t); });
+    });
+    stage.addEventListener('click', function (e) {
+      if (e.target.closest && e.target.closest('img, svg')) box.classList.toggle('zoomed');
+      else close();
+    });
+    box.querySelector('.lb-close').addEventListener('click', close);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !box.hidden) close(); });
+  }
+
+  /* ---------- Mobile bottom bar ---------- */
+  function initMobileBar(article) {
+    var words = (article.textContent || '').split(/\s+/).length;
+    var totalMin = words / 230;
+    var tocLinks = document.querySelectorAll('.toc a[href^="#"]');
+    var bar = el('div', 'mobile-bar',
+      '<div class="mb-track"><div class="mb-fill"></div></div>' +
+      '<div class="mb-row">' +
+      (tocLinks.length ? '<button type="button" class="mb-contents">Contents</button>' : '<span></span>') +
+      '<span class="mb-left"></span>' +
+      '<button type="button" class="mb-top" aria-label="Back to top">\u2191</button></div>');
+    bar.setAttribute('role', 'region');
+    bar.setAttribute('aria-label', 'Reading progress');
+    document.body.appendChild(bar);
+    document.body.classList.add('has-mobile-bar');
+    var fill = bar.querySelector('.mb-fill'), left = bar.querySelector('.mb-left');
+
+    function update() {
+      var p = articleProgress(article);
+      fill.style.width = (p * 100) + '%';
+      var mins = Math.ceil(totalMin * (1 - p));
+      left.textContent = p > 0.98 ? 'Finished' : (mins <= 1 ? 'Under 1 min left' : mins + ' min left');
+      bar.classList.toggle('visible', window.scrollY > 300);
+    }
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+
+    bar.querySelector('.mb-top').addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    if (tocLinks.length) {
+      var sheet = el('div', 'toc-sheet', '<div class="ts-backdrop"></div><div class="ts-panel"><p class="ts-title">Contents</p><ol></ol></div>');
+      sheet.hidden = true;
+      var ol = sheet.querySelector('ol');
+      tocLinks.forEach(function (a) {
+        var li = document.createElement('li');
+        var l = document.createElement('a');
+        l.href = a.getAttribute('href'); l.textContent = a.textContent;
+        l.addEventListener('click', function () { sheet.hidden = true; });
+        li.appendChild(l); ol.appendChild(li);
+      });
+      document.body.appendChild(sheet);
+      bar.querySelector('.mb-contents').addEventListener('click', function () { sheet.hidden = false; });
+      sheet.querySelector('.ts-backdrop').addEventListener('click', function () { sheet.hidden = true; });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') sheet.hidden = true; });
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    var article = document.querySelector('.article-body');
+    initFollow();
+    if (article) {
+      initReader();
+      initCitations(article);
+      initResume();
+      initCorrections(article);
+      initTables(article);
+      initZoom(article);
+      initMobileBar(article);
+    } else {
+      initContinueStrip();
+    }
+  });
+})();
