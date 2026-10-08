@@ -13,7 +13,7 @@
     ]
   },
   {
-    "title": "Beyond the Documentary Version: What's Actually New About the Asteroid That Hit the Yucat\u00e1n",
+    "title": "Beyond the Documentary Version: What's Actually New About the Asteroid That Hit the Yucatán",
     "url": "/research/science/chicxulub-asteroid-impact-yucatan.html",
     "section": "Research",
     "category": "Science",
@@ -166,6 +166,19 @@
       "Game Design",
       "Software",
       "Gaming",
+      "Patents"
+    ]
+  },
+  {
+    "title": "A Thousand Hours of EA FC, and Why I No Longer Trust the Result Screen",
+    "url": "/blog/gaming/ea-fc-thousand-hours-result-screen.html",
+    "section": "Notebook",
+    "category": "Gaming",
+    "description": "A thousand hours of EA FC, almost every Clubs session with the same failures, and what changed when I read what EA has patented and published about engagement-driven matchmaking.",
+    "tags": [
+      "Gaming",
+      "Game Design",
+      "EA Sports FC",
       "Patents"
     ]
   },
