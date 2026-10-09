@@ -232,5 +232,17 @@
       "PlayStation",
       "Game Preservation"
     ]
+  },
+  {
+    "title": "EA FC Session Tally",
+    "url": "/tools/ea-fc-session-tally.html",
+    "section": "Tools",
+    "category": "Gaming",
+    "description": "A private, on-device tally for logging EA FC session problems such as server drops, live-join hangs and kick-off glitches, with totals and CSV export.",
+    "tags": [
+      "Gaming",
+      "EA Sports FC",
+      "Tool"
+    ]
   }
 ]
