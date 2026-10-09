@@ -2174,3 +2174,44 @@ body.lb-open { overflow: hidden; }
 .empty-state .article-kicker,
 .article-card.cat-genomics .article-kicker,
 .article-card.cat-genomics .read-link { color: var(--verdigris-text); }
+
+/* Interactive explorer (flood article) */
+.explorer {
+  margin: 28px 0;
+  padding: 20px 22px;
+  background: var(--card-bg, var(--cream));
+  border: 1px solid var(--line-on-parchment);
+  border-radius: 6px;
+}
+.ex-presets { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+.ex-presets button {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  line-height: 1.3;
+  min-height: 44px;
+  padding: 6px 12px;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--line-on-parchment);
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: left;
+}
+.ex-presets button:hover, .ex-presets button.on { border-color: var(--rust); color: var(--rust); }
+.ex-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin-bottom: 18px; }
+.ex-field { display: flex; flex-direction: column; gap: 4px; }
+.ex-field label {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  font-family: var(--font-mono); font-size: 0.78rem; color: var(--ink-soft);
+}
+.ex-field output { color: var(--ink); font-weight: 600; }
+.ex-field input[type="range"] { width: 100%; min-height: 44px; accent-color: var(--rust); }
+.ex-verdict { margin: 0 0 12px; padding: 12px 14px; border-left: 3px solid var(--verdigris); background: rgba(79, 114, 102, 0.1); font-size: 0.98rem; line-height: 1.55; }
+.ex-verdict.warn { border-left-color: var(--rust); background: rgba(140, 63, 46, 0.1); }
+.ex-stats { margin: 0 0 14px; }
+.ex-row { display: flex; justify-content: space-between; gap: 14px; padding: 8px 0; border-bottom: 1px solid var(--line-on-parchment); font-size: 0.92rem; }
+.ex-row dt { color: var(--ink-soft); }
+.ex-row dd { margin: 0; text-align: right; font-family: var(--font-mono); font-size: 0.82rem; color: var(--ink); }
+.ex-note { font-family: var(--font-mono); font-size: 0.74rem; line-height: 1.55; color: var(--ink-soft); margin: 10px 0 0; }
+@media (min-width: 700px) { .ex-grid { grid-template-columns: 1fr 1fr; gap: 14px 28px; } }
+@media print { .explorer { display: none; } }
