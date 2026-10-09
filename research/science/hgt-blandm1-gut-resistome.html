@@ -6,7 +6,7 @@
 <script>document.documentElement.classList.add("js-reveal");</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <link rel="canonical" href="https://ramanand348.github.io/Ramblings-of-Ram/research/science/hgt-blandm1-gut-resistome.html">
-<title>In Silico Identification of Horizontal Gene Transfer: Tracking blaNDM-1 Across Multi-Species Gut Reservoirs — Retrocalculated</title>
+<title>In Silico Identification of Horizontal Gene Transfer: Tracking blaNDM-1 Across Multi-Species Gut Reservoirs - Retrocalculated</title>
 <meta name="description" content="An in silico comparative genomics study tracking blaNDM-1 carbapenem resistance hopping between E. coli and Shigella within the human gut resistome.">
 <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
 <link rel="alternate" type="application/rss+xml" title="Retrocalculated" href="../../rss.xml">
@@ -125,35 +125,35 @@
       </ul>
     </aside>
     <section class="chapter" id="abstract">
-      <h1>Abstract</h1>
+      <h2 class="chapter-title">Abstract</h2>
       <p>Carbapenem-resistant Enterobacteriaceae (CRE) have gone from a localized clinical concern to a genuine global health security problem. At the center of that shift sits the New Delhi metallo-beta-lactamase-1 (<em>bla</em><sub>NDM-1</sub>) gene, a highly mobile genetic determinant that renders nearly all β-lactam antibiotics, carbapenems included, clinically useless. Traditional surveillance tends to focus on clonal outbreaks within a single species. This study instead uses a high-resolution in silico comparative genomic approach to look at inter-species spread of <em>bla</em><sub>NDM-1</sub> within the human gut resistome over 2024–2026, spread that doesn't show up if you're only watching one species at a time.</p>
       <p>Using the NCBI Pathogen Detection and MicroBIGG-E platforms, a multi-species genomic cluster (PDS000002968.262) turned up containing both <em>Escherichia coli</em> and <em>Shigella</em> isolates collected between 2024 and 2026. These taxonomically distinct organisms shared a high-resolution SNP cluster (SNP distance &lt;20), which is solid evidence of recent Horizontal Gene Transfer (HGT). The gene itself sat on a highly conserved genetic platform, contig ACBQRM010001011.1, with 100% sequence identity and coverage across the divergent taxa. That level of conservation points to the cassette moving via a stable, efficient plasmid shuttle rather than accumulating through ordinary background mutation.</p>
       <p>Finding identical resistance environments in both a commensal-like organism (<em>E. coli</em>) and a more clinically dangerous one (<em>Shigella</em>) says something about how bacterial evolution works here: the gut isn't a static backdrop, it's a busy junction where resistance genes move between species to dodge antibiotic pressure. That argues for surveillance built around genes rather than species, tracking the mobile element itself rather than any one host organism. Catching these transfer hubs early gives public health responders a better shot at getting ahead of pan-resistant enteric pathogens before they become the norm.</p>
     </section>
 
     <section class="chapter" id="introduction">
-      <h1 data-chapter="01">1. Tracking a Resistance Gene Across Species Lines</h1>
+      <h2 class="chapter-title" data-chapter="01">1. Tracking a Resistance Gene Across Species Lines</h2>
       <p>Antimicrobial resistance (AMR) is escalating fast enough that it now counts as one of the more formidable challenges facing global public health. Clinical attention has historically gone to resistant pathogens themselves, but there's growing evidence that the human gut microbiome works as a "resistome," a large standing reservoir of resistance genes.<sup class="cite-ref"><a href="#ref1">1</a></sup> The <em>bla</em><sub>NDM-1</sub> gene is a particularly worrying member of that reservoir, since it confers resistance to nearly all beta-lactam antibiotics, carbapenems included, drugs that are often the last option available.<sup class="cite-ref"><a href="#ref2">2</a></sup> It spreads mainly through Horizontal Gene Transfer (HGT), where mobile genetic elements carry resistance markers from one bacterial species to another. In the crowded, mixed-species environment of the gastrointestinal tract, a commensal organism can act as a stable host for a while and then pass the gene on to something more dangerous.</p>
     </section>
 
     <section class="chapter" id="methods">
-      <h1 data-chapter="02">2. Building a Cross-Species SNP and Mobile-Element Dataset</h1>
+      <h2 class="chapter-title" data-chapter="02">2. Building a Cross-Species SNP and Mobile-Element Dataset</h2>
       <p>Genomic sequences came from the NCBI Pathogen Detection Browser, targeting isolates carrying the <em>bla</em><sub>NDM-1</sub> genotype. The search was limited to human-host isolates collected between January 2022 and early 2026. To catch recent HGT events specifically, isolates were grouped by Pathogen Detection SNP Cluster (PDS) ID, and clusters containing at least two distinct bacterial species (say, <em>Escherichia coli</em> and <em>Klebsiella pneumoniae</em>) at low SNP distance were flagged as likely evidence of recent inter-species transfer. The regions flanking the gene were analyzed further to pin down which mobile genetic elements (MGEs) were actually involved.</p>
 
-      <h2 id="dataset-selection">2.1 Dataset Selection and Retrieval</h2>
+      <h3 class="section-title" id="dataset-selection">2.1 Dataset Selection and Retrieval</h3>
       <p>Genomic data came from the NCBI Pathogen Detection Project, a centralized hub pulling in sequence data from public health agencies worldwide.<sup class="cite-ref"><a href="#ref4">4</a></sup> The MicroBIGG-E (Microbial Browser for Identification of Genetic and Genomic Elements) database was the specific tool used.<sup class="cite-ref"><a href="#ref5">5</a></sup> Search parameters targeted isolates with the genotype across a 2022-to-2026 window, and the host filter was restricted to <em>Homo sapiens</em> to keep the focus clinical.</p>
 
-      <h2 id="snp-cluster-analysis">2.2 Multi-species SNP Cluster Analysis</h2>
+      <h3 class="section-title" id="snp-cluster-analysis">2.2 Multi-species SNP Cluster Analysis</h3>
       <p>Active HGT was identified using the Pathogen Detection SNP Cluster (PDS) hierarchy.<sup class="cite-ref"><a href="#ref4">4</a></sup> Isolates were grouped at a high-resolution threshold (SNP distance &lt;20), and clusters were screened specifically for cases spanning two or more distinct genera within a single PDS ID (<em>Escherichia</em> and <em>Shigella</em>, for instance). That's how hopping events got pinpointed: wherever core genome similarity was high enough to suggest either a recent common ancestor or an actual, immediate gene transfer.</p>
 
-      <h2 id="genetic-environment">2.3 Characterization of the Genetic Environment</h2>
+      <h3 class="section-title" id="genetic-environment">2.3 Characterization of the Genetic Environment</h3>
       <p>For each cluster identified, the genetic architecture around the gene was examined using Allele Detection and HMM (Hidden Markov Model) methods within MicroBIGG-E, to confirm gene identity and coverage.<sup class="cite-ref"><a href="#ref3">3</a></sup><sup class="cite-ref"><a href="#ref5">5</a></sup> The Contig ID mattered most here, since it determines whether the resistance marker sits on a mobile genetic element (MGE) rather than the chromosome. Percentage identity and coverage were both calculated to gauge how conserved the resistance cassette was across species.</p>
     </section>
 
     <section class="chapter" id="results">
-      <h1 data-chapter="03">3. Where blaNDM-1 Actually Jumps, and What Carries It</h1>
+      <h2 class="chapter-title" data-chapter="03">3. Where blaNDM-1 Actually Jumps, and What Carries It</h2>
 
-      <h2 id="evidence-of-gene-hopping">3.1 Evidence of Gene Hopping</h2>
+      <h3 class="section-title" id="evidence-of-gene-hopping">3.1 Evidence of Gene Hopping</h3>
       <p>Searching the NCBI Pathogen browser for the <em>bla</em><sub>NDM-1</sub> genotype<sup class="cite-ref"><a href="#ref4">4</a></sup> turned up multiple organisms sharing the gene. The most frequent case was hopping between <em>E. coli</em> and <em>Shigella</em>; two examples appear in the table below.</p>
 
       <div class="table-scroll">
@@ -185,12 +185,12 @@
           </tbody>
         </table>
       </div>
-      <p class="timeline-caption" style="color: var(--ink-soft); margin-top: -10px;">Table 1 — SNP gene-hopping evidence.</p>
+      <p class="timeline-caption" style="color: var(--ink-soft); margin-top: -10px;">Table 1. SNP gene-hopping evidence.</p>
 
-      <h2 id="inter-species-reservoirs">3.2 Identification of Inter-species Resistance Reservoirs</h2>
+      <h3 class="section-title" id="inter-species-reservoirs">3.2 Identification of Inter-species Resistance Reservoirs</h3>
       <p>Genomic surveillance through the NCBI Pathogen Detection Browser turned up a high-priority multi-species cluster, PDS000002968.262, holding isolates of both <em>Escherichia coli</em> and <em>Shigella</em>.<sup class="cite-ref"><a href="#ref4">4</a></sup> These isolates sat within a high-resolution SNP cluster (SNP distance &lt;20), which points to shared evolutionary history and recent divergence rather than coincidence. Both species carried the New Delhi metallo-beta-lactamase-1 genotype, confirming active transmission of carbapenem resistance across different enteric genera between 2022 and 2026.</p>
 
-      <h2 id="genomic-environment-mge">3.3 Genomic Environment and Mobile Genetic Elements</h2>
+      <h3 class="section-title" id="genomic-environment-mge">3.3 Genomic Environment and Mobile Genetic Elements</h3>
       <p>Deeper analysis through MicroBIGG-E showed the gene in these isolates (isolate PDT003013055.1, specifically) sitting on a highly conserved genetic platform, contig ACBQRM010001011.1.<sup class="cite-ref"><a href="#ref5">5</a></sup> Bioinformatic characterization of that contig showed:</p>
       <ul>
         <li><strong>Sequence conservation:</strong> the gene showed 100% coverage and 100% identity against the reference allele (Class: Beta-lactam; Subclass: Carbapenem).</li>
@@ -201,27 +201,27 @@
     </section>
 
     <section class="chapter" id="discussion">
-      <h1 data-chapter="04">4. The Enteric Resistome as a Surveillance Blind Spot</h1>
+      <h2 class="chapter-title" data-chapter="04">4. The Enteric Resistome as a Surveillance Blind Spot</h2>
 
-      <h2 id="resistome-hub">4.1 The Role of the Enteric "Resistome" Hub</h2>
+      <h3 class="section-title" id="resistome-hub">4.1 The Role of the Enteric "Resistome" Hub</h3>
       <p>Finding <em>bla</em><sub>NDM-1</sub> inside an identical PDS cluster spanning both <em>E. coli</em> and <em>Shigella</em> is solid evidence of Horizontal Gene Transfer (HGT) within the human gut resistome. <em>E. coli</em> and <em>Shigella</em> are genetically close but clinically very different, so their shared occupancy of a low-SNP cluster shows how quiet, commensal reservoirs can directly feed the spread of more dangerous, resistant pathogens.</p>
 
-      <h2 id="platform-implications">4.2 Implications of the ACBQRM010001011.1 Platform</h2>
+      <h3 class="section-title" id="platform-implications">4.2 Implications of the ACBQRM010001011.1 Platform</h3>
       <p>Where the resistance marker sits, on contig ACBQRM010001011.1, matters. Across the 2024–2026 timeline covered here, this contig functions as a kind of shuttle, moving carbapenemase genes between hosts efficiently. The 100% identity seen in this analysis suggests the plasmid-mediated transfer is outpacing the bacteria's own background mutation rate, letting resistance jump between species without losing potency along the way.</p>
 
-      <h2 id="surveillance-conclusion">4.3 Conclusion for Surveillance</h2>
+      <h3 class="section-title" id="surveillance-conclusion">4.3 Conclusion for Surveillance</h3>
       <p>All of this points to a real weakness in single-species monitoring. Gene movement between <em>E. coli</em> and <em>Shigella</em> means the diagnostic lines we usually draw between species are getting blurred by mobile genetic elements. Surveillance going forward needs to prioritize multi-species cluster analysis if it's going to catch the next wave of pan-resistant enteric infections before they spread widely.</p>
     </section>
 
     <section class="chapter" id="conclusion">
-      <h1 data-chapter="05">5. What This Means for Resistance Surveillance</h1>
+      <h2 class="chapter-title" data-chapter="05">5. What This Means for Resistance Surveillance</h2>
       <p>This study's findings show that <em>bla</em><sub>NDM-1</sub> spread within the human gut resistome reached a genuinely concerning point between 2024 and 2026. High-resolution in silico genomic surveillance turned up clear evidence of active Horizontal Gene Transfer within the PDS000002968.262 multi-species cluster, and the near-perfect conservation of the resistance cassette on contig ACBQRM010001011.1 across both <em>Escherichia coli</em> and <em>Shigella</em> shows that species boundaries matter less and less once mobile genetic elements are involved.</p>
       <p>The resistance gene also sits alongside fitness-boosting siderophore systems (<em>iutA</em>, for one), which points to a shift toward plasmids that do double duty, carrying both resistance and a survival edge even without antibiotic pressure in the picture. That suggests this threat is settling into the commensal gut flora more permanently, which makes it harder to root out with standard clinical approaches.</p>
       <p>The bigger takeaway is that AMR monitoring needs to move past species-specific diagnostics. A gene-centric surveillance model, one built around tracking these mobile elements across species rather than watching any single organism, looks like the better way to catch high-traffic resistance hubs early. Identifying the specific genetic shuttles behind these transfers gives public health agencies a real shot at staying ahead of pan-resistant enteric pathogens, and keeping carbapenems useful for longer.</p>
     </section>
 
     <section class="chapter" id="cite">
-      <h1>How to Cite This Piece</h1>
+      <h2 class="chapter-title">How to Cite This Piece</h2>
       <div class="citation-box">
         <div class="citation-tabs">
           <button type="button" class="citation-tab active" data-citation="Ramanand, A. V. (2026). In Silico Identification of Horizontal Gene Transfer: Tracking blaNDM-1 Across Multi-Species Gut Reservoirs. Retrocalculated. https://ramanand348.github.io/Ramblings-of-Ram/research/science/hgt-blandm1-gut-resistome.html">APA</button>
@@ -233,7 +233,7 @@
     </section>
 
     <section class="chapter" id="references">
-      <h1 data-chapter="06">6. References</h1>
+      <h2 class="chapter-title" data-chapter="06">6. References</h2>
       <p><strong>Primary citations</strong></p>
       <ol class="ref-list">
         <li id="ref1"><span class="ref-number">1.</span><p>D'Costa, V. M., et al. (2011). Sampling the antibiotic resistome. <em>Nature</em>, 477(7365), 457–461.</p></li>
