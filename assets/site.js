@@ -1062,3 +1062,75 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 })();
+
+// ============================================================
+// Tablet and desktop extras: sidebar reading meter and hover
+// previews for citations (mouse only). Phones keep the bottom bar.
+// ============================================================
+(function () {
+  document.addEventListener('DOMContentLoaded', function () {
+    var article = document.querySelector('.article-body');
+    if (!article) return;
+
+    function progress() {
+      var rect = article.getBoundingClientRect();
+      var top = rect.top + window.scrollY;
+      var scrolled = window.scrollY - top + window.innerHeight * 0.5;
+      return Math.min(1, Math.max(0, scrolled / article.offsetHeight));
+    }
+
+    /* Sidebar meter: percent read and time left, under the contents list */
+    var toc = document.querySelector('.toc');
+    if (toc) {
+      var totalMin = (article.textContent || '').split(/\s+/).length / 230;
+      var meter = document.createElement('div');
+      meter.className = 'toc-meter';
+      meter.innerHTML = '<div class="tm-track"><div class="tm-fill"></div></div><p class="tm-text"></p>';
+      toc.appendChild(meter);
+      var fill = meter.querySelector('.tm-fill'), text = meter.querySelector('.tm-text');
+      var update = function () {
+        var p = progress();
+        fill.style.width = (p * 100) + '%';
+        var mins = Math.ceil(totalMin * (1 - p));
+        text.textContent = p > 0.98 ? 'Finished' : Math.round(p * 100) + '% read, ' + (mins <= 1 ? 'under 1 min left' : mins + ' min left');
+      };
+      window.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    }
+
+    /* Hover previews for citations, only where a mouse is present */
+    if (!window.matchMedia || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    var pop = document.querySelector('.cite-pop');
+    if (!pop) return;
+    var openTimer = null, closeTimer = null, pinned = false;
+    function isCite(a) {
+      return a && article.contains(a) && a.closest('sup') && /^#(ref|fn)/.test(a.getAttribute('href') || '');
+    }
+    document.addEventListener('mouseover', function (e) {
+      var a = e.target.closest ? e.target.closest('a') : null;
+      if (isCite(a)) {
+        clearTimeout(closeTimer);
+        clearTimeout(openTimer);
+        openTimer = setTimeout(function () {
+          if (!pinned) a.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+        }, 220);
+      } else if (pop.contains(e.target)) {
+        clearTimeout(closeTimer);
+      }
+    });
+    document.addEventListener('mouseout', function (e) {
+      var a = e.target.closest ? e.target.closest('a') : null;
+      if (isCite(a) || pop.contains(e.target)) {
+        clearTimeout(openTimer);
+        clearTimeout(closeTimer);
+        closeTimer = setTimeout(function () { if (!pinned) pop.hidden = true; }, 350);
+      }
+    });
+    document.addEventListener('click', function (e) {
+      if (!e.isTrusted) return;
+      var a = e.target.closest ? e.target.closest('a') : null;
+      pinned = !!isCite(a);
+    }, true);
+  });
+})();
