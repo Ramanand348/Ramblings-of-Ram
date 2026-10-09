@@ -2151,3 +2151,13 @@ body.lb-open { overflow: hidden; }
   .mobile-bar, .toc-sheet, .reader-panel, .reader-btn, .cite-pop, .lightbox,
   .resume-toast, .follow-box, .correction-box, .continue-section { display: none !important; }
 }
+
+/* Tablet and desktop: sidebar reading meter */
+.toc-meter { display: none; }
+@media (min-width: 881px) {
+  .toc-meter { display: block; margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--line-on-parchment); }
+  .tm-track { height: 3px; background: var(--line-on-parchment); border-radius: 2px; overflow: hidden; }
+  .tm-fill { height: 100%; width: 0; background: var(--rust); }
+  .tm-text { margin: 8px 0 0; font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-soft); line-height: 1.4; }
+}
+@media print { .toc-meter { display: none !important; } }
