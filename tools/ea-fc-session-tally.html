@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
+<script>document.documentElement.classList.add("js-reveal");</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="canonical" href="https://ramanand348.github.io/Ramblings-of-Ram/tools/ea-fc-session-tally.html">
+<title>EA FC Session Tally - Retrocalculated</title>
+<meta name="description" content="A private, on-device tally for logging EA FC session problems such as server drops, live-join hangs and kick-off glitches, with totals and CSV export.">
+<link rel="icon" type="image/svg+xml" href="../assets/favicon.svg">
+<link rel="alternate" type="application/rss+xml" title="Retrocalculated" href="../rss.xml">
+<link rel="manifest" href="../site.webmanifest">
+<link rel="apple-touch-icon" href="../assets/favicon.svg">
+<meta name="theme-color" content="#14182B">
+<meta property="og:type" content="website">
+<meta property="og:title" content="EA FC Session Tally">
+<meta property="og:description" content="A private, on-device tally for logging EA FC session problems such as server drops, live-join hangs and kick-off glitches, with totals and CSV export.">
+<meta property="og:url" content="https://ramanand348.github.io/Ramblings-of-Ram/tools/ea-fc-session-tally.html">
+<meta property="og:image" content="https://ramanand348.github.io/Ramblings-of-Ram/assets/og-ea-fc.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="EA FC Session Tally">
+<meta name="twitter:description" content="A private, on-device tally for logging EA FC session problems such as server drops, live-join hangs and kick-off glitches, with totals and CSV export.">
+<meta name="twitter:image" content="https://ramanand348.github.io/Ramblings-of-Ram/assets/og-ea-fc.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<script data-goatcounter="https://retrocalculated.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="wordmark" href="../index.html">Retro<em>calculated</em></a>
+    <div class="site-header-right">
+      <nav class="site-nav" aria-label="Primary">
+      <a href="../index.html">Home</a>
+      <a href="../research/index.html">Research</a>
+      <a href="../blog/index.html">Notebook</a>
+      <a href="../about.html">About</a>
+    </nav>
+      <button class="header-icon-btn theme-toggle" type="button" aria-label="Toggle dark mode">
+        <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      </button>
+      <button class="header-icon-btn search-toggle" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<div class="search-overlay">
+  <div class="search-panel">
+    <div class="search-input-row">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input type="text" class="search-input" placeholder="Search articles..." aria-label="Search articles">
+      <button type="button" class="search-close-btn">Esc</button>
+    </div>
+    <div class="search-results"></div>
+  </div>
+</div>
+
+<div class="reading-header">
+  <div class="reading-header-inner">
+    <a class="back-link" href="../index.html">← Back home</a>
+    <h1>EA FC Session Tally</h1>
+    <p class="subtitle">A tap-friendly counter for the problems you hit while playing. Everything stays on your device, and you can export it whenever you want a record.</p>
+    <div class="reading-meta">
+      <span>Tool</span>
+      <span>Gaming</span>
+      <span>Stored on your device</span>
+    </div>
+  </div>
+</div>
+
+<div class="reading-layout" style="grid-template-columns: 1fr;">
+  <div class="tool" id="tally">
+    <p class="tool-intro">Log a session as you play: tap + each time a problem happens, then save when you finish. Over weeks, the saved sessions turn a feeling into a count that can be checked, with dates, modes and totals. The related research piece explains why this kind of record matters: <a href="../research/gaming/ea-fc-scripting-engagement-systems.html">Scripting, Engagement, and the Limits of Skill in EA Sports FC</a>.</p>
+
+    <section class="tool-card" aria-labelledby="t-session">
+      <h2 id="t-session">Current session</h2>
+      <div class="tool-row"><label for="t-mode">Mode</label>
+        <select id="t-mode"><option>Clubs</option><option>Ultimate Team</option><option>Division Rivals</option><option>Other</option></select></div>
+      <div id="t-matches"></div>
+      <h3>Problems this session</h3>
+      <div id="t-counters"></div>
+      <label for="t-note" style="display:block;margin-top:14px;">Note (optional)</label>
+      <textarea id="t-note" rows="2" maxlength="300" placeholder="For example: FC 26 title update, Clubs league, opponent live-joined at 0-0"></textarea>
+      <div class="tool-actions">
+        <button type="button" class="btn-primary" id="t-save">Save session</button>
+        <button type="button" class="btn" id="t-discard">Discard current count</button>
+      </div>
+      <p id="t-status" aria-live="polite"></p>
+    </section>
+
+    <section class="tool-card" aria-labelledby="t-sum">
+      <h2 id="t-sum">Summary</h2>
+      <div id="t-summary"></div>
+    </section>
+
+    <section class="tool-card" aria-labelledby="t-hist">
+      <h2 id="t-hist">History</h2>
+      <div id="t-history-wrap" hidden>
+        <div class="table-scroll">
+          <table class="dataset-table">
+            <thead><tr><th>Date</th><th>Mode</th><th>Matches</th><th>Problems</th><th>Note</th><th><span class="visually-hidden">Actions</span></th></tr></thead>
+            <tbody id="t-history"></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="tool-actions" style="margin-top:14px;">
+        <button type="button" class="btn" id="t-download">Download CSV</button>
+        <button type="button" class="btn" id="t-copy">Copy CSV</button>
+        <button type="button" class="btn" id="t-clear">Clear all data</button>
+      </div>
+    </section>
+
+    <p class="tool-note">Privacy: counts are saved only in this browser, on this device. Nothing is sent anywhere, and clearing your browser data deletes them, so export a CSV if you want to keep a record. A personal tally records what you observed. It is a useful pattern record, not proof about how the game is built.</p>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <span>Retrocalculated</span>
+    <span><a href="../archive.html" style="color:inherit;">Archive</a> · <a href="../index.html" style="color:inherit;text-decoration:none;">← Back home</a></span>
+  </div>
+</footer>
+
+<script src="../assets/site.js"></script>
+<script src="../assets/tally.js" defer></script>
+</body>
+</html>
