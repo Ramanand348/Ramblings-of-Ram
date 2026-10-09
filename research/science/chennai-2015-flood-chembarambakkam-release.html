@@ -285,11 +285,31 @@
           </tbody>
         </table>
       </div>
-      <p>The supply column uses a 2019 figure of 650 MLD for Chennai's reservoir-fed supply as an illustration, since the 2015 figure is not part of the record used here.<sup class="cite-ref"><a href="#ref10">10</a></sup> By that measure, the extra room for a 12,000 cusec cap is about 55 days of supply held empty at the start of the storm. This is the real trade-off in operating a lake that is both a drinking-water source and a flood buffer, and it is why a release rule that looks careless after a flood can look prudent before one.</p>
+      <p>The supply column uses a 2019 figure of 650 MLD for Chennai's reservoir-fed supply as an illustration, since the 2015 figure is not part of the record used here.<sup class="cite-ref"><a href="#ref10">10</a></sup> By that measure, the extra room for a 12,000 cusec cap is about 55 days of supply held empty at the start of the storm. This is the real trade-off in operating a lake that is both a drinking-water source and a flood buffer, and it is why a release rule that looks careless after a flood can look prudent before one. Section 4.4 lets you change these assumptions and see the effect.</p>
 
       <h3 class="section-title" id="decision-window">4.3 Where the Decision Window Sat</h3>
       <p>The 1,260 mcft gap could not have been closed on 1 December. It could have been closed over the preceding fortnight. The depth was above 21 ft from 16 November,<sup class="cite-ref"><a href="#ref4">4</a></sup> so a release of about 1,040 cusecs sustained for 14 days, roughly 29 m&sup3;/s, would have created it. That is about 1.5 percent of the 2,000 m&sup3;/s that the NRSC simulation puts at the Adyar's first peak, on 23 November, an order of magnitude only.<sup class="cite-ref"><a href="#ref7">7</a></sup> The cost is the one in section 4.2: had the northeast monsoon failed after that release, Chennai would have been short of the water it gave away. The audit's central complaint, that the lake's rules had not been revised in 23 years, is a complaint about the absence of any considered answer to that trade-off.</p>
       <p>Later practice has moved in this direction. The Public Works Department's stated protocol releases water once the level reaches 22 ft against a full level of 24 ft, in graded steps that follow the inflow.<sup class="cite-ref"><a href="#ref5">5</a></sup> The reconstruction suggests the limit of that rule. The roughly 250 mcft per foot implied near the full level means 2 ft of room is about 500 mcft, and on the constant-inflow estimate that would support a cap near 23,500 cusecs for an event the size of 2015's. A level-based trigger helps, but for an event of that size the protection has to come from elsewhere: the upstream storage the audit says was never built, and a channel with more capacity than the Adyar had.</p>
+    <h3 class="section-title" id="explorer">4.4 Try the Numbers</h3>
+      <p>The same constant-inflow balance used above is wired to the controls below. Change the inflow, the length of the event, the release cap or the starting storage and watch how much room the tank would need. The presets reproduce the cases discussed in sections 3.2 and 4.2.</p>
+      <div class="explorer" id="flood-explorer" data-explorer="flood">
+        <div class="ex-presets" role="group" aria-label="Presets">
+          <button type="button" data-preset="actual">2015 as it happened</button>
+          <button type="button" data-preset="audit">Audit alternative: hold 12,000 for six hours</button>
+          <button type="button" data-preset="cap12">12,000 cap, no extra room</button>
+          <button type="button" data-preset="room12">12,000 cap, room made beforehand</button>
+          <button type="button" data-preset="trigger">22 ft trigger, about 23,500 cap</button>
+        </div>
+        <div class="ex-grid">
+          <div class="ex-field"><label for="ex-inflow">Mean inflow <output id="ex-inflow-out" for="ex-inflow"></output></label><input type="range" id="ex-inflow" min="10000" max="45000" step="500" value="29000"></div>
+          <div class="ex-field"><label for="ex-hours">Event length <output id="ex-hours-out" for="ex-hours"></output></label><input type="range" id="ex-hours" min="6" max="48" step="1" value="25"></div>
+          <div class="ex-field"><label for="ex-cap">Release cap <output id="ex-cap-out" for="ex-cap"></output></label><input type="range" id="ex-cap" min="0" max="40000" step="500" value="29000"></div>
+          <div class="ex-field"><label for="ex-start">Starting storage <output id="ex-start-out" for="ex-start"></output></label><input type="range" id="ex-start" min="1000" max="3645" step="25" value="3377"></div>
+        </div>
+        <div id="ex-results" aria-live="polite"></div>
+        <div id="ex-chart"></div>
+        <p class="ex-note">Model: storage changes by inflow minus release over the event, with the tank capped at 3,645 mcft. Inflow is held constant and the release is a steady cap, so results are lower bounds on the room a real event would need. The 2015 inflow is a reconstruction from published figures, not an observed hydrograph. Supply days use the illustrative 650 MLD figure from section 4.2.</p>
+      </div>
     </section>
 
     <section class="chapter" id="conclusion">
@@ -390,5 +410,6 @@
 </footer>
 
 <script src="../../assets/site.js"></script>
+<script src="../../assets/explorer.js" defer></script>
 </body>
 </html>
