@@ -1134,3 +1134,160 @@ document.addEventListener('DOMContentLoaded', function () {
     }, true);
   });
 })();
+
+// ============================================================
+// Series banners and glossary taps. Both are driven by data files
+// (assets/series.json and assets/glossary.json), so adding a piece to a
+// series or a term to the glossary is a one-line edit with no page changes.
+// ============================================================
+(function () {
+  function siteRoot() {
+    var s = document.querySelector('script[src$="assets/site.js"]');
+    return s ? s.getAttribute('src').replace('assets/site.js', '') : '';
+  }
+  function el(tag, cls, html) {
+    var n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (html != null) n.innerHTML = html;
+    return n;
+  }
+  function loadJSON(path) {
+    return fetch(siteRoot() + path).then(function (r) { return r.ok ? r.json() : null; }).catch(function () { return null; });
+  }
+  function currentPath() {
+    var rootPath = new URL(siteRoot() || './', location.href).pathname;
+    var p = location.pathname;
+    return p.indexOf(rootPath) === 0 ? p.slice(rootPath.length) : p.replace(/^\//, '');
+  }
+
+  /* ---------- Series banners ---------- */
+  function initSeries() {
+    var host = document.querySelector('.article-body') || document.querySelector('.tool');
+    if (!host) return;
+    loadJSON('assets/series.json').then(function (data) {
+      if (!data || !data.series) return;
+      var cur = currentPath(), root = siteRoot();
+      data.series.forEach(function (s) {
+        var idx = -1;
+        s.items.forEach(function (it, i) { if (it.path === cur) idx = i; });
+        if (idx < 0 || host.querySelector('.series-banner')) return;
+        var n = s.items.length, prev = s.items[idx - 1], next = s.items[idx + 1];
+        var nav = '';
+        if (prev) nav += '<a class="sb-prev" href="' + root + prev.path + '">\u2190 Previous: <span></span></a>';
+        if (next) nav += '<a class="sb-next" href="' + root + next.path + '">Next: <span></span> \u2192</a>';
+        var list = s.items.map(function (it, i) {
+          return '<li' + (i === idx ? ' aria-current="page"' : '') + '>' + (i === idx ? '<strong></strong>' : '<a href="' + root + it.path + '"></a>') +
+            (it.label ? ' <em class="sb-label"></em>' : '') + '</li>';
+        }).join('');
+        var banner = el('aside', 'series-banner',
+          '<p class="sb-kicker">Series: <span class="sb-title"></span></p>' +
+          '<p class="sb-part">Part ' + (idx + 1) + ' of ' + n + '</p>' +
+          (s.blurb ? '<p class="sb-blurb"></p>' : '') +
+          (nav ? '<div class="sb-nav">' + nav + '</div>' : '') +
+          '<details class="sb-list"><summary>All parts in this series</summary><ol>' + list + '</ol></details>');
+        banner.setAttribute('aria-label', 'Series: ' + s.title);
+        banner.querySelector('.sb-title').textContent = s.title;
+        if (s.blurb) banner.querySelector('.sb-blurb').textContent = s.blurb;
+        var p = banner.querySelector('.sb-prev span'), q = banner.querySelector('.sb-next span');
+        if (p) p.textContent = prev.title;
+        if (q) q.textContent = next.title;
+        var lis = banner.querySelectorAll('.sb-list li');
+        s.items.forEach(function (it, i) {
+          var t = lis[i].querySelector('strong, a'); if (t) t.textContent = it.title;
+          var lb = lis[i].querySelector('.sb-label'); if (lb) lb.textContent = it.label;
+        });
+        host.insertBefore(banner, host.firstChild);
+        if (next && host.classList.contains('article-body')) {
+          var card = el('a', 'series-next', '<span class="sn-kicker"></span><span class="sn-title"></span><span class="sn-go">Read next \u2192</span>');
+          card.href = root + next.path;
+          card.querySelector('.sn-kicker').textContent = 'Next in the series: ' + s.title;
+          card.querySelector('.sn-title').textContent = next.title;
+          var cb = host.querySelector('.correction-box');
+          if (cb) host.insertBefore(card, cb); else host.appendChild(card);
+        }
+      });
+    });
+  }
+
+  /* ---------- Glossary taps ---------- */
+  function initGlossary() {
+    var article = document.querySelector('.article-body');
+    if (!article) return;
+    loadJSON('assets/glossary.json').then(function (data) {
+      if (!data || !data.terms) return;
+      var SKIP = ['H1', 'H2', 'H3', 'H4', 'A', 'BUTTON', 'CODE', 'PRE', 'SVG', 'SCRIPT', 'STYLE', 'SUP', 'FIGCAPTION', 'TEXTAREA', 'INPUT', 'SELECT'];
+      var SKIP_CLASS = ['.ref-list', '.citation-box', '.explorer', '.toc', '.takeaways-title', '.eq-line', '.eq-label', '.series-banner', '.series-next', '.correction-box'];
+      function blocked(node) {
+        for (var n = node.parentNode; n && n !== article; n = n.parentNode) {
+          if (n.nodeType === 1) {
+            if (SKIP.indexOf(String(n.tagName).toUpperCase()) > -1) return true;
+            for (var i = 0; i < SKIP_CLASS.length; i++) if (n.matches && n.matches(SKIP_CLASS[i])) return true;
+          }
+        }
+        return false;
+      }
+      function esc(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
+      var defs = {};
+      data.terms.forEach(function (t) {
+        var key = t.term.toLowerCase();
+        defs[key] = t;
+        t.re = new RegExp('(^|[^A-Za-z0-9])(' + esc(t.term) + (/s$/i.test(t.term) ? '' : 's?') + ')(?![A-Za-z0-9])', t.exact ? '' : 'i');
+        t.done = false;
+      });
+      var walker = document.createTreeWalker(article, NodeFilter.SHOW_TEXT, null);
+      var nodes = [], n;
+      while ((n = walker.nextNode())) { if (n.nodeValue.trim() && !blocked(n)) nodes.push(n); }
+      data.terms.forEach(function (t) {
+        for (var i = 0; i < nodes.length; i++) {
+          var node = nodes[i];
+          if (!node.parentNode) continue;
+          var m = t.re.exec(node.nodeValue);
+          if (!m) continue;
+          var start = m.index + m[1].length, word = m[2];
+          var after = node.splitText(start + word.length);
+          var mid = node.splitText(start);
+          var b = el('button', 'gloss'); b.type = 'button';
+          b.setAttribute('data-term', t.term);
+          b.textContent = mid.nodeValue;
+          mid.parentNode.replaceChild(b, mid);
+          nodes.splice(i + 1, 0, after);
+          t.done = true;
+          break;
+        }
+      });
+      var pop = el('div', 'gloss-pop'); pop.setAttribute('role', 'dialog'); pop.hidden = true;
+      document.body.appendChild(pop);
+      function close() { pop.hidden = true; }
+      function show(b) {
+        var t = defs[b.getAttribute('data-term').toLowerCase()];
+        if (!t) return;
+        pop.innerHTML = '<button type="button" class="cp-close" aria-label="Close">\u00d7</button><p class="gp-term"></p><p class="gp-def"></p>';
+        pop.querySelector('.gp-term').textContent = t.term;
+        pop.querySelector('.gp-def').textContent = t.def;
+        pop.setAttribute('aria-label', 'Definition: ' + t.term);
+        pop.hidden = false;
+        var r = b.getBoundingClientRect(), w = Math.min(320, window.innerWidth - 24);
+        pop.style.width = w + 'px';
+        pop.style.left = Math.min(Math.max(r.left - 10, 12), window.innerWidth - w - 12) + 'px';
+        var h = pop.offsetHeight, top = r.bottom + 8;
+        if (top + h > window.innerHeight - 12) top = Math.max(12, r.top - h - 8);
+        pop.style.top = top + 'px';
+        pop.querySelector('.cp-close').addEventListener('click', close);
+      }
+      document.addEventListener('click', function (e) {
+        var b = e.target.closest ? e.target.closest('.gloss') : null;
+        if (b) { e.preventDefault(); if (!pop.hidden && pop.getAttribute('data-for') === b.getAttribute('data-term')) { close(); return; } pop.setAttribute('data-for', b.getAttribute('data-term')); show(b); return; }
+        if (!pop.hidden && !pop.contains(e.target)) close();
+      });
+      window.addEventListener('scroll', function () { if (!pop.hidden && window.innerWidth > 600) close(); }, { passive: true });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    if (typeof fetch !== 'function' || document.documentElement.hasAttribute('data-sg')) return;
+    document.documentElement.setAttribute('data-sg', '1');
+    initSeries();
+    initGlossary();
+  });
+})();
