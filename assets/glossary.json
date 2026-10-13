@@ -1,0 +1,164 @@
+{
+  "terms": [
+    {
+      "term": "cusec",
+      "def": "A unit of flow: one cubic foot per second, about 28.3 litres per second. A flow of 1,000 cusecs is about 28 cubic metres per second.",
+      "exact": false
+    },
+    {
+      "term": "TMC",
+      "def": "Thousand million cubic feet. One TMC is 1,000 mcft, about 28.3 million cubic metres of water.",
+      "exact": true
+    },
+    {
+      "term": "mcft",
+      "def": "Million cubic feet. One mcft is about 28,300 cubic metres of water.",
+      "exact": true
+    },
+    {
+      "term": "MLD",
+      "def": "Million litres per day, a common way to state city water supply and treatment capacity.",
+      "exact": true
+    },
+    {
+      "term": "FRL",
+      "def": "Full reservoir level: the highest level a reservoir is designed to hold in normal operation.",
+      "exact": true
+    },
+    {
+      "term": "freeboard",
+      "def": "Empty space kept in a reservoir below its full level so it can absorb floodwater.",
+      "exact": false
+    },
+    {
+      "term": "foreshore",
+      "def": "The strip of land at a lake's edge that is covered when the water level rises.",
+      "exact": false
+    },
+    {
+      "term": "CAG",
+      "def": "Comptroller and Auditor General of India, the national government audit body.",
+      "exact": true
+    },
+    {
+      "term": "CMDA",
+      "def": "Chennai Metropolitan Development Authority, the city's planning body.",
+      "exact": true
+    },
+    {
+      "term": "NRSC",
+      "def": "National Remote Sensing Centre, part of ISRO.",
+      "exact": true
+    },
+    {
+      "term": "SAR",
+      "def": "Synthetic aperture radar: satellite radar that images the ground through cloud and at night, useful for mapping floods.",
+      "exact": true
+    },
+    {
+      "term": "Sentinel-1",
+      "def": "A pair of European Space Agency radar satellites often used to map floods.",
+      "exact": false
+    },
+    {
+      "term": "SWRO",
+      "def": "Seawater reverse osmosis: pushing seawater through membranes at high pressure to make fresh water.",
+      "exact": true
+    },
+    {
+      "term": "osmotic pressure",
+      "def": "The pressure needed to stop water crossing a membrane from the fresh side to the salty side. Reverse osmosis must exceed it.",
+      "exact": false
+    },
+    {
+      "term": "second-law efficiency",
+      "def": "The ratio of the minimum energy a process needs, set by thermodynamics, to the energy it actually uses.",
+      "exact": false
+    },
+    {
+      "term": "CETP",
+      "def": "Common effluent treatment plant: a shared plant that treats wastewater from many small factories.",
+      "exact": true
+    },
+    {
+      "term": "ZLD",
+      "def": "Zero liquid discharge: treating industrial wastewater so no liquid leaves the site, leaving recovered water and solid waste.",
+      "exact": true
+    },
+    {
+      "term": "azo dye",
+      "def": "A synthetic dye containing a nitrogen-to-nitrogen double bond. Azo dyes are widely used in textiles and resist breakdown.",
+      "exact": false
+    },
+    {
+      "term": "laccase",
+      "def": "An enzyme that oxidises many organic compounds, including some dyes.",
+      "exact": false
+    },
+    {
+      "term": "mycoremediation",
+      "def": "Using fungi to break down or remove pollutants.",
+      "exact": false
+    },
+    {
+      "term": "horizontal gene transfer",
+      "def": "Passing genes between organisms other than from parent to offspring, which lets resistance genes spread between bacterial species.",
+      "exact": false
+    },
+    {
+      "term": "plasmid",
+      "def": "A small circular piece of DNA that bacteria can copy and pass to one another.",
+      "exact": false
+    },
+    {
+      "term": "SNP",
+      "def": "Single-nucleotide polymorphism: a one-letter difference in DNA. The SNP distance between two isolates counts how many such differences separate them.",
+      "exact": true
+    },
+    {
+      "term": "DDA",
+      "def": "Dynamic difficulty adjustment: changing a game's difficulty while it is being played.",
+      "exact": true
+    },
+    {
+      "term": "EOMM",
+      "def": "Engagement optimized matchmaking: pairing players to keep them playing longer, not to make matches fair.",
+      "exact": true
+    },
+    {
+      "term": "SBC",
+      "def": "Squad Building Challenge: an Ultimate Team task that rewards a pack in exchange for handing in a set of players.",
+      "exact": true
+    },
+    {
+      "term": "live-service game",
+      "def": "A game built to be updated and monetised continuously after launch instead of sold as a finished product.",
+      "exact": false
+    },
+    {
+      "term": "Kali Yuga",
+      "def": "In Hindu cosmology, the fourth and present age of the world. Traditional reckoning dates its start to 3102 BCE.",
+      "exact": false
+    },
+    {
+      "term": "crucible steel",
+      "def": "Steel made by melting iron and carbon together in a sealed clay pot, which gives a uniform high-carbon metal.",
+      "exact": false
+    },
+    {
+      "term": "wootz",
+      "def": "Crucible steel made in southern India from at least the third century BCE, later known in Europe as Damascus steel.",
+      "exact": false
+    },
+    {
+      "term": "Srivijaya",
+      "def": "A maritime empire centred on Sumatra that controlled trade through the Strait of Malacca.",
+      "exact": false
+    },
+    {
+      "term": "Chicxulub",
+      "def": "The impact crater beneath Mexico's Yucatan peninsula, linked to the extinction of the non-avian dinosaurs.",
+      "exact": false
+    }
+  ]
+}
