@@ -19,6 +19,8 @@ assets/
   site.js                  Shared scripts: contents highlighting, search, theme toggle,
                            reader controls, citation previews, resume reading, mobile bar
   explorer.js  tally.js    Scripts for the flood explorer and the EA FC session tally
+  series.json              Series banners: lists the pieces in each series, in order
+  glossary.json            Glossary taps: terms and one-line definitions
   search-index.json        Powers site search and the tags page
   images/                  Figures used in articles
   og-*.png                 Social preview images
@@ -36,6 +38,8 @@ rss.xml  sitemap.xml  robots.txt  site.webmanifest
 - `python scripts/sync_site.py` adds any new page to those registry files and fixes the piece
   counts (dry run by default; add `--write` to apply). It can also be run from the Actions tab
   ("Site sync", "Run workflow"), which commits the result. Existing entries are never rewritten.
+- To add a piece to a series, add it to `assets/series.json`. To add a glossary term, add it to
+  `assets/glossary.json` (first use of each term on a page gets a tap-for-definition).
 - `tools/` holds small interactive pages; `assets/explorer.js` and `assets/tally.js` drive them.
 
 ## Adding a piece
