@@ -138,6 +138,34 @@ def main():
         if q and q not in files and (q.rstrip('/') + '/index.html') not in files:
             E('sitemap', 'dead url %s' % loc)
 
+    # series and glossary data files
+    for f in ('assets/series.json', 'assets/glossary.json'):
+        if f not in files:
+            continue
+        try:
+            data = json.loads(load(f))
+        except ValueError as e:
+            E('json', '%s: %s' % (f, e))
+            continue
+        if f.endswith('series.json'):
+            seen = set()
+            for sr in data.get('series', []):
+                for it in sr.get('items', []):
+                    if it.get('path') not in files:
+                        E('series', '%s: "%s" lists missing page %s' % (f, sr.get('title'), it.get('path')))
+                    if it.get('path') in seen:
+                        W('series', '%s: %s appears in more than one series' % (f, it.get('path')))
+                    seen.add(it.get('path'))
+                if len(sr.get('items', [])) < 2:
+                    W('series', '%s: series "%s" has fewer than two items' % (f, sr.get('title')))
+        else:
+            names = [t.get('term', '').lower() for t in data.get('terms', [])]
+            for t in data.get('terms', []):
+                if not t.get('term') or not t.get('def'):
+                    E('glossary', '%s: entry missing term or def: %s' % (f, t))
+            for n in sorted({n for n in names if names.count(n) > 1}):
+                E('glossary', '%s: duplicate term "%s"' % (f, n))
+
     # counts on listing pages
     cnt = L.counts(root)
     def check_counts(page, want):
