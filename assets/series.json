@@ -1,0 +1,48 @@
+{
+  "series": [
+    {
+      "id": "tn-water",
+      "title": "Water in Tamil Nadu",
+      "blurb": "Three engineering looks at how the state's water is supplied, flooded and fouled.",
+      "items": [
+        {
+          "path": "research/science/chennai-desalination-thermodynamics.html",
+          "title": "The Thermodynamic Cost of Fresh Water",
+          "label": "Supply"
+        },
+        {
+          "path": "research/science/chennai-2015-flood-chembarambakkam-release.html",
+          "title": "Twenty-One Hours at 29,000 Cusecs",
+          "label": "Flooding"
+        },
+        {
+          "path": "research/science/mycoremediation-textile-effluent-india.html",
+          "title": "Mycoremediation of Textile Dye Effluent in India",
+          "label": "Wastewater"
+        }
+      ]
+    },
+    {
+      "id": "ea-fc",
+      "title": "The EA FC file",
+      "blurb": "A research paper, a short personal post and a tally tool on one question: does the game decide matches fairly?",
+      "items": [
+        {
+          "path": "research/gaming/ea-fc-scripting-engagement-systems.html",
+          "title": "Scripting, Engagement, and the Limits of Skill in EA Sports FC",
+          "label": "Research"
+        },
+        {
+          "path": "blog/gaming/ea-fc-thousand-hours-result-screen.html",
+          "title": "A Thousand Hours of EA FC, and Why I No Longer Trust the Result Screen",
+          "label": "Notebook"
+        },
+        {
+          "path": "tools/ea-fc-session-tally.html",
+          "title": "EA FC Session Tally",
+          "label": "Tool"
+        }
+      ]
+    }
+  ]
+}
