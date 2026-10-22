@@ -155,6 +155,11 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://ramanand348.github.io/Ramblings-of-Ram/research/science/domesticated-capsid-genes-census.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
 
 

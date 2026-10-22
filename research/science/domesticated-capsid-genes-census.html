@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script>(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(!t&&window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)){document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();</script>
+<script>document.documentElement.classList.add("js-reveal");</script>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="canonical" href="https://ramanand348.github.io/Ramblings-of-Ram/research/science/domesticated-capsid-genes-census.html">
+<title>Domesticated Capsid Genes: Designing a Genome-Wide Census Beyond Arc - Retrocalculated</title>
+<meta name="description" content="A computational design for finding viral-capsid-derived genes in vertebrate proteomes, starting from Arc and the roughly 8 percent of the human genome that is retroviral in origin.">
+<link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+<link rel="alternate" type="application/rss+xml" title="Retrocalculated" href="../../rss.xml">
+<link rel="manifest" href="../../site.webmanifest">
+<link rel="apple-touch-icon" href="../../assets/favicon.svg">
+<meta name="theme-color" content="#14182B">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Domesticated Capsid Genes: A Genome-Wide Census Design">
+<meta property="og:description" content="A computational design for finding viral-capsid-derived genes in vertebrate proteomes, starting from Arc and the roughly 8 percent of the human genome that is retroviral in origin.">
+<meta property="og:url" content="https://ramanand348.github.io/Ramblings-of-Ram/research/science/domesticated-capsid-genes-census.html">
+<meta property="og:image" content="https://ramanand348.github.io/Ramblings-of-Ram/assets/og-default.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Domesticated Capsid Genes: A Genome-Wide Census Design">
+<meta name="twitter:description" content="A computational design for finding viral-capsid-derived genes in vertebrate proteomes, starting from Arc and the roughly 8 percent of the human genome that is retroviral in origin.">
+<meta name="twitter:image" content="https://ramanand348.github.io/Ramblings-of-Ram/assets/og-default.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "headline": "Domesticated Capsid Genes: Designing a Genome-Wide Census Beyond Arc",
+  "description": "A computational design for finding viral-capsid-derived genes in vertebrate proteomes, starting from Arc and the roughly 8 percent of the human genome that is retroviral in origin.",
+  "author": {"@type": "Person", "name": "A. V. Ramanand"},
+  "publisher": {"@type": "Organization", "name": "Retrocalculated"},
+  "datePublished": "2026-10-22",
+  "mainEntityOfPage": "https://ramanand348.github.io/Ramblings-of-Ram/research/science/domesticated-capsid-genes-census.html",
+  "about": ["Science", "Genomics", "Retrotransposons"]
+}
+</script>
+<script data-goatcounter="https://retrocalculated.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="site-header-inner">
+    <a class="wordmark" href="../../index.html">Retro<em>calculated</em></a>
+    <div class="site-header-right">
+      <nav class="site-nav" aria-label="Primary">
+      <a href="../../index.html">Home</a>
+      <a href="../index.html">Research</a>
+      <a href="../../blog/index.html">Notebook</a>
+          <a href="../../about.html">About</a>
+    </nav>
+      <button class="header-icon-btn theme-toggle" type="button" aria-label="Toggle dark mode">
+        <svg class="theme-icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+        <svg class="theme-icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+      </button>
+      <button class="header-icon-btn search-toggle" type="button" aria-label="Search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      </button>
+    </div>
+  </div>
+</header>
+<div class="search-overlay">
+  <div class="search-panel">
+    <div class="search-input-row">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input type="text" class="search-input" placeholder="Search articles..." aria-label="Search articles">
+      <button type="button" class="search-close-btn">Esc</button>
+    </div>
+    <div class="search-results"></div>
+  </div>
+</div>
+
+<div class="reading-header">
+  <div class="reading-header-inner">
+    <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+  <ol>
+    <li><a href="../../index.html">Home</a></li>
+    <li><a href="../index.html">Research</a></li>
+    <li><a href="index.html">Science</a></li>
+    <li aria-current="page">Domesticated capsid genes</li>
+  </ol>
+</nav>
+    <a class="back-link" href="../../index.html">← Back to all writing</a>
+    <h1>Domesticated Capsid Genes: Designing a Genome-Wide Census Beyond Arc</h1>
+    <p class="subtitle">A computational design for finding viral-capsid-derived genes in vertebrate proteomes, starting from Arc and the roughly 8 percent of the human genome that is retroviral in origin.</p>
+    <div class="reading-meta">
+      <span>Research · Genomics</span>
+      <span>Science</span>
+      <span>6 sections</span>
+      <span>~7 min read</span>
+      <span>Published Oct 2026</span>
+      <span>Author: Ramanand AV</span>
+    </div>
+  </div>
+</div>
+
+<div class="reading-layout">
+  <nav class="toc" aria-label="Table of contents">
+    <p class="toc-title">Contents</p>
+    <ol>
+      <li><a href="#abstract">Abstract</a></li>
+      <li><a href="#introduction">1. Two Kinds of Viral Inheritance</a></li>
+      <li><a href="#arc">2. Arc as the Worked Example</a></li>
+      <li><a href="#design">3. Design of the Census</a></li>
+      <li><a href="#limits">4. Feasibility and Failure Modes</a></li>
+      <li><a href="#cite">5. How to Cite This Piece</a></li>
+      <li><a href="#references">6. References</a></li>
+    </ol>
+  </nav>
+
+  <article class="article-body">
+
+    <aside class="takeaways" aria-label="Key takeaways">
+      <p class="takeaways-title">Key takeaways</p>
+      <ul>
+        <li>About 8 percent of the human genome is endogenous retrovirus sequence, but nearly all of it is inert. The interesting cases are the few viral genes that were kept and put to work.</li>
+        <li>Arc, a gene needed for memory consolidation, encodes a protein that assembles into virus-like capsids and moves RNA between neurons.</li>
+        <li>A census of capsid-derived genes across vertebrate proteomes needs only public sequence databases and free software, so no wet lab is involved.</li>
+        <li>No results are reported here. The piece sets out the design, the expected outputs, and the ways it could fail.</li>
+      </ul>
+    </aside>
+    <section class="chapter" id="abstract">
+      <h2 class="chapter-title">Abstract</h2>
+      <p>Roughly 8 percent of the human genome descends from retroviruses that infected germline cells and were then inherited as ordinary DNA.<sup class="cite-ref"><a href="#ref1">1</a></sup> Almost all of that material has decayed past function. A small set of viral genes escaped decay and were domesticated, including the placental fusion protein syncytin<sup class="cite-ref"><a href="#ref2">2</a></sup> and Arc, a neuronal gene whose product forms capsid-like particles.<sup class="cite-ref"><a href="#ref3">3</a></sup> This piece proposes a computational census that searches vertebrate proteomes for capsid-derived genes using profile hidden Markov models, confirms candidates with predicted structures, and places them on a phylogeny. The study requires public databases and a laptop or free cloud notebook.</p>
+    </section>
+
+    <section class="chapter" id="introduction">
+      <h2 class="chapter-title" data-chapter="01">1. Two Kinds of Viral Inheritance</h2>
+      <p>The figure of 8 percent and the story of Arc are often merged, and they should be kept apart. The 8 percent comes from the draft human genome analysis, which attributed about 8 percent of the sequence to long terminal repeat elements, most of them endogenous retroviruses.<sup class="cite-ref"><a href="#ref1">1</a></sup> These are fossils. Many survive only as a lone repeat sequence with the viral genes long gone, and the youngest family, HERV-K, still carries intact stretches but is not known to produce infectious virus.</p>
+      <p>Arc belongs to a different category. Its ancestor was a Ty3/gypsy retrotransposon, a relative of retroviruses, and the gene is a single domesticated copy that natural selection has maintained for hundreds of millions of years.<sup class="cite-ref"><a href="#ref4">4</a></sup> The two stories meet at one question: how many of the viral genes in vertebrate genomes were kept because the host found a use for them, and how many such genes remain unlisted?</p>
+    </section>
+
+    <section class="chapter" id="arc">
+      <h2 class="chapter-title" data-chapter="02">2. Arc as the Worked Example</h2>
+      <h3 class="section-title" id="arc-biology">2.1 What Arc Does</h3>
+      <p>Arc (activity-regulated cytoskeleton-associated protein) is switched on in neurons during learning, and mice lacking it show impaired long-term memory consolidation.<sup class="cite-ref"><a href="#ref5">5</a></sup> Structural work showed that the Arc protein carries domains resembling the retroviral Gag capsid protein.<sup class="cite-ref"><a href="#ref4">4</a></sup> The protein self-assembles into capsids that enclose Arc mRNA and are released in extracellular vesicles, and recipient neurons take up the cargo.<sup class="cite-ref"><a href="#ref3">3</a></sup></p>
+      <h3 class="section-title" id="arc-repeat">2.2 A Repeated Event</h3>
+      <p>Drosophila has its own Arc gene, and its protein also forms capsids and transfers RNA between cells.<sup class="cite-ref"><a href="#ref6">6</a></sup> The fly and tetrapod genes come from separate retrotransposon captures, so the same trick was domesticated at least twice. Mammals add other cases. PEG10 is also Gag-derived, is required for placental development in mice,<sup class="cite-ref"><a href="#ref7">7</a></sup> and packages its own mRNA into particles.<sup class="cite-ref"><a href="#ref8">8</a></sup> These examples show that capsid domestication happens repeatedly, which is the argument for a systematic search.</p>
+    </section>
+
+    <section class="chapter" id="design">
+      <h2 class="chapter-title" data-chapter="03">3. Design of the Census</h2>
+      <p>The pipeline moves from sequence to structure to evolutionary history. Each stage uses a tool with a published benchmark and a free implementation.</p>
+      <div class="table-scroll">
+        <table class="dataset-table">
+          <thead><tr><th>Stage</th><th>Input</th><th>Method</th><th>Output</th></tr></thead>
+          <tbody>
+            <tr><td>1. Seed profile</td><td>Known Gag-like proteins (Arc, PEG10, PNMA family, RTL genes)</td><td>Multiple alignment and a profile HMM, alongside the Pfam Gag family PF03732</td><td>Search model</td></tr>
+            <tr><td>2. Proteome search</td><td>Reference proteomes of several hundred vertebrates and selected invertebrates</td><td>HMMER3 hmmsearch<sup class="cite-ref"><a href="#ref9">9</a></sup></td><td>Candidate hits</td></tr>
+            <tr><td>3. Clustering</td><td>Candidate hits</td><td>MMseqs2 clustering<sup class="cite-ref"><a href="#ref10">10</a></sup></td><td>Gene families, redundancy removed</td></tr>
+            <tr><td>4. Structure check</td><td>Cluster representatives</td><td>AlphaFold models<sup class="cite-ref"><a href="#ref11">11</a></sup> searched with Foldseek<sup class="cite-ref"><a href="#ref12">12</a></sup> against viral capsid folds</td><td>Candidates with a capsid-like fold</td></tr>
+            <tr><td>5. Phylogeny</td><td>Confirmed families</td><td>Maximum likelihood tree with IQ-TREE 2<sup class="cite-ref"><a href="#ref13">13</a></sup></td><td>Capture events placed on the vertebrate tree</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Two outputs would be new. The first is a ranked list of unannotated Gag-like genes, each with a structural confirmation. The second is an estimate of how many independent capture events the vertebrate lineage contains, which the current literature has only for individual genes.</p>
+    </section>
+
+    <section class="chapter" id="limits">
+      <h2 class="chapter-title" data-chapter="04">4. Feasibility and Failure Modes</h2>
+      <p>Compute is modest. HMM searches over a few hundred proteomes finish in hours on a laptop, and AlphaFold models are downloadable, so nothing needs to be folded from scratch. The harder risks are scientific.</p>
+      <ul>
+        <li><strong>Divergence.</strong> Domesticated genes drift fast, and a profile built from known examples may miss distant ones. Structure-based search in stage 4 is the safeguard, since folds outlast sequence similarity.</li>
+        <li><strong>Annotation gaps.</strong> A gene absent from a proteome may only be unannotated. Searching translated genome assemblies for a subset of species would test this.</li>
+        <li><strong>False positives from retained viral remnants.</strong> A Gag-like protein is not proof of domestication. Candidates would need evidence of selection, such as a dN/dS ratio below one, and orthology across species.</li>
+        <li><strong>Functional claims.</strong> Computation can nominate genes and describe their histories. Whether a candidate forms capsids or carries RNA needs an experiment, and the study should say so in its conclusions.</li>
+      </ul>
+      <p>A natural extension is to check coding variation in the confirmed human genes using population genomes from India, where data access runs through the Indian Biological Data Centre application process.</p>
+    </section>
+
+    <section class="chapter" id="cite">
+      <h2 class="chapter-title">How to Cite This Piece</h2>
+      <div class="citation-box">
+        <div class="citation-tabs">
+          <button type="button" class="citation-tab active" data-citation="Ramanand, A. V. (2026). Domesticated Capsid Genes: Designing a Genome-Wide Census Beyond Arc. Retrocalculated. https://ramanand348.github.io/Ramblings-of-Ram/research/science/domesticated-capsid-genes-census.html">APA</button>
+          <button type="button" class="citation-tab" data-citation="@misc{ramanand2026capsid,&#10;  author = {Ramanand, A. V.},&#10;  title = {Domesticated Capsid Genes: Designing a Genome-Wide Census Beyond Arc},&#10;  year = {2026},&#10;  howpublished = {\url{https://ramanand348.github.io/Ramblings-of-Ram/research/science/domesticated-capsid-genes-census.html}},&#10;  note = {Retrocalculated}&#10;}">BibTeX</button>
+        </div>
+        <p class="citation-text">Ramanand, A. V. (2026). Domesticated Capsid Genes: Designing a Genome-Wide Census Beyond Arc. Retrocalculated. https://ramanand348.github.io/Ramblings-of-Ram/research/science/domesticated-capsid-genes-census.html</p>
+        <button type="button" class="citation-copy-btn">Copy</button>
+      </div>
+    </section>
+
+    <section class="chapter" id="references">
+      <h2 class="chapter-title" data-chapter="06">6. References</h2>
+      <ol class="ref-list">
+        <li id="ref1"><span class="ref-number">1.</span><p>International Human Genome Sequencing Consortium. (2001). Initial sequencing and analysis of the human genome. <em>Nature</em>, 409, 860–921.</p></li>
+        <li id="ref2"><span class="ref-number">2.</span><p>Mi, S., et al. (2000). Syncytin is a captive retroviral envelope protein involved in human placental morphogenesis. <em>Nature</em>, 403, 785–789.</p></li>
+        <li id="ref3"><span class="ref-number">3.</span><p>Pastuzyn, E. D., et al. (2018). The neuronal gene Arc encodes a repurposed retrotransposon Gag protein that mediates intercellular RNA transfer. <em>Cell</em>, 172, 275–288.</p></li>
+        <li id="ref4"><span class="ref-number">4.</span><p>Zhang, W., et al. (2015). Structural basis of Arc binding to synaptic proteins: implications for cognitive disease. <em>Neuron</em>, 86, 490–500.</p></li>
+        <li id="ref5"><span class="ref-number">5.</span><p>Plath, N., et al. (2006). Arc/Arg3.1 is essential for the consolidation of synaptic plasticity and memories. <em>Neuron</em>, 52, 437–444.</p></li>
+        <li id="ref6"><span class="ref-number">6.</span><p>Ashley, J., et al. (2018). Retrovirus-like Gag protein Arc1 binds RNA and traffics across synaptic boutons. <em>Cell</em>, 172, 262–274.</p></li>
+        <li id="ref7"><span class="ref-number">7.</span><p>Ono, R., et al. (2006). Deletion of Peg10, an imprinted gene acquired from a retrotransposon, causes early embryonic lethality. <em>Nature Genetics</em>, 38, 101–106.</p></li>
+        <li id="ref8"><span class="ref-number">8.</span><p>Segel, M., et al. (2021). Mammalian retrovirus-like protein PEG10 packages its own mRNA and can be pseudotyped for mRNA delivery. <em>Science</em>, 373, 882–889.</p></li>
+        <li id="ref9"><span class="ref-number">9.</span><p>Eddy, S. R. (2011). Accelerated profile HMM searches. <em>PLoS Computational Biology</em>, 7, e1002195.</p></li>
+        <li id="ref10"><span class="ref-number">10.</span><p>Steinegger, M., and Söding, J. (2017). MMseqs2 enables sensitive protein sequence searching for the analysis of massive data sets. <em>Nature Biotechnology</em>, 35, 1026–1028.</p></li>
+        <li id="ref11"><span class="ref-number">11.</span><p>Jumper, J., et al. (2021). Highly accurate protein structure prediction with AlphaFold. <em>Nature</em>, 596, 583–589.</p></li>
+        <li id="ref12"><span class="ref-number">12.</span><p>van Kempen, M., et al. (2024). Fast and accurate protein structure search with Foldseek. <em>Nature Biotechnology</em>, 42, 243–246.</p></li>
+        <li id="ref13"><span class="ref-number">13.</span><p>Minh, B. Q., et al. (2020). IQ-TREE 2: new models and efficient methods for phylogenetic inference in the genomic era. <em>Molecular Biology and Evolution</em>, 37, 1530–1534.</p></li>
+      </ol>
+    </section>
+
+  </article>
+</div>
+
+<div class="related-articles">
+  <h2>More from Retrocalculated</h2>
+  <div class="related-grid">
+    <a class="article-card" href="hgt-blandm1-gut-resistome.html">
+      <p class="article-kicker">Research</p>
+      <h3 style="font-size: 1.2rem;">Tracking blaNDM-1 Across Multi-Species Gut Reservoirs</h3>
+      <p>Another in silico study built entirely on public genomic data.</p>
+      <div class="article-meta"><span class="read-link">Read the paper →</span></div>
+    </a>
+    <a class="article-card cat-history" href="../history/the-mahabharata-war.html">
+      <p class="article-kicker">Meta-analysis</p>
+      <h3 style="font-size: 1.2rem;">The Mahabharata War: A Meta-Analysis of Astronomical Dating Claims</h3>
+      <p>Nineteen proposed dates for the Mahabharata war, scored against a shared evidentiary rubric.</p>
+      <div class="article-meta"><span class="read-link">Read the paper →</span></div>
+    </a>
+    <a class="article-card" href="../index.html">
+      <p class="article-kicker">Browse</p>
+      <h3 style="font-size: 1.2rem;">All research</h3>
+      <p>Every long-form piece, organized by category.</p>
+      <div class="article-meta"><span class="read-link">See all →</span></div>
+    </a>
+  </div>
+</div>
+
+<div class="giscus-wrap">
+  <p class="giscus-wrap-title">Discussion</p>
+  <div class="giscus"></div>
+</div>
+<script src="https://giscus.app/client.js"
+        data-repo="Ramanand348/Ramblings-of-Ram"
+        data-repo-id="R_kgDOUBPn4w"
+        data-category="General"
+        data-category-id="DIC_kwDOUBPn484DFS0f"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="en"
+        crossorigin="anonymous"
+        async>
+</script>
+
+<footer class="site-footer">
+  <div class="site-footer-inner">
+    <span>Retrocalculated</span>
+    <span><a href="../../archive.html" style="color:inherit;">Archive</a> · <a href="../../index.html" style="color:inherit;text-decoration:none;">← Back home</a></span>
+  </div>
+</footer>
+
+<script src="../../assets/site.js"></script>
+</body>
+</html>
+
+
+
+
+
