@@ -66,6 +66,8 @@
   .leaflet-popup-content h3{font-family:'Fraunces',Georgia,serif;font-size:1.02rem;margin:0 0 3px}
   .pop-meta{font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:var(--ink-soft)}
   .pop-btn{margin-top:8px;font-family:'IBM Plex Mono',monospace;font-size:.7rem;border:1px solid var(--rust);color:var(--rust);background:transparent;padding:3px 8px;border-radius:3px;cursor:pointer}
+  .rt{stroke-linecap:round}
+  .pin-end{width:10px;height:10px;border-radius:50%;background:var(--c);border:2px solid #fff}
   #nomap{display:none;padding:18px;font-size:.9rem}
   .empty{padding:18px 14px;color:var(--ink-soft);font-size:.9rem}
   @media (max-width:820px){
@@ -94,6 +96,7 @@
       </div>
     </div>
     <div class="row" id="powers" role="group" aria-label="Powers"><span class="lab">Power</span></div>
+    <div class="row" id="overlays" role="group" aria-label="Overlays"><span class="lab">Overlay</span></div>
   </div>
   <div class="main">
     <div id="map" role="application" aria-label="Map of events in Chola history"></div>
@@ -109,101 +112,99 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script id="atlas-data" type="application/json">
 [
-["ashoka","I",-258,1,"other","proven","Ashoka's edicts name the Cholas","Patna, Bihar, India (empire's capital, Pataliputra)",25.5941,85.1376,"o","Rock Edicts II and XIII list the Cholas, Pandyas, Satiyaputras, Keralaputras and Tamraparni as peoples beyond his frontier. Names only, no kings or dates."],
-["mangulam","I",-200,1,"pandya","proven","Mangulam inscription names a Pandya king","Mangulam, near Madurai, Tamil Nadu, India",10.03,78.27,"a","A Tamil-Brahmi inscription records a gift made in the reign of the Pandya king Netunceliyan, dated to the 2nd or 3rd century BCE."],
-["hathigumpha","I",-150,1,"other","contested","Kharavela breaks a Tamil confederacy","Udayagiri, near Bhubaneswar, Odisha, India",20.2646,85.7862,"o","Kharavela of Kalinga claims to have broken a confederacy of Tamil states and to have received Pandya pearls and horses. His date and the reading of the confederacy's age are argued."],
-["keeladi","I",-580,1,"pandya","contested","A planned town on the Vaigai","Keeladi, Sivaganga district, Tamil Nadu, India",9.8638,78.1801,"o","Brick structures, drains, ring wells and Tamil-Brahmi potsherds. A charcoal sample was dated to about 580 BCE. The Archaeological Survey of India disputes the early chronology."],
-["puhar","I",150,1,"chola","proven","Puhar, the port at the river mouth","Poompuhar, Mayiladuthurai district, Tamil Nadu, India",11.1467,79.8559,"o","Digs found rouletted ware, amphora fragments, foreign pottery and coins, and underwater surveys found a West Asian torpedo jar and ring wells now under the sea."],
-["uraiyur","I",150,1,"chola","literary","Uraiyur, the inland seat","Uraiyur, Tiruchirappalli, Tamil Nadu, India",10.8308,78.6799,"o","The poems name Uraiyur as the early Chola seat. Its role as a royal capital rests on literary sources."],
-["arikamedu","I",50,1,"other","supported","Arikamedu and the Roman trade","Arikamedu, near Puducherry, India",11.9167,79.8139,"o","A coastal trade site tied by the poems to the Velir chiefs, so it is a neighbour of the Chola country and not proof of Chola rule."],
-["pugalur","I",150,1,"chera","supported","Pugalur inscription names a Chera line","Pugalur, near Karur, Tamil Nadu, India",10.93,78.03,"a","An inscription names three generations of a Chera line, which Mahadevan used to tie the Sangam poems to the early centuries CE. Still to be checked in his 2003 book."],
-["venni","I",190,1,"chola","literary","The Battle of Venni","Kovilvenni, Thiruvarur district, Tamil Nadu, India",10.74,79.42,"a","Karikala is said to have beaten a Pandya and Chera coalition and eleven chieftains here. Known from poems only, with the identification and date (about 130 to 190 CE) disputed."],
-["kallanai","I",150,1,"chola","unproven","The Kallanai weir","Kallanai (Grand Anicut), near Tiruchirappalli, Tamil Nadu, India",10.8333,78.8167,"o","Tradition credits Karikala with this stone weir. The early poems credit him with flood banks, and the weir was remodelled in 1804."],
-["talai","I",150,1,"pandya","literary","Talaiyalanganam","Site not identified",null,null,"","The Pandya king Nedunjeliyan II is remembered for beating a coalition of Cholas, Cheras and five other rulers."],
-
-["buddhadatta","II",450,1,"chola","supported","A Pali monk names a Kalabhra ruler","Bhutamangalam, Chola country (site not identified)",null,null,"","Buddhadatta mentions Achyutavikranta of the Kalabhra clan ruling the Chola country from Kaveripattinam."],
-["kanchi_pallava","II",590,1,"pallava","supported","Pallavas rule from Kanchipuram","Kanchipuram, Tamil Nadu, India",12.8342,79.7036,"o","Simhavishnu, in the later sixth century, is credited in later plates with defeating the Kalabhra, Chola, Pandya and other kings."],
-["madurai_kadungon","II",600,1,"pandya","supported","The Pandya revival under Kadungon","Madurai, Tamil Nadu, India",9.9252,78.1198,"o","The Velvikudi plates say Kadungon freed the Pandya country from the Kalabhras. They were written about two centuries later."],
-["pullalur","II",620,1,"pallava","supported","Pullalur","Near Kanchipuram, Tamil Nadu, India",12.93,79.75,"a","Mahendravarman I is said to have wiped out his chief enemies here, taken by Hultzsch to be the Chalukyas."],
-["aihole","II",634,0,"other","proven","The Aihole inscription","Aihole, Bagalkot district, Karnataka, India",16.0214,75.8826,"o","A Chalukya court record. Verse 30 has Pulakeshin II's army crossing the Kaveri toward the Cholas, and verse 31 says he brought them prosperity."],
-["kaveri_cross","II",634,0,"other","supported","The Kaveri crossing","Somewhere along the Kaveri",null,null,"","Pulakeshin II's elephants make a causeway across the river in the Aihole verses. The crossing point is not named."],
-["badami","II",642,1,"other","supported","Badami taken by the Pallavas","Badami, Bagalkot district, Karnataka, India",15.9149,75.6768,"o","Narasimhavarman I claims to have taken Vatapi, the Chalukya capital. Pulakeshin II's latest known date is 642."],
-["kasakudi","II",750,1,"pallava","supported","The Kasakudi plates","Near Karaikal, Puducherry, India",10.93,79.8,"a","Eleven copper plates found in 1879, issued in the 22nd year of Nandivarman Pallavamalla, listing Simhavishnu's conquests."],
-["velvikudi","II",770,1,"pandya","supported","The Velvikudi plates","Near Madurai, Tamil Nadu, India (village not mapped)",9.9252,78.1198,"a","A Pandya grant now in the British Museum, issued about 770 CE, remembering Kadungon's victory over the Kalabhras."],
-
-["thanjavur","III",850,1,"chola","supported","Vijayalaya takes Thanjavur","Thanjavur, Tamil Nadu, India",10.787,79.1378,"o","Later grants say Vijayalaya took Thanjavur and built a temple to Nisumbhasudani. They do not name whom he displaced."],
-["sripur","III",880,1,"pallava","supported","Sripurambiyam","Thirupurambiyam, near Kumbakonam, Tamil Nadu, India",10.98,79.39,"a","Aparajita and a Ganga ally beat the Pandya king Varagunavarman II here, though the ally died. The location is still to be confirmed."],
-["tirukkal","III",900,1,"chola","proven","Aditya I's inscription in Pallava country","Tirukkalukkunram, Chengalpattu district, Tamil Nadu, India",12.6125,80.0556,"o","An inscription of Aditya's 27th year ratifies an old Pallava grant, showing Chola rule in the Pallava heartland."],
-["tondamanad","III",907,1,"chola","supported","Aditya I dies at Tondaimanarrur","Tondamanad, near Srikalahasti, Andhra Pradesh, India",13.69,79.58,"a","His son Parantaka built a Shiva temple over his ashes."],
-["anaimalai","III",910,1,"chola","proven","Parantaka takes Madurai","Anaimalai, near Madurai, Tamil Nadu, India",9.99,78.2,"a","A Vatteluttu inscription six miles from Madurai supports the capture, and a total solar eclipse in his 33rd year anchors his dates."],
-["mahatittha","III",912,1,"other","literary","The Sinhalese army embarks","Mannar region, Sri Lanka (Mahatittha)",8.98,79.92,"a","The Mahavamsa says Kassapa V saw an army off from the coast to help a Pandya king against the Chola. It failed."],
-["tiruvorriyur","III",941,0,"chola","proven","The Nellore campaign inscription","Tiruvorriyur, Chennai, Tamil Nadu, India",13.1586,80.301,"o","An inscription of Parantaka's 34th year records an officer returning from the conquest of Sitpuli after destroying Nellur."],
-["rohana","III",944,1,"other","literary","The Sinhalese king retreats to Rohana","Rohana, southeast Sri Lanka",6.28,81.29,"a","After a Chola army landed, the Mahavamsa says the king fled to Rohana with the Pandya regalia and the Cholas could not follow."],
-["kuram","III",944,1,"chola","proven","Parantaka enters Ceylon","Kuram, near Kanchipuram, Tamil Nadu, India",12.8,79.75,"a","An inscription of his 40th year says he entered Ceylon. The title Ilam-konda appears after his 37th year."],
-["uttaramallur","III",925,1,"chola","proven","Village assembly rules","Uttiramerur, Kanchipuram district, Tamil Nadu, India",12.6167,79.75,"o","Inscriptions here lay out detailed rules for village assemblies, placed in Parantaka I's reign."],
-["chidambaram_para","III",940,1,"chola","supported","The golden hall at Chidambaram","Chidambaram, Tamil Nadu, India",11.3993,79.693,"o","The Tiruvalangadu plates say Parantaka covered the small hall with gold."],
-["takkolam","III",949,0,"chola","supported","Takkolam","Takkolam, near Arakkonam, Tamil Nadu, India",13.04,79.62,"a","The prince Rajaditya was killed here fighting the Rashtrakuta king Krishna III. A Solapuram record dates Krishna's entry to 949 CE."],
-
-["kodumbalur","IV",960,1,"chola","supported","A Chola general dies in Ceylon","Kodumbalur, Pudukkottai district, Tamil Nadu, India (village not mapped)",10.3797,78.8207,"a","In Sundara Chola's ninth year the general Siriyavelar of Kodumbalur died in a battle in Ceylon."],
-["anbil","IV",964,1,"chola","proven","The Anbil plates","Anbil, near Tiruchirappalli, Tamil Nadu, India",10.9,78.85,"a","Dated in Sundara Chola's fourth year, they name his Vaidumba mother and remember Aditya I's temples."],
-["tiruvidai","IV",969,0,"chola","proven","Uttama Chola's accession year","Tiruvidaimarudur, Thanjavur district, Tamil Nadu, India",10.9967,79.45,"o","An inscription ties his 13th year to the Kali year 4083, which fixes his accession at 969."],
-
-["rajaraja","V",985,0,"chola","proven","Rajaraja I takes the throne","Thanjavur, Tamil Nadu, India",10.787,79.1378,"o","Kielhorn's astronomy places the accession between 25 June and 25 July 985."],
-["gangapadi","V",995,1,"chola","supported","Gangapadi and Nurambapadi","Southern Karnataka, India (region)",12.3,76.65,"a","Rajaraja's inscriptions list these Mysore provinces among his conquests by his 14th year."],
-["melpadi","V",998,0,"chola","proven","The Mummudi-Chola title","Melpadi, near Vellore, Tamil Nadu, India",12.97,79.14,"a","An inscription of his 14th year gives him the title. The earliest records spell it as 'thrice powerful Chola'."],
-["vengi_raja","V",999,1,"other","supported","Vengi restored","Vengi, Andhra Pradesh, India (region)",16.72,81.08,"a","Venkayya reasoned that the Cholas ended 27 years without a king there by placing Saktivarman on the throne."],
-["coorg","V",1000,1,"chola","proven","A Chola general in Coorg","Coorg, Karnataka, India (region)",12.42,75.74,"a","A Chola inscription at Malambi names his general Panchavan Maraya."],
-["chidambaram_raja","V",1003,1,"chola","supported","Sri-Rajaraja and Shivapadashekhara","Chidambaram, Tamil Nadu, India",11.3993,79.693,"o","New titles appear in a 19th-year inscription, perhaps conferred by the temple's priests."],
-["negapatam","V",1006,1,"chola","supported","A Buddhist shrine allowed","Nagapattinam, Tamil Nadu, India",10.7672,79.8449,"o","The large Leyden plates record the grant of the village of Anaimangalam to a Buddhist shrine built by a feudatory."],
-["hottur","V",1007,0,"other","contested","Satyasraya's account of the war","Hottur, Karnataka, India (site not mapped)",null,null,"","The Chalukya king says the Chola army of nine hundred thousand pillaged and that he put it to flight. The Chola claim victory too."],
-["tanjore_temple","V",1010,1,"chola","proven","The Rajarajesvara temple","Thanjavur, Tamil Nadu, India",10.7828,79.1318,"o","A copper pot for the pinnacle was presented on the 275th day of the 25th year. The royal order to engrave all gifts is dated the 26th year."],
-["padaviya","V",1011,1,"chola","proven","A Tamil inscription in Ceylon","Padaviya, Sri Lanka",8.67,80.78,"a","An inscription of the 27th year stands here, and villages in Ceylon were assigned to the Tanjore temple."],
-["tiruvaiyaru","V",1013,1,"chola","proven","Vimaladitya's gifts","Tiruvaiyaru, near Thanjavur, Tamil Nadu, India",10.8833,79.1,"o","The Eastern Chalukya king Vimaladitya made gifts here, and Lokamahadevi built a shrine of her own."],
-
-["sandimattivu","VI",1018,1,"chera","supported","Sandimattivu and Parasurama's crown","Island off the west coast (not identified)",null,null,"","The seventh-year Tanjore inscription ends its list of conquests with this island, from which he is said to have taken a golden crown."],
-["raichur","VI",1020,1,"chola","supported","Idaiturai-nadu","Raichur doab, Karnataka, India (region)",16.2,77.36,"a","Fleet identified this conquest with the Raichur doab. It appears among the claims on the nineteenth-year wall."],
-["banavasi","VI",1020,1,"chola","supported","Vanavasi","Banavasi region, Karnataka, India",14.53,75.0,"a","Another conquest claimed in the Western Chalukya country. The identification is to be confirmed."],
-["odisha","VI",1023,1,"chola","supported","Odisha and Kosala","Odisha and Kosala, India (regions)",20.5,84.5,"a","The northern march lists Odda-vishayam and Kosalai-nadu, on the way to the Ganga."],
-["bengal","VI",1023,1,"chola","supported","Bengal and Mahipala","Bengal, India and Bangladesh (region)",23.5,88.5,"a","The inscription says Mahipala was left without his slippers and Govindachandra fled from Vangala-desam. No Pala source was checked."],
-["gangaikonda","VI",1030,1,"chola","proven","Gangaikonda-Sorapuram","Gangaikondacholapuram, Ariyalur district, Tamil Nadu, India",11.2085,79.4495,"o","The nineteenth-year order was issued from the palace at the city of the one who took the Ganga."],
-["kadaram","VI",1026,1,"chola","contested","Kadaram","Kedah, Malay Peninsula (per the Srivijaya article)",6.1184,100.3685,"a","A fleet caught the king of Kadaram with his elephants. The date falls between his 12th and 18th years and the identifications are argued."],
-["kalyanapura","VI",1044,1,"other","supported","Kalyanapura","Basavakalyan, Bidar district, Karnataka, India",17.8727,76.9496,"a","Rajadhiraja's inscriptions claim he destroyed the Chalukya capital. A doorkeeper image at Darasuram is said to have been brought from there."],
-["darasuram","VI",1050,1,"chola","supported","The doorkeeper at Darasuram","Darasuram, Thanjavur district, Tamil Nadu, India",10.9468,79.3547,"o","An image at the Airavatesvara temple carries an inscription saying Vijayarajendra brought it after the conquest of Kalyanapuram. Second-hand report."],
-
-["koppam","VII",1052,1,"chola","supported","Koppam","Koppal, Karnataka, India",15.349,76.155,"a","The Cholas fought Ahavamalla here in 1052 or 1054. Rajadhiraja is said to have died on his elephant. The only full account is Rajendra II's."],
-["manimangalam","VII",1056,1,"chola","proven","The Manimangalam inscription","Manimangalam, Kanchipuram district, Tamil Nadu, India",12.93,80.0,"a","An inscription of Rajendra II's fourth year describes the fight at Koppam and lists the titles he gave his brothers."],
-["koli","VII",1056,1,"chola","proven","Karikala-Solan, lord of Koli","Uraiyur, Tiruchirappalli, Tamil Nadu, India",10.8308,78.6799,"o","A younger brother of Rajendra II, styled lord of Koli, is given the title Karikala-Solan more than eight centuries after Karikala."],
-["kolhapur","VII",1056,1,"other","unproven","The Kolhapur victory pillar","Kolhapur, Maharashtra, India",16.705,74.243,"o","A later tradition says Rajendra II raised a pillar here. The Manimangalam inscription does not mention it."],
-["karuvur","VII",1066,1,"chola","proven","Virarajendra's victory inscription","Karur, Tamil Nadu, India",10.9601,78.0766,"o","An inscription at the Pasupatisvara temple describes the victory at Kudalsangamam, issued from Gangaikonda-Solapuram. The battle site is disputed."],
-
-["kanchi_kulottunga","VIII",1075,0,"chola","proven","Kulottunga's fifth-year inscription","Kanchipuram, Tamil Nadu, India",12.8342,79.7036,"o","The first inscription to call him Kulottunga-Choladeva says he crowned himself king of the Chola country."],
-["kottaru","VIII",1084,0,"chola","proven","Kottaru and the Pandya frontier","Near Nagercoil, Kanyakumari district, Tamil Nadu, India",8.18,77.43,"a","The 14th-year inscriptions say he put the five Pandyas to flight, shrank their country to the Madurai district and posted garrisons at Kottaru."],
-["comorin","VIII",1084,0,"chola","proven","Cape Comorin","Kanyakumari, Tamil Nadu, India",8.0883,77.5385,"o","The southern limit of his conquest of the western Pandya country."],
-["vilinam","VIII",1084,1,"chera","supported","Vilinam and Salai","Vizhinjam, Thiruvananthapuram, Kerala, India",8.3796,76.9786,"a","Poems name Vilinam and Salai, and say Chera ships were burned at Salai twice."],
-["kalinga","VIII",1095,1,"other","supported","The Kalinga war","Kalinga, Odisha and northern Andhra Pradesh, India (region)",19.5,84.0,"a","A conquest before his 26th year, told best in the Kalingattu-Parani. Anantavarman Chodaganga ruled there from 1078."],
-["kanchi_palace","VIII",1100,1,"chola","proven","The palace at Kanchipuram","Kanchipuram, Tamil Nadu, India",12.8342,79.7036,"o","An inscription of his 30th year was issued from his palace here, so he held the city while Bilhana's poem says Vikramaditya took it."],
-["pallavaram","VIII",1109,1,"chola","proven","Sungandavirtta","Pallavaram, Chennai, Tamil Nadu, India",12.9675,80.1491,"o","An inscription of his 39th year gives him the name 'he who abolished tolls'."],
-
-["draksharama","IX",1121,1,"other","proven","Chalukya inscriptions in Vengi","Draksharama, East Godavari district, Andhra Pradesh, India",16.7917,82.0629,"a","Records of Vikramaditya VI from 1120 to 1124 show a Telugu vassal under Chalukya rule while Vikrama was in the south."],
-["chebrolu","IX",1127,0,"chola","proven","Vikrama's northern inscriptions","Guntur district, Andhra Pradesh, India (Chebrolu, Nidubrolu)",16.3,80.44,"a","Telugu inscriptions dated 1127 and 1135 show he regained the north."],
-["kanchi_ekamra","IX",1180,1,"chola","proven","Fifteen years on a temple wall","Ekamranatha temple, Kanchipuram, Tamil Nadu, India",12.8342,79.7036,"o","An inscription counts fifteen years from Rajaraja II's 19th year to Rajadhiraja II's 8th, showing their order."],
-["madurai_vikrama","IX",1187,1,"pandya","proven","Madurai given to Vikrama-Pandya","Madurai, Tamil Nadu, India",9.9252,78.1198,"o","Kulottunga III's ninth-year inscription says he took Madurai from Vira-Pandya and gave it to Vikrama-Pandya."],
-["srirangam_kul","IX",1196,1,"chola","proven","The nineteenth-year inscription","Srirangam, Tiruchirappalli, Tamil Nadu, India",10.8629,78.6894,"o","It records a northern march into Kanchi and the pardon of the Pandya and Chera kings."],
-["nellore","IX",1204,0,"chola","proven","Tammusiddhi at Nellore","Nellore, Andhra Pradesh, India",14.4426,79.9865,"o","A Telugu-Choda vassal made a grant here in Kulottunga III's 26th year."],
-["kanchi_ganga","IX",1205,0,"chola","proven","Siyaganga and the Nannul","Kanchipuram, Tamil Nadu, India",12.8342,79.7036,"o","A Ganga chief gave a lamp to the Ekamranatha temple. The Tamil grammar Nannul was composed in his time."],
-
-["srirangam_pandya","X",1225,0,"pandya","proven","Sundara-Pandya's claim","Srirangam, Tiruchirappalli, Tamil Nadu, India",10.8629,78.6894,"o","An inscription of his ninth year here claims he burnt Tanjore and Uraiyur."],
-["uraiyur_burnt","X",1225,0,"pandya","supported","Uraiyur burned","Uraiyur, Tiruchirappalli, Tamil Nadu, India",10.8308,78.6799,"o","The first Chola city the poems named is among the cities the Pandya king claims to have burnt."],
-["sendamangalam","X",1231,0,"other","supported","Rajaraja III confined","Sendamangalam, Tamil Nadu, India (not mapped)",null,null,"","After the battle at Tellaru the Chola king was confined at Sendamangalam and the Kadava chief Kopperunjinga began issuing records in his own name."],
-["kanchi_tikka","X",1233,1,"other","supported","Tikka captures Kanchi","Kanchipuram, Tamil Nadu, India",12.8342,79.7036,"o","The Telugu-Choda chief Tikka took the city and left an inscription dated Saka 1156."],
-["perambalur","X",1241,1,"other","supported","Perambalur","Perambalur, Tamil Nadu, India",11.2342,78.8807,"a","The Pallava chieftain is said to have confined the Hoysalas and taken tribute from the Pandyas."],
-["vedaranyam","X",1246,0,"other","supported","Singana's invasion","Vedaranyam, Nagapattinam district, Tamil Nadu, India",10.3722,79.8508,"a","A general named Singana invaded the country around Vedaranyam in the year Rajendra III came to the throne."],
-["tiruvannamalai","X",1247,1,"chola","proven","Two kings in one temple","Tiruvannamalai, Tamil Nadu, India",12.2253,79.0747,"o","Inscriptions of both Rajaraja III and Kopperunjinga stand here across three years."],
-["chidambaram_vira","X",1267,0,"pandya","proven","Vira-Pandya camps at Chidambaram","Chidambaram, Tamil Nadu, India",11.3993,79.693,"o","His 14th-year record says he took tribute from a Kadava chief while camped here."],
-["last","X",1279,0,"chola","supported","The last dated year","Chola country (no site)",null,null,"","The last recorded year of Rajendra III, his 33rd, is also the last of Kopperunjinga II. No checked source describes how the line ended."]
+["ashoka", "I", -258, 1, "other", "proven", "Ashoka's edicts name the Cholas", "Patna, Bihar, India (empire's capital, Pataliputra)", 25.5941, 85.1376, "o", "Rock Edicts II and XIII list the Cholas, Pandyas, Satiyaputras, Keralaputras and Tamraparni as peoples beyond his frontier. Names only, no kings or dates."],
+["mangulam", "I", -200, 1, "pandya", "proven", "Mangulam inscription names a Pandya king", "Mangulam, near Melur, Madurai district, Tamil Nadu, India", 10.0223, 78.2584, "o", "A Tamil-Brahmi inscription records a gift made in the reign of the Pandya king Netunceliyan, dated to the 2nd or 3rd century BCE."],
+["hathigumpha", "I", -150, 1, "other", "contested", "Kharavela breaks a Tamil confederacy", "Udayagiri, near Bhubaneswar, Odisha, India", 20.2646, 85.7862, "o", "Kharavela of Kalinga claims to have broken a confederacy of Tamil states and to have received Pandya pearls and horses. His date and the reading of the confederacy's age are argued."],
+["keeladi", "I", -580, 1, "pandya", "contested", "A planned town on the Vaigai", "Keeladi, Sivaganga district, Tamil Nadu, India", 9.8638, 78.1801, "o", "Brick structures, drains, ring wells and Tamil-Brahmi potsherds. A charcoal sample was dated to about 580 BCE. The Archaeological Survey of India disputes the early chronology."],
+["puhar", "I", 150, 1, "chola", "proven", "Puhar, the port at the river mouth", "Poompuhar, Mayiladuthurai district, Tamil Nadu, India", 11.1467, 79.8559, "o", "Digs found rouletted ware, amphora fragments, foreign pottery and coins, and underwater surveys found a West Asian torpedo jar and ring wells now under the sea."],
+["uraiyur", "I", 150, 1, "chola", "literary", "Uraiyur, the inland seat", "Uraiyur, Tiruchirappalli, Tamil Nadu, India", 10.8308, 78.6799, "o", "The poems name Uraiyur as the early Chola seat. Its role as a royal capital rests on literary sources."],
+["arikamedu", "I", 50, 1, "other", "supported", "Arikamedu and the Roman trade", "Arikamedu, near Puducherry, India", 11.9167, 79.8139, "o", "A coastal trade site tied by the poems to the Velir chiefs, so it is a neighbour of the Chola country and not proof of Chola rule."],
+["pugalur", "I", 150, 1, "chera", "supported", "Pugalur inscription names a Chera line", "Pugalur (Velayudhampalayam), about 10 miles north of Karur, Tamil Nadu, India", 11.08, 78.0, "a", "An inscription names three generations of a Chera line, which Mahadevan used to tie the Sangam poems to the early centuries CE. Still to be checked in his 2003 book."],
+["venni", "I", 190, 1, "chola", "literary", "The Battle of Venni", "Koilvenni village, Needamangalam taluk, Thiruvarur district, Tamil Nadu, India", 10.7862, 79.3703, "o", "Karikala is said to have beaten a Pandya and Chera coalition and eleven chieftains here. Known from poems only. Scholars identify Venni with Kovilvenni, and the date (about 130 to 190 CE) is disputed."],
+["kallanai", "I", 150, 1, "chola", "unproven", "The Kallanai weir", "Kallanai (Grand Anicut), near Tiruchirappalli, Tamil Nadu, India", 10.8333, 78.8167, "o", "Tradition credits Karikala with this stone weir. The early poems credit him with flood banks, and the weir was remodelled in 1804."],
+["talai", "I", 150, 1, "pandya", "literary", "Talaiyalanganam", "Site not identified", null, null, "", "The Pandya king Nedunjeliyan II is remembered for beating a coalition of Cholas, Cheras and five other rulers."],
+["karur", "I", 100, 1, "chera", "supported", "Karur, the early Chera capital", "Karur, Tamil Nadu, India", 10.9601, 78.0766, "o", "Excavations at Karur have produced copper coins with the Chera bow-and-arrow symbol and pieces of Roman amphorae. The poems call the city Vanji."],
+["buddhadatta", "II", 450, 1, "chola", "supported", "A Pali monk names a Kalabhra ruler", "Bhutamangalam, Chola country (site not identified)", null, null, "", "Buddhadatta mentions Achyutavikranta of the Kalabhra clan ruling the Chola country from Kaveripattinam."],
+["kanchi_pallava", "II", 590, 1, "pallava", "supported", "Pallavas rule from Kanchipuram", "Kanchipuram, Tamil Nadu, India", 12.8342, 79.7036, "o", "Simhavishnu, in the later sixth century, is credited in later plates with defeating the Kalabhra, Chola, Pandya and other kings."],
+["madurai_kadungon", "II", 600, 1, "pandya", "supported", "The Pandya revival under Kadungon", "Madurai, Tamil Nadu, India", 9.9252, 78.1198, "o", "The Velvikudi plates say Kadungon freed the Pandya country from the Kalabhras. They were written about two centuries later."],
+["pullalur", "II", 620, 1, "pallava", "supported", "Pullalur", "Near Kanchipuram, Tamil Nadu, India", 12.93, 79.75, "a", "Mahendravarman I is said to have wiped out his chief enemies here, taken by Hultzsch to be the Chalukyas."],
+["aihole", "II", 634, 0, "other", "proven", "The Aihole inscription", "Aihole, Bagalkot district, Karnataka, India", 16.0214, 75.8826, "o", "A Chalukya court record. Verse 30 has Pulakeshin II's army crossing the Kaveri toward the Cholas, and verse 31 says he brought them prosperity."],
+["kaveri_cross", "II", 634, 0, "other", "supported", "The Kaveri crossing", "Somewhere along the Kaveri", null, null, "", "Pulakeshin II's elephants make a causeway across the river in the Aihole verses. The crossing point is not named."],
+["badami", "II", 642, 1, "other", "supported", "Badami taken by the Pallavas", "Badami, Bagalkot district, Karnataka, India", 15.9149, 75.6768, "o", "Narasimhavarman I claims to have taken Vatapi, the Chalukya capital. Pulakeshin II's latest known date is 642."],
+["kasakudi", "II", 750, 1, "pallava", "supported", "The Kasakudi plates", "Near Karaikal, Puducherry, India", 10.93, 79.8, "a", "Eleven copper plates found in 1879, issued in the 22nd year of Nandivarman Pallavamalla, listing Simhavishnu's conquests."],
+["velvikudi", "II", 770, 1, "pandya", "supported", "The Velvikudi plates", "Near Madurai, Tamil Nadu, India (village not mapped)", 9.9252, 78.1198, "a", "A Pandya grant now in the British Museum, issued about 770 CE, remembering Kadungon's victory over the Kalabhras."],
+["thanjavur", "III", 850, 1, "chola", "supported", "Vijayalaya takes Thanjavur", "Thanjavur, Tamil Nadu, India", 10.787, 79.1378, "o", "Later grants say Vijayalaya took Thanjavur and built a temple to Nisumbhasudani. They do not name whom he displaced."],
+["sripur", "III", 880, 1, "pallava", "supported", "Sripurambiyam", "Thirupurambiyam, near Kumbakonam, Tamil Nadu, India", 10.98, 79.39, "a", "Aparajita and a Ganga ally beat the Pandya king Varagunavarman II here, though the ally died. The location is still to be confirmed."],
+["tirukkal", "III", 900, 1, "chola", "proven", "Aditya I's inscription in Pallava country", "Tirukkalukkunram, Chengalpattu district, Tamil Nadu, India", 12.6125, 80.0556, "o", "An inscription of Aditya's 27th year ratifies an old Pallava grant, showing Chola rule in the Pallava heartland."],
+["tondamanad", "III", 907, 1, "chola", "supported", "Aditya I dies at Tondaimanarrur", "Tondamanad, near Srikalahasti, Andhra Pradesh, India", 13.69, 79.58, "a", "His son Parantaka built a Shiva temple over his ashes."],
+["anaimalai", "III", 910, 1, "chola", "proven", "Parantaka takes Madurai", "Anaimalai, near Madurai, Tamil Nadu, India", 9.99, 78.2, "a", "A Vatteluttu inscription six miles from Madurai supports the capture, and a total solar eclipse in his 33rd year anchors his dates."],
+["mahatittha", "III", 912, 1, "other", "literary", "The Sinhalese army embarks", "Mannar region, Sri Lanka (Mahatittha)", 8.98, 79.92, "a", "The Mahavamsa says Kassapa V saw an army off from the coast to help a Pandya king against the Chola. It failed."],
+["tiruvorriyur", "III", 941, 0, "chola", "proven", "The Nellore campaign inscription", "Tiruvorriyur, Chennai, Tamil Nadu, India", 13.1586, 80.301, "o", "An inscription of Parantaka's 34th year records an officer returning from the conquest of Sitpuli after destroying Nellur."],
+["rohana", "III", 944, 1, "other", "literary", "The Sinhalese king retreats to Rohana", "Rohana, southeast Sri Lanka", 6.28, 81.29, "a", "After a Chola army landed, the Mahavamsa says the king fled to Rohana with the Pandya regalia and the Cholas could not follow."],
+["kuram", "III", 944, 1, "chola", "proven", "Parantaka enters Ceylon", "Kuram, near Kanchipuram, Tamil Nadu, India", 12.8, 79.75, "a", "An inscription of his 40th year says he entered Ceylon. The title Ilam-konda appears after his 37th year."],
+["uttaramallur", "III", 925, 1, "chola", "proven", "Village assembly rules", "Uttiramerur, Kanchipuram district, Tamil Nadu, India", 12.6167, 79.75, "o", "Inscriptions here lay out detailed rules for village assemblies, placed in Parantaka I's reign."],
+["chidambaram_para", "III", 940, 1, "chola", "supported", "The golden hall at Chidambaram", "Chidambaram, Tamil Nadu, India", 11.3993, 79.693, "o", "The Tiruvalangadu plates say Parantaka covered the small hall with gold."],
+["takkolam", "III", 949, 0, "chola", "supported", "Takkolam", "Thakkolam, Ranipet district, Tamil Nadu, India", 13.0167, 79.7314, "o", "The prince Rajaditya was killed here fighting the Rashtrakuta king Krishna III. A Solapuram record dates Krishna's entry to 949 CE."],
+["kodumbalur", "IV", 960, 1, "chola", "supported", "A Chola general dies in Ceylon", "Kodumbalur, Pudukkottai district, Tamil Nadu, India (village not mapped)", 10.3797, 78.8207, "a", "In Sundara Chola's ninth year the general Siriyavelar of Kodumbalur died in a battle in Ceylon."],
+["anbil", "IV", 964, 1, "chola", "proven", "The Anbil plates", "Anbil, near Tiruchirappalli, Tamil Nadu, India", 10.9, 78.85, "a", "Dated in Sundara Chola's fourth year, they name his Vaidumba mother and remember Aditya I's temples."],
+["tiruvidai", "IV", 969, 0, "chola", "proven", "Uttama Chola's accession year", "Tiruvidaimarudur, Thanjavur district, Tamil Nadu, India", 10.9967, 79.45, "o", "An inscription ties his 13th year to the Kali year 4083, which fixes his accession at 969."],
+["rajaraja", "V", 985, 0, "chola", "proven", "Rajaraja I takes the throne", "Thanjavur, Tamil Nadu, India", 10.787, 79.1378, "o", "Kielhorn's astronomy places the accession between 25 June and 25 July 985."],
+["gangapadi", "V", 995, 1, "chola", "supported", "Gangapadi and Nurambapadi", "Southern Karnataka, India (region)", 12.3, 76.65, "a", "Rajaraja's inscriptions list these Mysore provinces among his conquests by his 14th year."],
+["melpadi", "V", 998, 0, "chola", "proven", "The Mummudi-Chola title", "Melpadi, Vellore district, Tamil Nadu, India", 13.067, 79.283, "a", "An inscription of his 14th year gives him the title. The earliest records spell it as 'thrice powerful Chola'."],
+["vengi_raja", "V", 999, 1, "other", "supported", "Vengi restored", "Vengi, Andhra Pradesh, India (region)", 16.72, 81.08, "a", "Venkayya reasoned that the Cholas ended 27 years without a king there by placing Saktivarman on the throne."],
+["coorg", "V", 1000, 1, "chola", "proven", "A Chola general in Coorg", "Coorg, Karnataka, India (region)", 12.42, 75.74, "a", "A Chola inscription at Malambi names his general Panchavan Maraya."],
+["chidambaram_raja", "V", 1003, 1, "chola", "supported", "Sri-Rajaraja and Shivapadashekhara", "Chidambaram, Tamil Nadu, India", 11.3993, 79.693, "o", "New titles appear in a 19th-year inscription, perhaps conferred by the temple's priests."],
+["negapatam", "V", 1006, 1, "chola", "supported", "A Buddhist shrine allowed", "Nagapattinam, Tamil Nadu, India", 10.7672, 79.8449, "o", "The large Leyden plates record the grant of the village of Anaimangalam to a Buddhist shrine built by a feudatory."],
+["hottur", "V", 1007, 0, "other", "contested", "Satyasraya's account of the war", "Hottur, Karnataka, India (site not mapped)", null, null, "", "The Chalukya king says the Chola army of nine hundred thousand pillaged and that he put it to flight. The Chola claim victory too."],
+["tanjore_temple", "V", 1010, 1, "chola", "proven", "The Rajarajesvara temple", "Thanjavur, Tamil Nadu, India", 10.7828, 79.1318, "o", "A copper pot for the pinnacle was presented on the 275th day of the 25th year. The royal order to engrave all gifts is dated the 26th year."],
+["padaviya", "V", 1011, 1, "chola", "proven", "A Tamil inscription in Ceylon", "Padaviya, Anuradhapura district, Sri Lanka", 8.832, 80.759, "o", "An inscription of the 27th year stands here, and villages in Ceylon were assigned to the Tanjore temple."],
+["tiruvaiyaru", "V", 1013, 1, "chola", "proven", "Vimaladitya's gifts", "Tiruvaiyaru, near Thanjavur, Tamil Nadu, India", 10.8833, 79.1, "o", "The Eastern Chalukya king Vimaladitya made gifts here, and Lokamahadevi built a shrine of her own."],
+["sandimattivu", "VI", 1018, 1, "chera", "supported", "Sandimattivu and Parasurama's crown", "Island off the west coast (not identified)", null, null, "", "The seventh-year Tanjore inscription ends its list of conquests with this island, from which he is said to have taken a golden crown."],
+["raichur", "VI", 1020, 1, "chola", "supported", "Idaiturai-nadu", "Raichur doab, Karnataka, India (region)", 16.2, 77.36, "a", "Fleet identified this conquest with the Raichur doab. It appears among the claims on the nineteenth-year wall."],
+["banavasi", "VI", 1020, 1, "chola", "supported", "Vanavasi", "Banavasi region, Karnataka, India", 14.53, 75.0, "a", "Another conquest claimed in the Western Chalukya country. The identification is to be confirmed."],
+["odisha", "VI", 1023, 1, "chola", "supported", "Odisha and Kosala", "Odisha and Kosala, India (regions)", 20.5, 84.5, "a", "The northern march lists Odda-vishayam and Kosalai-nadu, on the way to the Ganga."],
+["bengal", "VI", 1023, 1, "chola", "supported", "Bengal and Mahipala", "Bengal, India and Bangladesh (region)", 23.5, 88.5, "a", "The inscription says Mahipala was left without his slippers and Govindachandra fled from Vangala-desam. No Pala source was checked."],
+["gangaikonda", "VI", 1030, 1, "chola", "proven", "Gangaikonda-Sorapuram", "Gangaikondacholapuram, Ariyalur district, Tamil Nadu, India", 11.2085, 79.4495, "o", "The nineteenth-year order was issued from the palace at the city of the one who took the Ganga."],
+["kadaram", "VI", 1026, 1, "chola", "contested", "Kadaram", "Kedah, Malay Peninsula (per the Srivijaya article)", 6.1184, 100.3685, "a", "A fleet caught the king of Kadaram with his elephants. The date falls between his 12th and 18th years and the identifications are argued."],
+["kalyanapura", "VI", 1044, 1, "other", "supported", "Kalyanapura", "Basavakalyan, Bidar district, Karnataka, India", 17.8727, 76.9496, "a", "Rajadhiraja's inscriptions claim he destroyed the Chalukya capital. A doorkeeper image at Darasuram is said to have been brought from there."],
+["darasuram", "VI", 1050, 1, "chola", "supported", "The doorkeeper at Darasuram", "Darasuram, Thanjavur district, Tamil Nadu, India", 10.9468, 79.3547, "o", "An image at the Airavatesvara temple carries an inscription saying Vijayarajendra brought it after the conquest of Kalyanapuram. Second-hand report."],
+["koppam", "VII", 1052, 1, "chola", "supported", "Koppam", "Koppal, Karnataka, India", 15.349, 76.155, "a", "The Cholas fought Ahavamalla here in 1052 or 1054. Rajadhiraja is said to have died on his elephant. The only full account is Rajendra II's."],
+["manimangalam", "VII", 1056, 1, "chola", "proven", "The Manimangalam inscription", "Manimangalam, Kanchipuram district, Tamil Nadu, India", 12.93, 80.0, "a", "An inscription of Rajendra II's fourth year describes the fight at Koppam and lists the titles he gave his brothers."],
+["koli", "VII", 1056, 1, "chola", "proven", "Karikala-Solan, lord of Koli", "Uraiyur, Tiruchirappalli, Tamil Nadu, India", 10.8308, 78.6799, "o", "A younger brother of Rajendra II, styled lord of Koli, is given the title Karikala-Solan more than eight centuries after Karikala."],
+["kolhapur", "VII", 1056, 1, "other", "unproven", "The Kolhapur victory pillar", "Kolhapur, Maharashtra, India", 16.705, 74.243, "o", "A later tradition says Rajendra II raised a pillar here. The Manimangalam inscription does not mention it."],
+["karuvur", "VII", 1066, 1, "chola", "proven", "Virarajendra's victory inscription", "Karur, Tamil Nadu, India", 10.9601, 78.0766, "o", "An inscription at the Pasupatisvara temple describes the victory at Kudalsangamam, issued from Gangaikonda-Solapuram. The battle site is disputed."],
+["kanchi_kulottunga", "VIII", 1075, 0, "chola", "proven", "Kulottunga's fifth-year inscription", "Kanchipuram, Tamil Nadu, India", 12.8342, 79.7036, "o", "The first inscription to call him Kulottunga-Choladeva says he crowned himself king of the Chola country."],
+["kottaru", "VIII", 1084, 0, "chola", "proven", "Kottaru and the Pandya frontier", "Near Nagercoil, Kanyakumari district, Tamil Nadu, India", 8.18, 77.43, "a", "The 14th-year inscriptions say he put the five Pandyas to flight, shrank their country to the Madurai district and posted garrisons at Kottaru."],
+["comorin", "VIII", 1084, 0, "chola", "proven", "Cape Comorin", "Kanyakumari, Tamil Nadu, India", 8.0883, 77.5385, "o", "The southern limit of his conquest of the western Pandya country."],
+["vilinam", "VIII", 1084, 1, "chera", "supported", "Vilinam and Salai", "Vizhinjam, Thiruvananthapuram, Kerala, India", 8.3796, 76.9786, "a", "Poems name Vilinam and Salai, and say Chera ships were burned at Salai twice."],
+["kalinga", "VIII", 1095, 1, "other", "supported", "The Kalinga war", "Kalinga, Odisha and northern Andhra Pradesh, India (region)", 19.5, 84.0, "a", "A conquest before his 26th year, told best in the Kalingattu-Parani. Anantavarman Chodaganga ruled there from 1078."],
+["kanchi_palace", "VIII", 1100, 1, "chola", "proven", "The palace at Kanchipuram", "Kanchipuram, Tamil Nadu, India", 12.8342, 79.7036, "o", "An inscription of his 30th year was issued from his palace here, so he held the city while Bilhana's poem says Vikramaditya took it."],
+["pallavaram", "VIII", 1109, 1, "chola", "proven", "Sungandavirtta", "Pallavaram, Chennai, Tamil Nadu, India", 12.9675, 80.1491, "o", "An inscription of his 39th year gives him the name 'he who abolished tolls'."],
+["draksharama", "IX", 1121, 1, "other", "proven", "Chalukya inscriptions in Vengi", "Draksharama, East Godavari district, Andhra Pradesh, India", 16.7917, 82.0629, "a", "Records of Vikramaditya VI from 1120 to 1124 show a Telugu vassal under Chalukya rule while Vikrama was in the south."],
+["chebrolu", "IX", 1127, 0, "chola", "proven", "Vikrama's northern inscriptions", "Guntur district, Andhra Pradesh, India (Chebrolu, Nidubrolu)", 16.3, 80.44, "a", "Telugu inscriptions dated 1127 and 1135 show he regained the north."],
+["kanchi_ekamra", "IX", 1180, 1, "chola", "proven", "Fifteen years on a temple wall", "Ekamranatha temple, Kanchipuram, Tamil Nadu, India", 12.8342, 79.7036, "o", "An inscription counts fifteen years from Rajaraja II's 19th year to Rajadhiraja II's 8th, showing their order."],
+["madurai_vikrama", "IX", 1187, 1, "pandya", "proven", "Madurai given to Vikrama-Pandya", "Madurai, Tamil Nadu, India", 9.9252, 78.1198, "o", "Kulottunga III's ninth-year inscription says he took Madurai from Vira-Pandya and gave it to Vikrama-Pandya."],
+["srirangam_kul", "IX", 1196, 1, "chola", "proven", "The nineteenth-year inscription", "Srirangam, Tiruchirappalli, Tamil Nadu, India", 10.8629, 78.6894, "o", "It records a northern march into Kanchi and the pardon of the Pandya and Chera kings."],
+["nellore", "IX", 1204, 0, "chola", "proven", "Tammusiddhi at Nellore", "Nellore, Andhra Pradesh, India", 14.4426, 79.9865, "o", "A Telugu-Choda vassal made a grant here in Kulottunga III's 26th year."],
+["kanchi_ganga", "IX", 1205, 0, "chola", "proven", "Siyaganga and the Nannul", "Kanchipuram, Tamil Nadu, India", 12.8342, 79.7036, "o", "A Ganga chief gave a lamp to the Ekamranatha temple. The Tamil grammar Nannul was composed in his time."],
+["srirangam_pandya", "X", 1225, 0, "pandya", "proven", "Sundara-Pandya's claim", "Srirangam, Tiruchirappalli, Tamil Nadu, India", 10.8629, 78.6894, "o", "An inscription of his ninth year here claims he burnt Tanjore and Uraiyur."],
+["uraiyur_burnt", "X", 1225, 0, "pandya", "supported", "Uraiyur burned", "Uraiyur, Tiruchirappalli, Tamil Nadu, India", 10.8308, 78.6799, "o", "The first Chola city the poems named is among the cities the Pandya king claims to have burnt."],
+["sendamangalam", "X", 1231, 0, "other", "supported", "Rajaraja III confined", "Sendamangalam, Tamil Nadu, India (not mapped)", null, null, "", "After the battle at Tellaru the Chola king was confined at Sendamangalam and the Kadava chief Kopperunjinga began issuing records in his own name."],
+["kanchi_tikka", "X", 1233, 1, "other", "supported", "Tikka captures Kanchi", "Kanchipuram, Tamil Nadu, India", 12.8342, 79.7036, "o", "The Telugu-Choda chief Tikka took the city and left an inscription dated Saka 1156."],
+["perambalur", "X", 1241, 1, "other", "supported", "Perambalur", "Perambalur, Tamil Nadu, India", 11.2342, 78.8807, "a", "The Pallava chieftain is said to have confined the Hoysalas and taken tribute from the Pandyas."],
+["vedaranyam", "X", 1246, 0, "other", "supported", "Singana's invasion", "Vedaranyam, Nagapattinam district, Tamil Nadu, India", 10.3722, 79.8508, "a", "A general named Singana invaded the country around Vedaranyam in the year Rajendra III came to the throne."],
+["tiruvannamalai", "X", 1247, 1, "chola", "proven", "Two kings in one temple", "Tiruvannamalai, Tamil Nadu, India", 12.2253, 79.0747, "o", "Inscriptions of both Rajaraja III and Kopperunjinga stand here across three years."],
+["chidambaram_vira", "X", 1267, 0, "pandya", "proven", "Vira-Pandya camps at Chidambaram", "Chidambaram, Tamil Nadu, India", 11.3993, 79.693, "o", "His 14th-year record says he took tribute from a Kadava chief while camped here."],
+["last", "X", 1279, 0, "chola", "supported", "The last dated year", "Chola country (no site)", null, null, "", "The last recorded year of Rajendra III, his 33rd, is also the last of Kopperunjinga II. No checked source describes how the line ended."]
 ]
 </script>
 
+<script id="atlas-routes" type="application/json">
+[{"id": "r_aihole", "ch": "II", "y": 634, "t": "Pulakeshin II's march (Aihole verses 29 and 30)", "pw": "other", "kind": "schematic", "pts": [[16.0214, 75.8826], [12.8342, 79.7036]], "note": "The verses have the Chalukya army darkening Kanchipuram's walls, then crossing the Kaveri toward the Cholas. The route and the crossing point are not named."}, {"id": "r_sinh", "ch": "III", "y": 912, "t": "The Sinhalese army to the Pandya country", "pw": "other", "kind": "schematic", "pts": [[8.98, 79.92], [9.9252, 78.1198]], "note": "The Mahavamsa says the army embarked at Mahatittha and landed in the Pandya country. The landing place is not named, and Madurai stands for the country."}, {"id": "r_north", "ch": "VI", "y": 1023, "t": "Rajendra I's northern march", "pw": "chola", "kind": "order", "pts": [[11.2085, 79.4495], [20.5, 84.5], [21.0, 83.5], [23.5, 88.5]], "note": "Drawn in the order the regions appear in the nineteenth-year inscription (Odisha, Kosala, Bengal). The stops between and the actual route are not documented."}, {"id": "r_kaly", "ch": "VI", "y": 1044, "t": "Rajadhiraja's war on Kalyanapura", "pw": "chola", "kind": "schematic", "pts": [[11.2085, 79.4495], [17.8727, 76.9496]], "note": "His inscriptions claim he destroyed the Chalukya capital. No route is given."}, {"id": "r_koppam", "ch": "VII", "y": 1052, "t": "The Chola army to Koppam", "pw": "chola", "kind": "schematic", "pts": [[11.2085, 79.4495], [15.349, 76.155]], "note": "The Manimangalam inscription has the Cholas reaching Iratta-mandalam before Ahavamalla rode to Koppam. No route is given."}, {"id": "r_bilhana", "ch": "VIII", "y": 1070, "t": "Vikramaditya VI's journey to the Chola court", "pw": "other", "kind": "schematic", "pts": [[17.8727, 76.9496], [11.2085, 79.4495], [12.8342, 79.7036]], "note": "Bilhana says he set out for Kanchi and Gangaikondacholapuram after Virarajendra's death. The Chalukya side alone tells it."}]
+</script>
+<script id="atlas-prints" type="application/json">
+[{"id": "f_para", "t": "Parantaka I (907 to c. 955)", "pw": "chola", "kind": "find", "pts": [["Tiruvorriyur", 13.1586, 80.301], ["Uttiramerur", 12.6167, 79.75], ["Kuram", 12.8, 79.75], ["Anaimalai", 9.99, 78.2], ["Tirunelveli district", 8.7139, 77.7567], ["Karur (Somur)", 10.9601, 78.0766]], "note": "Where his inscriptions are found, from Tiruvorriyur in the north to Tirunelveli in the south. The area is the outline of those findspots, not a border."}, {"id": "f_raja", "t": "Rajaraja I (985 to 1014)", "pw": "chola", "kind": "find", "pts": [["Thanjavur", 10.7828, 79.1318], ["Melpadi", 13.067, 79.283], ["Coorg (Malambi)", 12.42, 75.74], ["Padaviya, Ceylon", 8.832, 80.759]], "note": "Four places where his inscriptions stand. Many more survive at Tanjore, so this is a thin outline."}, {"id": "f_rajendra", "t": "Rajendra I's claimed reach", "pw": "chola", "kind": "claim", "pts": [["Gangaikondacholapuram", 11.2085, 79.4495], ["Idaiturai-nadu", 16.2, 77.36], ["Odisha", 20.5, 84.5], ["Kosala", 21.0, 83.5], ["Bengal", 23.5, 88.5]], "note": "The mainland regions named in his nineteenth-year inscription. These are the king's own claims."}, {"id": "f_kul", "t": "Kulottunga I's claimed reach", "pw": "chola", "kind": "claim", "pts": [["Kanchipuram", 12.8342, 79.7036], ["Vengi", 16.72, 81.08], ["Kalinga", 19.5, 84.0], ["Kottaru", 8.18, 77.43], ["Cape Comorin", 8.0883, 77.5385]], "note": "The places his inscriptions claim, from Kalinga in the north to Cape Comorin."}]
+</script>
 <script>
 (function(){
   var CH = {
@@ -220,7 +221,10 @@
   var E = raw.map(function(r){ return {id:r[0],ch:r[1],y:r[2],c:r[3],pw:r[4],gr:r[5],t:r[6],place:r[7],lat:r[8],lng:r[9],acc:r[10],txt:r[11]}; });
   E.sort(function(a,b){ return a.y-b.y; });
 
-  var state = {ch:'ALL', year:1300, pw:{chola:1,pallava:1,pandya:1,chera:1,other:1}};
+  var state = {ch:'ALL', year:1300, pw:{chola:1,pallava:1,pandya:1,chera:1,other:1}, routes:0, prints:{}};
+  var ROUTES = JSON.parse(document.getElementById('atlas-routes').textContent);
+  var PRINTS = JSON.parse(document.getElementById('atlas-prints').textContent);
+  var overlay;
   var hasMap = (typeof L !== 'undefined');
   var map, layer, markers = {};
 
@@ -241,6 +245,16 @@
     var b = chip(PW[k][0], k, function(){ state.pw[k] = state.pw[k]?0:1; b.setAttribute('aria-pressed', state.pw[k]?'true':'false'); render(); }, true);
     b.classList.add('pw-chip'); b.innerHTML = '<span class="dot" style="--c:'+PW[k][1]+'"></span>'+PW[k][0];
     pwBox.appendChild(b);
+  });
+
+  var ovBox = document.getElementById('overlays');
+  var rb = chip('Campaign routes','routes',function(){ state.routes = state.routes?0:1; rb.setAttribute('aria-pressed', state.routes?'true':'false'); render(false); }, false);
+  ovBox.appendChild(rb);
+  PRINTS.forEach(function(f){
+    var b = chip(f.t,f.id,function(){ state.prints[f.id] = state.prints[f.id]?0:1; b.setAttribute('aria-pressed', state.prints[f.id]?'true':'false'); render(false); }, false);
+    b.classList.add('pw-chip'); b.title = f.kind==='find' ? 'Outline of inscription findspots' : 'Outline of claimed reach';
+    b.innerHTML = '<span class="dot" style="--c:'+PW[f.pw][1]+';background:'+(f.kind==='find'?PW[f.pw][1]:'transparent')+'"></span>'+f.t;
+    ovBox.appendChild(b);
   });
 
   var slider = document.getElementById('year'), yl = document.getElementById('yearLabel'), sbox = document.getElementById('sliderBox');
@@ -278,11 +292,12 @@
 
   // map
   var legend = document.getElementById('legend');
-  legend.innerHTML = Object.keys(GR).map(function(k){ return '<span><i class="mk '+k+'"></i>'+GR[k]+'</span>'; }).join('') + '<span>Dashed halo: location approximate</span>';
+  legend.innerHTML = Object.keys(GR).map(function(k){ return '<span><i class="mk '+k+'"></i>'+GR[k]+'</span>'; }).join('') + '<span>Dashed halo: location approximate</span><span>Dashed line: schematic route, not a recorded one</span><span>Shaded area: outline of inscription findspots or of claimed reach, not a border</span>';
 
   if (hasMap){
     map = L.map('map',{scrollWheelZoom:false}).setView([12.0,79.0],6);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
+    overlay = L.layerGroup().addTo(map);
     layer = L.layerGroup().addTo(map);
     map.on('click', function(){ map.scrollWheelZoom.enable(); });
   } else {
@@ -311,6 +326,51 @@
     b.addEventListener('click', function(){ try{ parent.postMessage({type:'chola-atlas-chapter',chapter:e.ch},'*'); }catch(x){} });
     d.appendChild(b);
     return d;
+  }
+
+  function hull(pts){
+    var P = pts.map(function(p){return [p[1],p[0]];}).sort(function(a,b){return a[0]-b[0]||a[1]-b[1];});
+    function cross(o,a,b){ return (a[0]-o[0])*(b[1]-o[1])-(a[1]-o[1])*(b[0]-o[0]); }
+    var lo=[],up=[],i;
+    for(i=0;i<P.length;i++){ while(lo.length>=2&&cross(lo[lo.length-2],lo[lo.length-1],P[i])<=0) lo.pop(); lo.push(P[i]); }
+    for(i=P.length-1;i>=0;i--){ while(up.length>=2&&cross(up[up.length-2],up[up.length-1],P[i])<=0) up.pop(); up.push(P[i]); }
+    up.pop(); lo.pop();
+    return lo.concat(up).map(function(p){return [p[1],p[0]];});
+  }
+  function drawOverlays(){
+    if (!hasMap) return;
+    overlay.clearLayers();
+    PRINTS.forEach(function(f){
+      if (!state.prints[f.id]) return;
+      var pts = f.pts.map(function(q){return [q[1],q[2]];});
+      var poly = L.polygon(hull(pts),{color:PW[f.pw][1],weight:2,dashArray:f.kind==='find'?null:'6 6',fillColor:PW[f.pw][1],fillOpacity:f.kind==='find'?0.18:0.07,interactive:true});
+      poly.bindPopup(function(){
+        var d=document.createElement('div'); d.innerHTML='<h3></h3><div class="pop-meta"></div><p style="margin:6px 0 0"></p><p class="pop-meta" style="margin-top:6px"></p>';
+        d.querySelector('h3').textContent=f.t;
+        d.querySelector('.pop-meta').textContent=(f.kind==='find'?'Outline of inscription findspots':'Outline of claimed reach');
+        d.querySelector('p').textContent=f.note;
+        d.querySelectorAll('p')[1].textContent='Points used: '+f.pts.map(function(q){return q[0];}).join(', ');
+        return d;
+      },{maxWidth:300});
+      poly.addTo(overlay);
+    });
+    if (state.routes){
+      ROUTES.forEach(function(r){
+        var show = state.ch==='ALL' ? r.y<=state.year : r.ch===state.ch;
+        if (!show || !state.pw[r.pw]) return;
+        var ln = L.polyline(r.pts,{color:PW[r.pw][1],weight:3,opacity:.85,dashArray:r.kind==='order'?'2 8':'10 8',className:'rt'});
+        ln.bindPopup(function(){
+          var d=document.createElement('div'); d.innerHTML='<h3></h3><div class="pop-meta"></div><p style="margin:6px 0 0"></p>';
+          d.querySelector('h3').textContent=r.t;
+          d.querySelector('.pop-meta').textContent=fyr(r.y)+' \u00b7 '+(r.kind==='order'?'order of named places':'schematic line')+' \u00b7 Chapter '+r.ch;
+          d.querySelector('p').textContent=r.note;
+          return d;
+        },{maxWidth:300});
+        ln.addTo(overlay);
+        var last=r.pts[r.pts.length-1];
+        L.marker(last,{icon:L.divIcon({className:'',html:'<div class="pin-end" style="--c:'+PW[r.pw][1]+'"></div>',iconSize:[10,10],iconAnchor:[5,5]}),interactive:false,keyboard:false}).addTo(overlay);
+      });
+    }
   }
 
   function render(fit){
@@ -345,6 +405,7 @@
       var m = L.marker(e._ll,{icon:icon,title:e.t+' ('+fy(e)+')',keyboard:true}).bindPopup(popup(e),{maxWidth:300});
       m.addTo(layer); markers[e.id]=m; pts.push(e._ll);
     });
+    drawOverlays();
     if (fit!==false && pts.length){
       if (pts.length===1) map.setView(pts[0],8); else map.fitBounds(pts,{padding:[30,30],maxZoom:9});
     }
