@@ -5,111 +5,136 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Atlas of the Cholas - Interactive Map</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --ink-night:#14182B; --parchment:#EFE7D2; --parchment-2:#E4D8B9; --ink:#241F16; --ink-soft:#4A4132;
-    --brass:#B8863F; --rust:#8C3F2E; --verdigris:#4F7266; --plum:#6B5B7A; --cream:#F4EEDD;
-    --line:rgba(36,31,22,.18);
-    --chola:#8C3F2E; --pallava:#6B5B7A; --pandya:#4F7266; --chera:#2F5D8A; --other:#7A6E58;
-  }
-  *{box-sizing:border-box}
-  html,body{margin:0;background:var(--parchment);color:var(--ink);font-family:'Source Serif 4',Georgia,serif}
-  #app{display:flex;flex-direction:column;min-height:100vh}
-  header{background:var(--ink-night);color:var(--cream);padding:14px 18px}
-  header h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.25rem;margin:0 0 2px}
-  header p{margin:0;font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.03em;color:rgba(244,238,221,.7)}
-  .controls{padding:10px 18px;border-bottom:1px solid var(--line);background:var(--parchment-2);display:grid;gap:10px}
-  .row{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
-  .row .lab{font-family:'IBM Plex Mono',monospace;font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);margin-right:4px}
-  button.chip{font-family:'IBM Plex Mono',monospace;font-size:.72rem;border:1px solid var(--line);background:var(--cream);color:var(--ink);padding:5px 9px;border-radius:999px;cursor:pointer}
-  button.chip[aria-pressed="true"]{background:var(--ink-night);color:var(--cream);border-color:var(--ink-night)}
-  button.chip:focus-visible,input:focus-visible,li:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
-  .pw-chip{display:inline-flex;align-items:center;gap:6px}
-  .dot{width:10px;height:10px;border-radius:50%;display:inline-block;border:2px solid var(--c);background:var(--c)}
-  .slider{display:flex;align-items:center;gap:10px;flex:1 1 320px}
-  .slider input{flex:1;accent-color:var(--rust)}
-  #yearLabel{font-family:'IBM Plex Mono',monospace;font-size:.85rem;min-width:96px;text-align:right}
-  .slider.off{opacity:.4;pointer-events:none}
-  .main{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(280px,1fr);flex:1;min-height:0}
-  #map{min-height:460px;height:100%;background:#d8d0ba}
-  #map .leaflet-tile-pane{filter:sepia(.3) saturate(.85) contrast(.95)}
-  aside{border-left:1px solid var(--line);display:flex;flex-direction:column;min-height:0;max-height:calc(100vh - 150px);overflow:hidden}
-  aside h2{font-family:'Fraunces',Georgia,serif;font-size:1rem;margin:0;padding:10px 14px;border-bottom:1px solid var(--line);background:var(--cream)}
-  ul#list{list-style:none;margin:0;padding:0;overflow:auto;flex:1}
-  ul#list li{padding:10px 14px;border-bottom:1px solid var(--line);cursor:pointer}
-  ul#list li:hover{background:rgba(184,134,63,.12)}
-  .li-top{display:flex;gap:8px;align-items:baseline;justify-content:space-between}
-  .li-title{font-weight:600;font-size:.95rem}
-  .li-year{font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:var(--ink-soft);white-space:nowrap}
-  .li-place{font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:var(--ink-soft);margin:2px 0 4px}
-  .li-text{font-size:.85rem;line-height:1.5;color:var(--ink-soft);margin:0}
-  .tag{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:.62rem;text-transform:uppercase;letter-spacing:.05em;border:1px solid var(--line);border-radius:3px;padding:1px 5px;margin-right:5px;color:var(--ink-soft)}
-  .tag.un{border-style:dashed}
-  .legend{padding:8px 18px 12px;font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:var(--ink-soft);display:flex;flex-wrap:wrap;gap:12px;border-top:1px solid var(--line);background:var(--parchment-2)}
-  .legend span{display:inline-flex;align-items:center;gap:6px}
-  .mk{width:12px;height:12px;border-radius:50%;display:inline-block;box-sizing:border-box;border:2px solid var(--ink)}
-  .mk.proven{background:var(--ink)}
-  .mk.supported{background:var(--ink);opacity:.65;border-color:#fff;box-shadow:0 0 0 1px var(--ink)}
-  .mk.contested{background:rgba(36,31,22,.3);border-style:dashed}
-  .mk.literary{background:transparent}
-  .mk.unproven{background:transparent;border-style:dotted}
-  .pin{width:18px;height:18px;border-radius:50%;border:3px solid var(--c);background:var(--c);box-shadow:0 1px 4px rgba(0,0,0,.35);box-sizing:border-box}
-  .pin.supported{opacity:.7;border-color:#fff;box-shadow:0 0 0 2px var(--c),0 1px 4px rgba(0,0,0,.35)}
-  .pin.contested{background:rgba(255,255,255,.55);border-style:dashed}
-  .pin.literary{background:rgba(255,255,255,.6)}
-  .pin.unproven{background:rgba(255,255,255,.6);border-style:dotted}
-  .pin.apx{outline:2px dashed rgba(36,31,22,.45);outline-offset:3px}
-  .leaflet-popup-content{font-family:'Source Serif 4',Georgia,serif;font-size:.9rem;line-height:1.5;margin:12px 14px}
-  .leaflet-popup-content h3{font-family:'Fraunces',Georgia,serif;font-size:1.02rem;margin:0 0 3px}
-  .pop-meta{font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:var(--ink-soft)}
-  .pop-btn{margin-top:8px;font-family:'IBM Plex Mono',monospace;font-size:.7rem;border:1px solid var(--rust);color:var(--rust);background:transparent;padding:3px 8px;border-radius:3px;cursor:pointer}
-  .rt{stroke-linecap:round}
-  .pin-end{width:10px;height:10px;border-radius:50%;background:var(--c);border:2px solid #fff}
-  #nomap{display:none;padding:18px;font-size:.9rem}
-  .empty{padding:18px 14px;color:var(--ink-soft);font-size:.9rem}
-  @media (max-width:820px){
-    .main{grid-template-columns:1fr}
-    aside{border-left:none;border-top:1px solid var(--line);max-height:none}
-    #map{height:58vh;min-height:360px}
-    ul#list{max-height:50vh}
-  }
-  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+:root{--night:#14182B;--night2:#1C2140;--parch:#EFE7D2;--parch2:#E4D8B9;--cream:#F4EEDD;--ink:#241F16;--soft:#4A4132;--brass:#B8863F;--rust:#8C3F2E;--line:rgba(36,31,22,.15);--shadow:0 8px 24px rgba(20,24,43,.2)}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:var(--parch);color:var(--ink);font-family:'Source Serif 4',Georgia,serif;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,li:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+#app{display:grid;grid-template-rows:auto auto auto minmax(0,1fr);height:100vh;min-height:560px}
+.top{background:var(--night);color:var(--cream);padding:10px 16px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.top h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;margin:0}
+.top span{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.03em;color:rgba(244,238,221,.62)}
+.toolbar{display:flex;align-items:center;gap:10px;padding:8px 12px;background:var(--cream);border-bottom:1px solid var(--line)}
+.seg{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;flex:1;padding:2px;background:var(--parch2);border-radius:8px}
+.seg::-webkit-scrollbar{display:none}
+.seg button{flex:0 0 auto;border:0;background:transparent;font-family:'IBM Plex Mono',monospace;font-size:.72rem;padding:6px 10px;border-radius:6px;color:var(--soft);min-width:34px}
+.seg button:hover{background:rgba(255,255,255,.55)}
+.seg button[aria-pressed="true"]{background:var(--night);color:var(--cream)}
+.btn{border:1px solid var(--line);background:#fff8;font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.03em;text-transform:uppercase;padding:6px 10px;border-radius:7px}
+.btn[aria-pressed="true"],.btn[aria-expanded="true"]{background:var(--night);color:var(--cream);border-color:var(--night)}
+.timebar{display:flex;align-items:center;gap:12px;padding:6px 14px 8px;background:var(--cream);border-bottom:1px solid var(--line)}
+.timebar.off{opacity:.45;pointer-events:none}
+#yearLabel{font-family:'IBM Plex Mono',monospace;font-size:.78rem;min-width:84px;color:var(--soft);text-align:right}
+#year{-webkit-appearance:none;appearance:none;flex:1;height:4px;border-radius:2px;background:linear-gradient(to right,var(--rust) var(--p,100%),rgba(36,31,22,.16) var(--p,100%));outline-offset:6px}
+#year::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:var(--brass);border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.35)}
+#year::-moz-range-thumb{width:14px;height:14px;border-radius:50%;background:var(--brass);border:2px solid #fff}
+.main{position:relative;display:grid;grid-template-columns:minmax(0,1fr) 330px;min-height:0}
+.main.noside{grid-template-columns:minmax(0,1fr)}
+.main.noside aside{display:none}
+.stage{position:relative;min-height:0}
+#map{position:absolute;inset:0;background:#d9cfb4}
+#map .leaflet-tile-pane{filter:sepia(.5) saturate(.62) hue-rotate(-6deg) contrast(.92) brightness(1.03)}
+.leaflet-control-attribution{font-size:9px;background:rgba(244,238,221,.8)!important}
+.leaflet-bar a{background:var(--cream);color:var(--ink);border-color:var(--line)}
+.float{position:absolute;z-index:500}
+#caption{left:12px;top:12px;max-width:calc(100% - 130px);background:rgba(244,238,221,.94);border:1px solid var(--line);border-radius:10px;padding:7px 12px;box-shadow:var(--shadow);backdrop-filter:blur(2px)}
+#caption b{display:block;font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:.95rem;line-height:1.2}
+#caption i{font-style:normal;font-family:'IBM Plex Mono',monospace;font-size:.66rem;color:var(--soft)}
+#layersBtn{right:12px;top:12px}
+#keyBtn{left:12px;bottom:26px}
+.panel{background:rgba(244,238,221,.97);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);padding:12px 14px;font-size:.85rem}
+#layersPanel{right:12px;top:52px;width:250px;max-width:calc(100% - 24px)}
+#keyPanel{left:12px;bottom:62px;width:290px;max-width:calc(100% - 24px)}
+.panel[hidden]{display:none}
+.panel h4{font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:.64rem;text-transform:uppercase;letter-spacing:.07em;color:var(--soft);margin:0 0 6px}
+.panel h4:not(:first-child){margin-top:12px}
+.opt{display:flex;align-items:center;gap:8px;padding:3px 0;cursor:pointer;line-height:1.3}
+.opt input{accent-color:var(--rust);margin:0}
+.sw{width:11px;height:11px;border-radius:50%;background:var(--c);flex:none}
+.sw.line{border-radius:0;height:0;width:16px;border-top:2.5px dashed var(--c);background:none}
+.sw.area{border-radius:2px;border:1.5px solid var(--c);background:color-mix(in srgb,var(--c) 22%,transparent)}
+.sw.area.claim{border-style:dashed;background:color-mix(in srgb,var(--c) 8%,transparent)}
+.key-row{display:flex;align-items:center;gap:9px;padding:3px 0;font-size:.8rem;line-height:1.3}
+.pin{width:16px;height:16px;border-radius:50%;background:var(--c);border:2px solid #fff;box-shadow:0 1px 3px rgba(20,24,43,.45)}
+.pin.supported{background:radial-gradient(circle,#fff 0 2.2px,var(--c) 2.8px)}
+.pin.contested{background:#fff;border:2px dashed var(--c)}
+.pin.literary{background:#fff;border:3.5px solid var(--c)}
+.pin.unproven{background:#fff;border:2.5px dotted var(--c)}
+.pin.apx{box-shadow:0 0 0 5px var(--halo),0 1px 3px rgba(20,24,43,.4)}
+.key-row .pin{flex:none;--c:#4A4132;--halo:rgba(74,65,50,.2)}
+.cl{width:34px;height:34px;border-radius:50%;background:var(--night);color:var(--cream);border:3px solid rgba(184,134,63,.75);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:.78rem;box-shadow:0 2px 8px rgba(20,24,43,.4)}
+.pin-end{width:9px;height:9px;border-radius:50%;background:var(--c);border:2px solid #fff}
+aside{display:flex;flex-direction:column;min-height:0;border-left:1px solid var(--line);background:var(--cream)}
+aside h2{margin:0;padding:10px 14px;font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--soft);border-bottom:1px solid var(--line)}
+ul#list{list-style:none;margin:0;padding:0;overflow:auto;flex:1}
+ul#list li{border-bottom:1px solid var(--line)}
+.row-h{display:flex;align-items:center;gap:10px;width:100%;border:0;background:transparent;text-align:left;padding:9px 14px}
+.row-h:hover{background:rgba(184,134,63,.1)}
+.row-h .pin{flex:none}
+.row-t{flex:1;font-weight:600;font-size:.9rem;line-height:1.25}
+.row-y{font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:var(--soft);white-space:nowrap}
+.more{display:none;padding:0 14px 12px 40px;font-size:.84rem;line-height:1.55;color:var(--soft)}
+li.open .more{display:block}
+li.open .row-h{background:rgba(184,134,63,.12)}
+.more .pl{font-family:'IBM Plex Mono',monospace;font-size:.68rem;margin-bottom:4px}
+.tag{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:.6rem;text-transform:uppercase;letter-spacing:.05em;border:1px solid var(--line);border-radius:3px;padding:1px 5px;margin:6px 5px 0 0}
+.tag.un{border-style:dashed}
+.empty{padding:16px 14px;color:var(--soft);font-size:.88rem}
+.cpop .leaflet-popup-content-wrapper{border-radius:10px;padding:0;overflow:hidden;background:var(--cream);color:var(--ink);box-shadow:var(--shadow)}
+.cpop .leaflet-popup-content{margin:0;font-family:'Source Serif 4',Georgia,serif;font-size:.88rem;line-height:1.5;width:auto!important}
+.cpop .leaflet-popup-tip{background:var(--cream)}
+.pp{border-top:5px solid var(--c);padding:11px 14px 12px}
+.pp h3{font-family:'Fraunces',Georgia,serif;font-size:1.02rem;line-height:1.25;margin:0 0 3px}
+.pp .m{font-family:'IBM Plex Mono',monospace;font-size:.66rem;color:var(--soft)}
+.pp .pl{font-size:.8rem;margin:5px 0 4px;color:var(--soft)}
+.pp p{margin:5px 0 0}
+.pp .btn2{margin-top:9px;border:1px solid var(--rust);color:var(--rust);background:transparent;font-family:'IBM Plex Mono',monospace;font-size:.66rem;padding:3px 9px;border-radius:5px}
+#nomap{display:none;position:absolute;inset:0;padding:18px;font-size:.9rem;background:var(--parch)}
+@media (max-width:760px){
+  #app{height:auto;min-height:0}
+  .main{grid-template-columns:minmax(0,1fr);height:72vh;min-height:430px}
+  .toolbar{padding:6px 8px}
+  aside{position:absolute;left:0;right:0;bottom:0;height:58%;z-index:700;border-left:0;border-top:1px solid var(--line);border-radius:14px 14px 0 0;box-shadow:0 -8px 24px rgba(20,24,43,.25);transform:translateY(102%);transition:transform .25s ease}
+  .main.noside aside{display:flex}
+  aside.open{transform:none}
+  #caption{max-width:calc(100% - 118px)}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
 <div id="app">
-  <header>
-    <h1>Atlas of the Cholas</h1>
-    <p>Each marker is an event from the article, placed at today's town or region and graded by how it is known.</p>
-  </header>
-  <div class="controls">
-    <div class="row" id="chapters" role="group" aria-label="Chapters"><span class="lab">Chapter</span></div>
-    <div class="row">
-      <div class="slider" id="sliderBox">
-        <span class="lab" style="font-family:'IBM Plex Mono',monospace;font-size:.68rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft)">Up to</span>
-        <input type="range" id="year" min="-300" max="1300" step="10" value="1300" aria-label="Show events up to this year">
-        <span id="yearLabel">1300 CE</span>
-        <button class="chip" id="play" aria-pressed="false">Play</button>
-      </div>
+  <div class="top"><h1>Atlas of the Cholas</h1><span id="sub">Choose a chapter, drag the year, or tap a marker</span></div>
+  <div class="toolbar">
+    <div class="seg" id="chapters" role="group" aria-label="Chapters"></div>
+    <button class="btn" id="listBtn" aria-pressed="true">List</button>
+  </div>
+  <div class="timebar" id="timebar">
+    <button class="btn" id="play" aria-pressed="false">Play</button>
+    <input type="range" id="year" min="-300" max="1300" step="10" value="1300" aria-label="Show events up to this year">
+    <span id="yearLabel">to 1300 CE</span>
+  </div>
+  <div class="main" id="main">
+    <div class="stage">
+      <div id="map" role="application" aria-label="Map of events in Chola history"></div>
+      <div id="nomap">The map library could not load, so only the event list is available.</div>
+      <div class="float" id="caption"><b id="capT">All chapters</b><i id="capN"></i></div>
+      <button class="float btn" id="layersBtn" aria-expanded="false">Layers</button>
+      <div class="float panel" id="layersPanel" hidden></div>
+      <button class="float btn" id="keyBtn" aria-expanded="false">Key</button>
+      <div class="float panel" id="keyPanel" hidden></div>
     </div>
-    <div class="row" id="powers" role="group" aria-label="Powers"><span class="lab">Power</span></div>
-    <div class="row" id="overlays" role="group" aria-label="Overlays"><span class="lab">Overlay</span></div>
+    <aside id="side"><h2 id="count">Events</h2><ul id="list"></ul></aside>
   </div>
-  <div class="main">
-    <div id="map" role="application" aria-label="Map of events in Chola history"></div>
-    <aside>
-      <h2 id="count">Events</h2>
-      <ul id="list"></ul>
-    </aside>
-  </div>
-  <div id="nomap">The map library could not load, so only the event list is available.</div>
-  <div class="legend" id="legend"></div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.js"></script>
 <script id="atlas-data" type="application/json">
 [
 ["ashoka", "I", -258, 1, "other", "proven", "Ashoka's edicts name the Cholas", "Patna, Bihar, India (empire's capital, Pataliputra)", 25.5941, 85.1376, "o", "Rock Edicts II and XIII list the Cholas, Pandyas, Satiyaputras, Keralaputras and Tamraparni as peoples beyond his frontier. Names only, no kings or dates."],
@@ -198,7 +223,6 @@
 ["last", "X", 1279, 0, "chola", "supported", "The last dated year", "Chola country (no site)", null, null, "", "The last recorded year of Rajendra III, his 33rd, is also the last of Kopperunjinga II. No checked source describes how the line ended."]
 ]
 </script>
-
 <script id="atlas-routes" type="application/json">
 [{"id": "r_aihole", "ch": "II", "y": 634, "t": "Pulakeshin II's march (Aihole verses 29 and 30)", "pw": "other", "kind": "schematic", "pts": [[16.0214, 75.8826], [12.8342, 79.7036]], "note": "The verses have the Chalukya army darkening Kanchipuram's walls, then crossing the Kaveri toward the Cholas. The route and the crossing point are not named."}, {"id": "r_sinh", "ch": "III", "y": 912, "t": "The Sinhalese army to the Pandya country", "pw": "other", "kind": "schematic", "pts": [[8.98, 79.92], [9.9252, 78.1198]], "note": "The Mahavamsa says the army embarked at Mahatittha and landed in the Pandya country. The landing place is not named, and Madurai stands for the country."}, {"id": "r_north", "ch": "VI", "y": 1023, "t": "Rajendra I's northern march", "pw": "chola", "kind": "order", "pts": [[11.2085, 79.4495], [20.5, 84.5], [21.0, 83.5], [23.5, 88.5]], "note": "Drawn in the order the regions appear in the nineteenth-year inscription (Odisha, Kosala, Bengal). The stops between and the actual route are not documented."}, {"id": "r_kaly", "ch": "VI", "y": 1044, "t": "Rajadhiraja's war on Kalyanapura", "pw": "chola", "kind": "schematic", "pts": [[11.2085, 79.4495], [17.8727, 76.9496]], "note": "His inscriptions claim he destroyed the Chalukya capital. No route is given."}, {"id": "r_koppam", "ch": "VII", "y": 1052, "t": "The Chola army to Koppam", "pw": "chola", "kind": "schematic", "pts": [[11.2085, 79.4495], [15.349, 76.155]], "note": "The Manimangalam inscription has the Cholas reaching Iratta-mandalam before Ahavamalla rode to Koppam. No route is given."}, {"id": "r_bilhana", "ch": "VIII", "y": 1070, "t": "Vikramaditya VI's journey to the Chola court", "pw": "other", "kind": "schematic", "pts": [[17.8727, 76.9496], [11.2085, 79.4495], [12.8342, 79.7036]], "note": "Bilhana says he set out for Kanchi and Gangaikondacholapuram after Virarajendra's death. The Chalukya side alone tells it."}]
 </script>
@@ -207,213 +231,182 @@
 </script>
 <script>
 (function(){
-  var CH = {
-    I:{t:'Before the Empire',a:-300,b:250}, II:{t:'The Long Eclipse',a:300,b:850}, III:{t:'The Revival',a:850,b:955},
-    IV:{t:'Five Kings, One Throne',a:953,b:985}, V:{t:'The King Who Wrote It Down',a:985,b:1014}, VI:{t:'The Ganga and the Sea',a:1012,b:1044},
-    VII:{t:'Crowned on a Battlefield',a:1044,b:1070}, VIII:{t:'The King Who Abolished the Tolls',a:1070,b:1118},
-    IX:{t:'The Long Afternoon',a:1118,b:1216}, X:{t:'The Last Dated Year',a:1216,b:1279}
-  };
-  var PW = {chola:['Chola','#8C3F2E'], pallava:['Pallava','#6B5B7A'], pandya:['Pandya','#4F7266'], chera:['Chera','#2F5D8A'], other:['Other powers','#7A6E58']};
-  var GR = {proven:'Proven: contemporary stone or excavation', supported:'Supported: later or second-hand record', contested:'Contested: dating or reading disputed', literary:'Literary: poem or chronicle only', unproven:'Unproven: legend or unsupported attribution'};
-  var ROM = ['I','II','III','IV','V','VI','VII','VIII','IX','X'];
-
-  var raw = JSON.parse(document.getElementById('atlas-data').textContent);
-  var E = raw.map(function(r){ return {id:r[0],ch:r[1],y:r[2],c:r[3],pw:r[4],gr:r[5],t:r[6],place:r[7],lat:r[8],lng:r[9],acc:r[10],txt:r[11]}; });
-  E.sort(function(a,b){ return a.y-b.y; });
-
-  var state = {ch:'ALL', year:1300, pw:{chola:1,pallava:1,pandya:1,chera:1,other:1}, routes:0, prints:{}};
+  var CH = {I:['Before the Empire',-300,250],II:['The Long Eclipse',300,850],III:['The Revival',850,955],IV:['Five Kings, One Throne',953,985],V:['The King Who Wrote It Down',985,1014],VI:['The Ganga and the Sea',1012,1044],VII:['Crowned on a Battlefield',1044,1070],VIII:['The King Who Abolished the Tolls',1070,1118],IX:['The Long Afternoon',1118,1216],X:['The Last Dated Year',1216,1279]};
+  var ROM = Object.keys(CH);
+  var PW = {chola:['Chola','#8C3F2E'],pallava:['Pallava','#6B5B7A'],pandya:['Pandya','#4F7266'],chera:['Chera','#2F5D8A'],other:['Other powers','#7A6E58']};
+  var GR = {proven:'Proven: contemporary stone or excavation',supported:'Supported: later or second-hand record',contested:'Contested: dating or reading disputed',literary:'Literary: poem or chronicle only',unproven:'Unproven: legend or unsupported attribution'};
+  var GS = {proven:'Proven',supported:'Supported',contested:'Contested',literary:'Literary',unproven:'Unproven'};
+  var E = JSON.parse(document.getElementById('atlas-data').textContent).map(function(r){return {id:r[0],ch:r[1],y:r[2],c:r[3],pw:r[4],gr:r[5],t:r[6],place:r[7],lat:r[8],lng:r[9],acc:r[10],txt:r[11]};}).sort(function(a,b){return a.y-b.y;});
   var ROUTES = JSON.parse(document.getElementById('atlas-routes').textContent);
   var PRINTS = JSON.parse(document.getElementById('atlas-prints').textContent);
-  var overlay;
-  var hasMap = (typeof L !== 'undefined');
-  var map, layer, markers = {};
+  var state = {ch:'ALL',year:1300,pw:{chola:1,pallava:1,pandya:1,chera:1,other:1},routes:0,prints:{}};
+  var hasMap = (typeof L !== 'undefined'), map, cluster, overlay, markers = {}, openId = null;
+  function fyr(y){return y<0?(-y)+' BCE':y+' CE';}
+  function fy(e){return (e.c?'c. ':'')+fyr(e.y);}
+  function rgba(h,a){var n=parseInt(h.slice(1),16);return 'rgba('+(n>>16)+','+((n>>8)&255)+','+(n&255)+','+a+')';}
+  function $(id){return document.getElementById(id);}
+  function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e;}
 
-  function fy(e){ var y=e.y; return (e.c?'c. ':'') + (y<0 ? (-y)+' BCE' : y+' CE'); }
-  function fyr(y){ return y<0 ? (-y)+' BCE' : y+' CE'; }
+  // chapters
+  var seg = $('chapters');
+  function segBtn(key,label,title){var b=el('button',null,label);b.type='button';b.dataset.key=key;b.title=title||label;b.setAttribute('aria-pressed',key==='ALL'?'true':'false');b.addEventListener('click',function(){setChapter(key);});seg.appendChild(b);}
+  segBtn('ALL','All','All chapters');
+  ROM.forEach(function(r){segBtn(r,r,r+'. '+CH[r][0]);});
 
-  // controls
-  var chBox = document.getElementById('chapters');
-  function chip(label, key, onclick, pressed){
-    var b = document.createElement('button'); b.className='chip'; b.type='button'; b.textContent=label; b.setAttribute('aria-pressed', pressed?'true':'false');
-    b.dataset.key=key; b.addEventListener('click', onclick); return b;
-  }
-  chBox.appendChild(chip('All','ALL',function(){ setChapter('ALL'); }, true));
-  ROM.forEach(function(r){ var b=chip(r,r,function(){ setChapter(r); }, false); b.title=CH[r].t; chBox.appendChild(b); });
-
-  var pwBox = document.getElementById('powers');
+  // layers panel
+  var lp = $('layersPanel');
+  lp.appendChild(el('h4',null,'Powers'));
   Object.keys(PW).forEach(function(k){
-    var b = chip(PW[k][0], k, function(){ state.pw[k] = state.pw[k]?0:1; b.setAttribute('aria-pressed', state.pw[k]?'true':'false'); render(); }, true);
-    b.classList.add('pw-chip'); b.innerHTML = '<span class="dot" style="--c:'+PW[k][1]+'"></span>'+PW[k][0];
-    pwBox.appendChild(b);
+    var l=el('label','opt'),i=el('input');i.type='checkbox';i.checked=true;
+    i.addEventListener('change',function(){state.pw[k]=i.checked?1:0;render(false);});
+    var s=el('span','sw');s.style.setProperty('--c',PW[k][1]);l.appendChild(i);l.appendChild(s);l.appendChild(document.createTextNode(PW[k][0]));lp.appendChild(l);
   });
-
-  var ovBox = document.getElementById('overlays');
-  var rb = chip('Campaign routes','routes',function(){ state.routes = state.routes?0:1; rb.setAttribute('aria-pressed', state.routes?'true':'false'); render(false); }, false);
-  ovBox.appendChild(rb);
+  lp.appendChild(el('h4',null,'Overlays'));
+  (function(){
+    var l=el('label','opt'),i=el('input');i.type='checkbox';
+    i.addEventListener('change',function(){state.routes=i.checked?1:0;render(false);});
+    var s=el('span','sw line');s.style.setProperty('--c','#241F16');l.appendChild(i);l.appendChild(s);l.appendChild(document.createTextNode('Campaign routes'));lp.appendChild(l);
+  })();
   PRINTS.forEach(function(f){
-    var b = chip(f.t,f.id,function(){ state.prints[f.id] = state.prints[f.id]?0:1; b.setAttribute('aria-pressed', state.prints[f.id]?'true':'false'); render(false); }, false);
-    b.classList.add('pw-chip'); b.title = f.kind==='find' ? 'Outline of inscription findspots' : 'Outline of claimed reach';
-    b.innerHTML = '<span class="dot" style="--c:'+PW[f.pw][1]+';background:'+(f.kind==='find'?PW[f.pw][1]:'transparent')+'"></span>'+f.t;
-    ovBox.appendChild(b);
+    var l=el('label','opt'),i=el('input');i.type='checkbox';
+    i.addEventListener('change',function(){state.prints[f.id]=i.checked?1:0;render(false);});
+    var s=el('span','sw area'+(f.kind==='claim'?' claim':''));s.style.setProperty('--c',PW[f.pw][1]);
+    l.appendChild(i);l.appendChild(s);l.appendChild(document.createTextNode(f.t));l.title=f.kind==='find'?'Outline of inscription findspots':'Outline of claimed reach';lp.appendChild(l);
   });
 
-  var slider = document.getElementById('year'), yl = document.getElementById('yearLabel'), sbox = document.getElementById('sliderBox');
-  slider.addEventListener('input', function(){ state.year = +slider.value; yl.textContent = fyr(state.year); render(); });
+  // key panel
+  var kp = $('keyPanel');
+  kp.appendChild(el('h4',null,'How well each event is known'));
+  Object.keys(GR).forEach(function(k){var r=el('div','key-row'),p=el('span','pin '+k);r.appendChild(p);r.appendChild(document.createTextNode(GR[k]));kp.appendChild(r);});
+  kp.appendChild(el('h4',null,'On the map'));
+  [['pin apx','Soft halo: location approximate'],['sw line','Dashed line: a schematic route, not a recorded one'],['sw area','Shaded area: outline of findspots or claimed reach, not a border']].forEach(function(a){
+    var r=el('div','key-row'),p=el('span',a[0]);p.style.setProperty('--c','#4A4132');p.style.setProperty('--halo','rgba(74,65,50,.2)');r.appendChild(p);r.appendChild(document.createTextNode(a[1]));kp.appendChild(r);});
+  function toggle(btn,panel,other,otherPanel){btn.addEventListener('click',function(){var o=panel.hidden;panel.hidden=!o;btn.setAttribute('aria-expanded',o?'true':'false');if(o){otherPanel.hidden=true;other.setAttribute('aria-expanded','false');}});}
+  toggle($('layersBtn'),lp,$('keyBtn'),kp); toggle($('keyBtn'),kp,$('layersBtn'),lp);
 
-  var playBtn = document.getElementById('play'), timer = null;
-  var reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduce) playBtn.style.display='none';
-  playBtn.addEventListener('click', function(){
-    if (timer){ stopPlay(); return; }
-    if (state.ch!=='ALL') setChapter('ALL');
-    state.year = -300; slider.value = -300; playBtn.setAttribute('aria-pressed','true'); playBtn.textContent='Pause';
-    timer = setInterval(function(){
-      state.year += 10; if (state.year>1300){ stopPlay(); return; }
-      slider.value = state.year; yl.textContent = fyr(state.year); render(false);
-    }, 160);
+  // list toggle
+  var side=$('side'),mainEl=$('main'),listBtn=$('listBtn');
+  var mobile=function(){return window.matchMedia&&matchMedia('(max-width:760px)').matches;};
+  if (mobile()) listBtn.setAttribute('aria-pressed','false');
+  listBtn.addEventListener('click',function(){
+    var on=listBtn.getAttribute('aria-pressed')!=='true';listBtn.setAttribute('aria-pressed',on?'true':'false');
+    if (mobile()) side.classList.toggle('open',on); else mainEl.classList.toggle('noside',!on);
+    if (hasMap) setTimeout(function(){map.invalidateSize();},50);
   });
-  function stopPlay(){ clearInterval(timer); timer=null; playBtn.setAttribute('aria-pressed','false'); playBtn.textContent='Play'; }
+
+  // time
+  var slider=$('year'),yl=$('yearLabel'),tb=$('timebar'),play=$('play'),timer=null;
+  function paint(){slider.style.setProperty('--p',((state.year+300)/1600*100)+'%');}
+  slider.addEventListener('input',function(){state.year=+slider.value;paint();yl.textContent='to '+fyr(state.year);render(false);});
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches; if(reduce) play.style.display='none';
+  function stopPlay(){clearInterval(timer);timer=null;play.setAttribute('aria-pressed','false');play.textContent='Play';}
+  play.addEventListener('click',function(){
+    if(timer){stopPlay();return;} if(state.ch!=='ALL') setChapter('ALL');
+    state.year=-300;slider.value=-300;paint();play.setAttribute('aria-pressed','true');play.textContent='Pause';
+    timer=setInterval(function(){state.year+=10;if(state.year>1300){stopPlay();return;}slider.value=state.year;paint();yl.textContent='to '+fyr(state.year);render(false);},170);
+  });
 
   function setChapter(k){
-    stopPlay(); state.ch = k;
-    Array.prototype.forEach.call(chBox.querySelectorAll('button'), function(b){ b.setAttribute('aria-pressed', b.dataset.key===k?'true':'false'); });
-    sbox.classList.toggle('off', k!=='ALL');
-    if (k==='ALL'){ state.year=1300; slider.value=1300; yl.textContent=fyr(1300); }
-    else { yl.textContent = fyr(CH[k].a)+' to '+fyr(CH[k].b); }
-    render(true);
-    try{ history.replaceState(null,'', k==='ALL'?'#':'#ch='+k); }catch(e){}
+    stopPlay();state.ch=k;
+    Array.prototype.forEach.call(seg.querySelectorAll('button'),function(b){b.setAttribute('aria-pressed',b.dataset.key===k?'true':'false');});
+    tb.classList.toggle('off',k!=='ALL');
+    if(k==='ALL'){state.year=1300;slider.value=1300;yl.textContent='to 1300 CE';} else {yl.textContent=fyr(CH[k][1])+' to '+fyr(CH[k][2]);}
+    paint();render(true);
+    try{history.replaceState(null,'',k==='ALL'?'#':'#ch='+k);}catch(e){}
   }
-
-  function visible(e){
-    if (!state.pw[e.pw]) return false;
-    if (state.ch!=='ALL') return e.ch===state.ch;
-    return e.y <= state.year;
-  }
+  function visible(e){if(!state.pw[e.pw])return false;if(state.ch!=='ALL')return e.ch===state.ch;return e.y<=state.year;}
 
   // map
-  var legend = document.getElementById('legend');
-  legend.innerHTML = Object.keys(GR).map(function(k){ return '<span><i class="mk '+k+'"></i>'+GR[k]+'</span>'; }).join('') + '<span>Dashed halo: location approximate</span><span>Dashed line: schematic route, not a recorded one</span><span>Shaded area: outline of inscription findspots or of claimed reach, not a border</span>';
-
-  if (hasMap){
-    map = L.map('map',{scrollWheelZoom:false}).setView([12.0,79.0],6);
+  if(hasMap){
+    map=L.map('map',{scrollWheelZoom:false,zoomControl:false}).setView([12.2,79.2],6);
+    L.control.zoom({position:'bottomright'}).addTo(map);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
-    overlay = L.layerGroup().addTo(map);
-    layer = L.layerGroup().addTo(map);
-    map.on('click', function(){ map.scrollWheelZoom.enable(); });
-  } else {
-    document.getElementById('map').style.display='none'; document.getElementById('nomap').style.display='block';
-  }
-
-  function offsets(list){
-    var seen = {};
-    list.forEach(function(e){
-      if (e.lat==null) return;
-      var k = e.lat.toFixed(2)+','+e.lng.toFixed(2); seen[k] = (seen[k]||0)+1;
-      var n = seen[k]-1; e._ll = [e.lat,e.lng];
-      if (n>0){ var a = n*1.2; e._ll = [e.lat+0.03*Math.sin(a), e.lng+0.03*Math.cos(a)]; }
-    });
-  }
+    overlay=L.layerGroup().addTo(map);
+    cluster=(L.markerClusterGroup)?L.markerClusterGroup({showCoverageOnHover:false,maxClusterRadius:34,spiderfyOnMaxZoom:true,iconCreateFunction:function(c){return L.divIcon({html:'<div class="cl">'+c.getChildCount()+'</div>',className:'',iconSize:[34,34]});}}):L.layerGroup();
+    cluster.addTo(map);
+    map.on('click',function(){map.scrollWheelZoom.enable();});
+  } else {$('map').style.display='none';$('nomap').style.display='block';}
 
   function popup(e){
-    var d = document.createElement('div');
-    d.innerHTML = '<h3></h3><div class="pop-meta"></div><div class="pop-place" style="margin:4px 0;font-size:.82rem"></div><p style="margin:6px 0 0"></p><div style="margin-top:6px"><span class="tag"></span></div>';
-    d.querySelector('h3').textContent = e.t;
-    d.querySelector('.pop-meta').textContent = fy(e)+' \u00b7 '+PW[e.pw][0]+' \u00b7 Chapter '+e.ch;
-    d.querySelector('.pop-place').textContent = 'Today: '+e.place+(e.acc==='a'?' (approximate)':'');
-    d.querySelector('p').textContent = e.txt;
-    d.querySelector('.tag').textContent = GR[e.gr];
-    var b = document.createElement('button'); b.className='pop-btn'; b.type='button'; b.textContent='Go to chapter '+e.ch;
-    b.addEventListener('click', function(){ try{ parent.postMessage({type:'chola-atlas-chapter',chapter:e.ch},'*'); }catch(x){} });
-    d.appendChild(b);
-    return d;
+    var d=el('div','pp');d.style.setProperty('--c',PW[e.pw][1]);
+    d.appendChild(el('h3',null,e.t));
+    d.appendChild(el('div','m',fy(e)+' \u00b7 '+PW[e.pw][0]+' \u00b7 Chapter '+e.ch));
+    d.appendChild(el('div','pl','Today: '+e.place+(e.acc==='a'?' (approximate)':'')));
+    d.appendChild(el('p',null,e.txt));
+    d.appendChild(el('p','m',GR[e.gr]));
+    var b=el('button','btn2','Go to chapter '+e.ch);b.type='button';b.addEventListener('click',function(){try{parent.postMessage({type:'chola-atlas-chapter',chapter:e.ch},'*');}catch(x){}});
+    d.appendChild(b);return d;
+  }
+  function hull(pts){
+    var P=pts.map(function(p){return [p[1],p[0]];}).sort(function(a,b){return a[0]-b[0]||a[1]-b[1];});
+    function cr(o,a,b){return (a[0]-o[0])*(b[1]-o[1])-(a[1]-o[1])*(b[0]-o[0]);}
+    var lo=[],up=[],i;
+    for(i=0;i<P.length;i++){while(lo.length>=2&&cr(lo[lo.length-2],lo[lo.length-1],P[i])<=0)lo.pop();lo.push(P[i]);}
+    for(i=P.length-1;i>=0;i--){while(up.length>=2&&cr(up[up.length-2],up[up.length-1],P[i])<=0)up.pop();up.push(P[i]);}
+    up.pop();lo.pop();return lo.concat(up).map(function(p){return [p[1],p[0]];});
+  }
+  function simplePop(o){var d=el('div','pp');d.style.setProperty('--c',o.c);d.appendChild(el('h3',null,o.t));d.appendChild(el('div','m',o.m));d.appendChild(el('p',null,o.p));if(o.x)d.appendChild(el('p','m',o.x));return d;}
+  function drawOverlays(){
+    if(!hasMap)return;overlay.clearLayers();
+    PRINTS.forEach(function(f){
+      if(!state.prints[f.id])return;var c=PW[f.pw][1];
+      var pg=L.polygon(hull(f.pts.map(function(q){return [q[1],q[2]];})),{color:c,weight:1.6,dashArray:f.kind==='find'?null:'6 6',fillColor:c,fillOpacity:f.kind==='find'?0.16:0.07});
+      pg.bindPopup(function(){return simplePop({c:c,t:f.t,m:f.kind==='find'?'Outline of inscription findspots':'Outline of claimed reach',p:f.note,x:'Points used: '+f.pts.map(function(q){return q[0];}).join(', ')});},{className:'cpop',maxWidth:300});
+      pg.addTo(overlay);
+    });
+    if(state.routes)ROUTES.forEach(function(r){
+      var show=state.ch==='ALL'?r.y<=state.year:r.ch===state.ch;if(!show||!state.pw[r.pw])return;var c=PW[r.pw][1];
+      var ln=L.polyline(r.pts,{color:c,weight:2.6,opacity:.9,dashArray:r.kind==='order'?'2 8':'10 8',lineCap:'round'});
+      ln.bindPopup(function(){return simplePop({c:c,t:r.t,m:fyr(r.y)+' \u00b7 '+(r.kind==='order'?'order of named places':'schematic line')+' \u00b7 Chapter '+r.ch,p:r.note});},{className:'cpop',maxWidth:300});
+      ln.addTo(overlay);
+      L.marker(r.pts[r.pts.length-1],{icon:L.divIcon({className:'',html:'<div class="pin-end" style="--c:'+c+'"></div>',iconSize:[9,9],iconAnchor:[5,5]}),interactive:false,keyboard:false}).addTo(overlay);
+    });
   }
 
-  function hull(pts){
-    var P = pts.map(function(p){return [p[1],p[0]];}).sort(function(a,b){return a[0]-b[0]||a[1]-b[1];});
-    function cross(o,a,b){ return (a[0]-o[0])*(b[1]-o[1])-(a[1]-o[1])*(b[0]-o[0]); }
-    var lo=[],up=[],i;
-    for(i=0;i<P.length;i++){ while(lo.length>=2&&cross(lo[lo.length-2],lo[lo.length-1],P[i])<=0) lo.pop(); lo.push(P[i]); }
-    for(i=P.length-1;i>=0;i--){ while(up.length>=2&&cross(up[up.length-2],up[up.length-1],P[i])<=0) up.pop(); up.push(P[i]); }
-    up.pop(); lo.pop();
-    return lo.concat(up).map(function(p){return [p[1],p[0]];});
-  }
-  function drawOverlays(){
-    if (!hasMap) return;
-    overlay.clearLayers();
-    PRINTS.forEach(function(f){
-      if (!state.prints[f.id]) return;
-      var pts = f.pts.map(function(q){return [q[1],q[2]];});
-      var poly = L.polygon(hull(pts),{color:PW[f.pw][1],weight:2,dashArray:f.kind==='find'?null:'6 6',fillColor:PW[f.pw][1],fillOpacity:f.kind==='find'?0.18:0.07,interactive:true});
-      poly.bindPopup(function(){
-        var d=document.createElement('div'); d.innerHTML='<h3></h3><div class="pop-meta"></div><p style="margin:6px 0 0"></p><p class="pop-meta" style="margin-top:6px"></p>';
-        d.querySelector('h3').textContent=f.t;
-        d.querySelector('.pop-meta').textContent=(f.kind==='find'?'Outline of inscription findspots':'Outline of claimed reach');
-        d.querySelector('p').textContent=f.note;
-        d.querySelectorAll('p')[1].textContent='Points used: '+f.pts.map(function(q){return q[0];}).join(', ');
-        return d;
-      },{maxWidth:300});
-      poly.addTo(overlay);
-    });
-    if (state.routes){
-      ROUTES.forEach(function(r){
-        var show = state.ch==='ALL' ? r.y<=state.year : r.ch===state.ch;
-        if (!show || !state.pw[r.pw]) return;
-        var ln = L.polyline(r.pts,{color:PW[r.pw][1],weight:3,opacity:.85,dashArray:r.kind==='order'?'2 8':'10 8',className:'rt'});
-        ln.bindPopup(function(){
-          var d=document.createElement('div'); d.innerHTML='<h3></h3><div class="pop-meta"></div><p style="margin:6px 0 0"></p>';
-          d.querySelector('h3').textContent=r.t;
-          d.querySelector('.pop-meta').textContent=fyr(r.y)+' \u00b7 '+(r.kind==='order'?'order of named places':'schematic line')+' \u00b7 Chapter '+r.ch;
-          d.querySelector('p').textContent=r.note;
-          return d;
-        },{maxWidth:300});
-        ln.addTo(overlay);
-        var last=r.pts[r.pts.length-1];
-        L.marker(last,{icon:L.divIcon({className:'',html:'<div class="pin-end" style="--c:'+PW[r.pw][1]+'"></div>',iconSize:[10,10],iconAnchor:[5,5]}),interactive:false,keyboard:false}).addTo(overlay);
-      });
-    }
+  function go(e){
+    var m=markers[e.id];if(!m||!hasMap)return;
+    if(window.matchMedia&&matchMedia('(max-width:760px)').matches){side.classList.remove('open');listBtn.setAttribute('aria-pressed','false');}
+    function open(){map.flyTo(m.getLatLng(),Math.max(map.getZoom(),8),{duration:.6});setTimeout(function(){m.openPopup();},650);}
+    if(cluster.zoomToShowLayer)cluster.zoomToShowLayer(m,function(){m.openPopup();});else open();
   }
 
   function render(fit){
-    var vis = E.filter(visible);
-    document.getElementById('count').textContent = vis.length+' event'+(vis.length===1?'':'s')+(state.ch==='ALL'?' up to '+fyr(state.year):' in chapter '+state.ch+': '+CH[state.ch].t);
-    // list
-    var ul = document.getElementById('list'); ul.innerHTML='';
-    if (!vis.length){ var li=document.createElement('li'); li.className='empty'; li.textContent='No events match these filters.'; ul.appendChild(li); }
+    var vis=E.filter(visible);
+    $('capT').textContent=state.ch==='ALL'?'All chapters':state.ch+'. '+CH[state.ch][0];
+    $('capN').textContent=vis.length+' event'+(vis.length===1?'':'s')+(state.ch==='ALL'?' up to '+fyr(state.year):'');
+    $('count').textContent=vis.length+' events';
+    var ul=$('list');ul.innerHTML='';
+    if(!vis.length){ul.appendChild(el('li','empty','No events match these filters.'));}
     vis.forEach(function(e){
-      var li = document.createElement('li'); li.tabIndex=0; li.dataset.id=e.id;
-      li.innerHTML = '<div class="li-top"><span class="li-title"></span><span class="li-year"></span></div><div class="li-place"></div><p class="li-text"></p><div style="margin-top:5px"></div>';
-      li.querySelector('.li-title').textContent = e.t;
-      li.querySelector('.li-year').textContent = fy(e);
-      li.querySelector('.li-place').textContent = e.place;
-      li.querySelector('.li-text').textContent = e.txt;
-      var box = li.lastChild;
-      var t1 = document.createElement('span'); t1.className='tag'; t1.style.borderColor=PW[e.pw][1]; t1.style.color=PW[e.pw][1]; t1.textContent=PW[e.pw][0]; box.appendChild(t1);
-      var t2 = document.createElement('span'); t2.className='tag'; t2.textContent=e.gr; box.appendChild(t2);
-      if (e.lat==null){ var t3=document.createElement('span'); t3.className='tag un'; t3.textContent='location unknown or disputed'; box.appendChild(t3); }
-      function go(){ var m=markers[e.id]; if(m&&hasMap){ map.flyTo(m.getLatLng(), Math.max(map.getZoom(),8), {duration:.6}); m.openPopup(); } }
-      li.addEventListener('click', go); li.addEventListener('keydown', function(ev){ if(ev.key==='Enter'||ev.key===' '){ ev.preventDefault(); go(); } });
-      ul.appendChild(li);
+      var li=document.createElement('li');li.dataset.id=e.id;if(openId===e.id)li.className='open';
+      var h=el('button','row-h');h.type='button';
+      var p=el('span','pin '+e.gr+(e.acc==='a'?' apx':''));p.style.setProperty('--c',PW[e.pw][1]);p.style.setProperty('--halo',rgba(PW[e.pw][1],.22));
+      h.appendChild(p);h.appendChild(el('span','row-t',e.t));h.appendChild(el('span','row-y',fy(e)));
+      var m=el('div','more');m.appendChild(el('div','pl',e.place));m.appendChild(el('div',null,e.txt));
+      var t1=el('span','tag',PW[e.pw][0]);t1.style.color=PW[e.pw][1];t1.style.borderColor=PW[e.pw][1];m.appendChild(t1);m.appendChild(el('span','tag',GS[e.gr]));
+      if(e.lat==null)m.appendChild(el('span','tag un','location unknown or disputed'));
+      h.addEventListener('click',function(){
+        var was=li.classList.contains('open');Array.prototype.forEach.call(ul.children,function(x){x.classList.remove('open');});
+        if(!was){li.classList.add('open');openId=e.id;go(e);}else openId=null;
+      });
+      li.appendChild(h);li.appendChild(m);ul.appendChild(li);
     });
-    if (!hasMap) return;
-    layer.clearLayers(); markers = {};
-    offsets(vis);
-    var pts = [];
+    if(!hasMap)return;
+    cluster.clearLayers();markers={};var pts=[];
     vis.forEach(function(e){
-      if (e.lat==null) return;
-      var cls = 'pin '+e.gr+(e.acc==='a'?' apx':'');
-      var icon = L.divIcon({className:'', html:'<div class="'+cls+'" style="--c:'+PW[e.pw][1]+'"></div>', iconSize:[18,18], iconAnchor:[9,9], popupAnchor:[0,-10]});
-      var m = L.marker(e._ll,{icon:icon,title:e.t+' ('+fy(e)+')',keyboard:true}).bindPopup(popup(e),{maxWidth:300});
-      m.addTo(layer); markers[e.id]=m; pts.push(e._ll);
+      if(e.lat==null)return;
+      var ic=L.divIcon({className:'',html:'<div class="pin '+e.gr+(e.acc==='a'?' apx':'')+'" style="--c:'+PW[e.pw][1]+';--halo:'+rgba(PW[e.pw][1],.22)+'"></div>',iconSize:[16,16],iconAnchor:[8,8],popupAnchor:[0,-9]});
+      var mk=L.marker([e.lat,e.lng],{icon:ic,title:e.t+' ('+fy(e)+')',keyboard:true}).bindPopup(popup(e),{className:'cpop',maxWidth:300,autoPanPadding:[30,60]});
+      cluster.addLayer(mk);markers[e.id]=mk;pts.push([e.lat,e.lng]);
     });
     drawOverlays();
-    if (fit!==false && pts.length){
-      if (pts.length===1) map.setView(pts[0],8); else map.fitBounds(pts,{padding:[30,30],maxZoom:9});
-    }
+    if(fit!==false&&pts.length){if(pts.length===1)map.setView(pts[0],8);else map.fitBounds(pts,{padding:[50,50],maxZoom:9});}
   }
 
-  // initial chapter from hash
-  var h = (location.hash||'').match(/ch=([IVX]+)/);
-  if (h && CH[h[1]]) setChapter(h[1]); else { yl.textContent = fyr(state.year); render(true); }
+  paint();
+  var h=(location.hash||'').match(/ch=([IVX]+)/);
+  if(h&&CH[h[1]])setChapter(h[1]);else render(true);
+  if(hasMap)setTimeout(function(){map.invalidateSize();},200);
 })();
 </script>
 </body>
