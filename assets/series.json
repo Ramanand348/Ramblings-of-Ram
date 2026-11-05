@@ -43,6 +43,23 @@
           "label": "Tool"
         }
       ]
+    },
+    {
+      "id": "cholas",
+      "title": "The Cholas",
+      "blurb": "Two looks at the Chola dynasty: a long history from Ashoka's edicts to the last dated year, and a close study of one sea campaign.",
+      "items": [
+        {
+          "path": "research/history/the-tiger-banner-cholas.html",
+          "title": "The Tiger Banner: The Cholas from Ashoka's Edicts to the Last Dated Year",
+          "label": "The dynasty"
+        },
+        {
+          "path": "research/history/rajendra-chola-srivijaya-campaign.html",
+          "title": "The Fleet That History Forgot",
+          "label": "The fleet"
+        }
+      ]
     }
   ]
 }
