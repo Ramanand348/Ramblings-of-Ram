@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Seven Enclosures of Srirangam - Interactive Plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--night:#14182B;--parch:#EFE7D2;--parch2:#E4D8B9;--cream:#F4EEDD;--ink:#241F16;--soft:#4A4132;--brass:#B8863F;--rust:#8C3F2E;--line:rgba(36,31,22,.16)}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--parch);color:var(--ink);font-family:'Source Serif 4',Georgia,serif;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer}
+#app{display:flex;flex-direction:column;min-height:100vh}
+.top{background:var(--night);color:var(--cream);padding:10px 16px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.top h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;margin:0}
+.top span{font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:rgba(244,238,221,.62)}
+.bar{display:flex;gap:8px;align-items:center;padding:8px 14px;background:var(--cream);border-bottom:1px solid var(--line);flex-wrap:wrap}
+.btn{border:1px solid var(--line);background:#fff8;font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.03em;text-transform:uppercase;padding:6px 10px;border-radius:7px}
+.btn[aria-pressed="true"]{background:var(--night);color:var(--cream);border-color:var(--night)}
+.hint{font-family:'IBM Plex Mono',monospace;font-size:.64rem;color:var(--soft);margin-left:auto}
+#stage{padding:10px 10px 4px;background:var(--parch)}
+svg{width:100%;height:auto;display:block;max-height:60vh}
+.band{fill:var(--cream);stroke:none;cursor:pointer;transition:fill .15s}
+.band:hover{fill:#fff7e0}
+.band.sel{fill:#F1DFB4}
+.band:focus-visible{outline:none;stroke:var(--brass);stroke-width:3}
+.wall{fill:none;stroke:var(--ink);stroke-width:1.6;pointer-events:none}
+.num{font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:500;fill:var(--soft);text-anchor:middle;pointer-events:none}
+.tag{font-family:'IBM Plex Mono',monospace;font-size:16px;fill:var(--ink);pointer-events:none}
+.sanct{fill:var(--night);pointer-events:none}
+.sanct-t{font-family:'Fraunces',Georgia,serif;font-size:17px;fill:var(--cream);text-anchor:middle;pointer-events:none}
+.pt{pointer-events:none}
+.tint5{fill:var(--rust);opacity:0;pointer-events:none;transition:opacity .25s}
+.on .tint5{opacity:.2}
+.hid{opacity:0;transition:opacity .25s;pointer-events:none}
+.on .hid{opacity:1}
+.deco{fill:none;stroke:var(--rust);stroke-width:2.4;stroke-dasharray:5 4}
+#card{background:var(--cream);border-top:2px solid var(--brass);padding:12px 16px 16px;flex:1}
+#card h2{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.08rem;margin:0 0 6px}
+#card p{margin:0 0 7px;font-size:.93rem;line-height:1.55}
+#card ul{margin:0 0 8px;padding-left:1.15em;font-size:.92rem;line-height:1.5}
+#card li{margin-bottom:3px}
+.tier{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.05em;text-transform:uppercase;border-radius:4px;padding:1px 6px;margin-right:5px;border:1px solid var(--rust);color:var(--rust);vertical-align:1px}
+.tier.rec{background:var(--brass);border-color:var(--brass);color:#fff}
+#card p.note{font-family:'IBM Plex Mono',monospace;font-size:.64rem;color:var(--soft);line-height:1.5}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="top"><h1>The Seven Enclosures of Srirangam</h1><span>A schematic plan, not to scale &middot; tap a ring</span></div>
+  <div class="bar">
+    <button class="btn" id="b-today" aria-pressed="true">Today</button>
+    <button class="btn" id="b-1323" aria-pressed="false">1323</button>
+    <span class="hint">Rings are numbered from the sanctum outward</span>
+  </div>
+  <div id="stage"><svg id="svg" viewBox="0 0 720 560" role="group" aria-label="Plan of the seven concentric enclosures of the Srirangam temple"></svg></div>
+  <div id="card" aria-live="polite"></div>
+</div>
+<script>
+(function(){
+  var NS='http://www.w3.org/2000/svg',svg=document.getElementById('svg'),card=document.getElementById('card');
+  var W=692,H=532,X0=14,Y0=14,STEP=34;
+  function inset(k){return (7-k)*STEP;}                 // wall k (k=7 outermost, 0 = sanctum block)
+  function rect(k){var d=k===0?238:inset(k);return {x:X0+d,y:Y0+d,w:W-2*d,h:H-2*d};}
+  function el(n,a,p){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);(p||svg).appendChild(e);return e;}
+  function rp(r){return 'M'+r.x+' '+r.y+'h'+r.w+'v'+r.h+'h'+(-r.w)+'z';}
+
+  var R={
+   1:{n:'Dharmavarman',t:'rec',p:'The enclosure around the sanctum, where the main temple stands under its golden vimana.',
+      l:['Ranganatha lies in the sanctum inside this ring.'],
+      y:['<span class="tier">Tradition</span>In 1323 the priests raised a wall in front of the sleeping Ranganatha and set a false image before it, so the soldiers would see nothing worth taking. The wall stood until Gopana\u2019s men took it down in 1371.']},
+   2:{n:'Rajamahendran',t:'rec',p:'The second enclosure, named for the Rajamahendran street.',
+      l:['An inscription here records that Gopana took the image of Ranganatha from Tirupati to Senji and, after the Sultanate defeat, restored it to Srirangam.'],
+      y:['<span class="tier rec">Record</span>This is where the stone says it: the restoration of 1371 is written on this ring.']},
+   3:{n:'Kulasekharan',t:'rec',p:'The third enclosure, named for the Kulasekharan street.',l:['No event in this story is tied to this ring.'],y:[]},
+   4:{n:'Alinadan',t:'rec',p:'The fourth enclosure, whose wall tradition credits to Tirumangai Alvar.',
+      l:['The Vellai Gopuram, the white tower, stands on its east side. It is the second tallest gopuram.','The Venugopala shrine, a Nayak-period work with an inscription of 1674, stands in its south-west corner.'],
+      y:['<span class="tier">Tradition</span>The Vellai Gopuram is named for Vellayi, the temple dancer who in tradition led a Sultanate officer up the tower and leapt with him to save the temple.']},
+   5:{n:'Agalangan',t:'rec',p:'The fifth enclosure, the seat of the Udaiyavar shrine.',
+      l:['The Udaiyavar (Ramanuja) shrine stands in the old Vasantha Mandapam, where tradition says Ramanuja was laid to rest in 1137.','The shrine is reported to stand near the shrine of Pillai Lokacharya.','Shrines of Chakkarathazhwar and Andal are on the west side and the Thayar shrine is on the south side, by one temple guide.','The plan does not place the Udaiyavar shrine on a particular side of the ring.'],
+      y:['<span class="tier">Tradition</span>The priests of the shrine say it was walled over in 1323 to look like blank masonry. No written source located for this piece records it.']},
+   6:{n:'Tiruvikraman',t:'rec',p:'The sixth enclosure, named for the Tiruvikraman street.',l:['No event in this story is tied to this ring.'],y:[]},
+   7:{n:'Chitrai',t:'rec',p:'The outermost enclosure, a rampart-like wall around the whole complex of about 156 acres.',
+      l:['The Rajagopuram, the great south tower of 13 tiers and about 73 metres, stands on the south side. It was completed in 1987.','There are 21 gopurams in all across the seven walls.'],
+      y:['<span class="tier rec">Record</span>In 1323 the Sultanate army took the temple and used it as a fortress camp (V. N. Hari Rao, The Srirangam Temple: Art and Architecture, 1967).']}
+  };
+
+  var g=el('g',{id:'g'});
+  for(var k=7;k>=1;k--){
+    var o=rect(k),i=rect(k-1);
+    var b=el('path',{d:rp(o)+rp(i),'fill-rule':'evenodd','class':'band',tabindex:0,role:'button','aria-label':'Enclosure '+k+', '+R[k].n,'data-k':k},g);
+    b.addEventListener('click',function(){sel(+this.getAttribute('data-k'));});
+    b.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();sel(+this.getAttribute('data-k'));}});
+  }
+  for(k=7;k>=0;k--){el('path',{d:rp(rect(k)),'class':'wall'},g);}
+  var sc=rect(0);
+  el('rect',{x:sc.x,y:sc.y,width:sc.w,height:sc.h,rx:3,'class':'sanct'},g);
+  var st=el('text',{x:sc.x+sc.w/2,y:sc.y+sc.h/2+5,'class':'sanct-t'},g);st.textContent='Sanctum of Ranganatha';
+
+  // 1323 overlays
+  var ov=el('g',{id:'ov'},g);
+  var r5=rect(5),r4=rect(4);
+  el('path',{d:rp(r5)+rp(r4),'fill-rule':'evenodd','class':'tint5'},ov);
+  el('rect',{x:sc.x-7,y:sc.y-7,width:sc.w+14,height:sc.h+14,rx:6,'class':'deco hid'},ov);
+  var dl=el('text',{x:sc.x+sc.w/2,y:sc.y-14,'class':'tag hid','text-anchor':'middle'},ov);dl.textContent='false wall and decoy';
+  var wl=el('text',{x:360,y:r5.y+16+STEP*0,'class':'tag hid','text-anchor':'middle'},ov);wl.textContent='Udaiyavar shrine walled';
+  wl.setAttribute('y',rect(5).y+24);
+
+  // ring numbers on the north band of each ring
+  for(k=1;k<=7;k++){var q=rect(k),n=el('text',{x:q.x+STEP*0.5,y:q.y+q.h/2+6,'class':'num'},g);n.textContent=k;}
+
+  // features with a sourced side
+  function pin(cx,cy,c,label,dx,dy,anchor){
+    el('circle',{cx:cx,cy:cy,r:6,fill:c,stroke:'#14182B','stroke-width':1.4,'class':'pt'},g);
+    if(label){var t=el('text',{x:cx+dx,y:cy+dy,'class':'tag'},g);t.textContent=label;if(anchor)t.setAttribute('text-anchor',anchor);}
+  }
+  var r7=rect(7),r4o=rect(4);
+  pin(r7.x+r7.w/2,r7.y+r7.h-STEP*0.5,'#B8863F','Rajagopuram',12,5);
+  pin(r4o.x+r4o.w-STEP*0.5,r4o.y+r4o.h/2,'#B8863F','Vellai',12,5);
+  pin(r4o.x+STEP*0.5,r4o.y+r4o.h-STEP*0.5,'#4F7266','Venugopala',12,5);
+
+  var sel0=0;
+  function sel(k){
+    sel0=k;
+    Array.prototype.forEach.call(document.querySelectorAll('.band'),function(b){b.classList.toggle('sel',+b.getAttribute('data-k')===k);});
+    var d=R[k],h='<h2>Enclosure '+k+': '+d.n+'</h2><p>'+d.p+'</p>';
+    if(d.l.length){h+='<ul>'+d.l.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul>';}
+    var on=document.getElementById('ov').parentNode.classList.contains('on');
+    if(d.y.length){h+='<p><b>In 1323 and after.</b> '+d.y.join(' ')+'</p>';}
+    h+='<p class="note">Schematic only: ring order, names and the sides given for gopurams follow temple guides and the Srirangam temple histories on ramanuja.org; sizes and positions are not to scale.</p>';
+    card.innerHTML=h;
+  }
+  function mode(m){
+    var on=m==='1323';
+    g.classList.toggle('on',on);
+    document.getElementById('b-1323').setAttribute('aria-pressed',on);
+    document.getElementById('b-today').setAttribute('aria-pressed',!on);
+    if(on&&!sel0)sel(1);
+  }
+  document.getElementById('b-today').onclick=function(){mode('today');};
+  document.getElementById('b-1323').onclick=function(){mode('1323');if(sel0!==1&&sel0!==5)sel(5);};
+  sel(5);
+})();
+</script>
+</body>
+</html>
