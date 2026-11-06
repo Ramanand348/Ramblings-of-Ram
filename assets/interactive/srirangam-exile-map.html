@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forty-Eight Years Away from Srirangam - Interactive Map</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--night:#14182B;--parch:#EFE7D2;--parch2:#E4D8B9;--cream:#F4EEDD;--ink:#241F16;--soft:#4A4132;--brass:#B8863F;--rust:#8C3F2E;--verd:#4F7266;--line:rgba(36,31,22,.16);--shadow:0 8px 24px rgba(20,24,43,.18)}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:var(--parch);color:var(--ink);font-family:'Source Serif 4',Georgia,serif;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible{outline:2px solid var(--brass);outline-offset:2px}
+#app{display:flex;flex-direction:column;height:100vh;min-height:600px}
+.top{background:var(--night);color:var(--cream);padding:10px 16px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.top h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;margin:0}
+.top span{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.03em;color:rgba(244,238,221,.62)}
+.bar{display:flex;align-items:center;gap:10px;padding:8px 14px;background:var(--cream);border-bottom:1px solid var(--line);flex-wrap:wrap}
+.btn{border:1px solid var(--line);background:#fff8;font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.03em;text-transform:uppercase;padding:6px 10px;border-radius:7px}
+.btn:disabled{opacity:.4;cursor:default}
+.btn[aria-pressed="true"]{background:var(--night);color:var(--cream);border-color:var(--night)}
+#step{-webkit-appearance:none;appearance:none;flex:1;min-width:140px;height:4px;border-radius:2px;background:linear-gradient(to right,var(--rust) var(--p,0%),rgba(36,31,22,.16) var(--p,0%));outline-offset:6px}
+#step::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--brass);border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.35)}
+#step::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--brass);border:2px solid #fff}
+#year{font-family:'IBM Plex Mono',monospace;font-size:.78rem;min-width:92px;text-align:right;color:var(--soft)}
+.tog{display:flex;align-items:center;gap:6px;font-family:'IBM Plex Mono',monospace;font-size:.68rem;text-transform:uppercase;letter-spacing:.03em;color:var(--soft);cursor:pointer}
+.tog input{accent-color:var(--rust);margin:0}
+.sw{display:inline-block;width:18px;height:0;border-top:3px solid var(--c)}
+.sw.d{border-top-style:dashed}
+#wrap{position:relative;flex:1;min-height:0}
+#map{position:absolute;inset:0;background:#d9cfb4}
+#map .leaflet-tile-pane{filter:sepia(.5) saturate(.62) hue-rotate(-6deg) contrast(.92) brightness(1.03)}
+.leaflet-control-attribution{font-size:9px;background:rgba(244,238,221,.8)!important}
+.pin{width:16px;height:16px;border-radius:50%;border:2px solid var(--night);background:var(--brass);box-shadow:0 1px 4px rgba(0,0,0,.4)}
+.pin.trad{background:rgba(184,134,63,.25);border:2px dashed var(--rust)}
+.pin.now{box-shadow:0 0 0 5px rgba(140,63,46,.28),0 1px 4px rgba(0,0,0,.4)}
+.lab{font-family:'IBM Plex Mono',monospace;font-size:.68rem;background:rgba(244,238,221,.92);border:1px solid var(--line);border-radius:5px;padding:1px 5px;color:var(--ink);box-shadow:none}
+.leaflet-tooltip.lab:before{display:none}
+#card{background:var(--cream);border-top:2px solid var(--brass);padding:12px 16px 14px;max-height:210px;overflow-y:auto;flex:none}
+#card h2{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.08rem;margin:0 0 4px}
+#card p{margin:0 0 6px;font-size:.93rem;line-height:1.55}
+.tier{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:.05em;text-transform:uppercase;border-radius:4px;padding:2px 7px;margin-right:6px;border:1px solid var(--rust);color:var(--rust)}
+.tier.rec{background:var(--brass);border-color:var(--brass);color:#fff}
+#card p.note{font-family:'IBM Plex Mono',monospace;font-size:.64rem;color:var(--soft);margin-top:4px;line-height:1.5}
+@media (max-width:640px){#card{max-height:240px}.top span{display:none}#year{min-width:76px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="top"><h1>Forty-Eight Years Away from Srirangam</h1><span>Namperumal and Vedanta Desika, 1323 to 1371 &middot; step through the journey</span></div>
+  <div class="bar">
+    <button class="btn" id="prev" aria-label="Previous step">&larr; Back</button>
+    <button class="btn" id="next" aria-label="Next step">Next &rarr;</button>
+    <input type="range" id="step" min="0" max="9" value="0" aria-label="Step in the journey">
+    <span id="year">1311</span>
+    <button class="btn" id="play" aria-pressed="false">Play</button>
+    <label class="tog"><input type="checkbox" id="tNam" checked><span class="sw" style="--c:#8C3F2E"></span>Namperumal</label>
+    <label class="tog"><input type="checkbox" id="tDes" checked><span class="sw d" style="--c:#4F7266"></span>Desika</label>
+  </div>
+  <div id="wrap"><div id="map"></div></div>
+  <div id="card" aria-live="polite"></div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+(function(){
+  // Positions are approximate and for orientation only. "rec" marks a place whose part in the story
+  // rests on an inscription or contemporary record; "trad" marks temple or Sri Vaishnava tradition.
+  var P={
+    sri:{n:'Srirangam',ll:[10.8627,78.6930],t:'rec'},
+    sam:{n:'Samayavaram',ll:[10.9387,78.7461],t:'trad'},
+    sat:{n:'Satyamangalam',ll:[11.5053,77.2381],t:'trad'},
+    jyo:{n:'Jyotishkudi',ll:[9.99,78.17],t:'trad'},
+    tvl:{n:'Tirunelveli country',ll:[8.7139,77.7567],t:'trad'},
+    ker:{n:'Kerala (place varies by account)',ll:[11.2588,75.7804],t:'trad'},
+    mel:{n:'Melkote',ll:[12.6609,76.6479],t:'trad'},
+    tpt:{n:'Tirupati',ll:[13.6288,79.4192],t:'rec'},
+    sen:{n:'Senji (Gingee)',ll:[12.2530,79.4170],t:'rec'}
+  };
+  var NAM=[['sri','jyo',3],['jyo','tvl',5],['tvl','ker',5],['ker','mel',6],['mel','tpt',7],['tpt','sen',8],['sen','sri',9]];
+  var DES=[['sri','sam',2],['sam','sat',4],['sat','mel',6]];
+  var S=[
+   {y:'1311',h:'The first warning',w:['sri'],c:[10.86,78.69],z:9,t:'rec',
+    x:'Malik Kafur\u2019s raid strips the temple of its golden gifts but leaves worship running. The Koyil has been struck once and has survived. Twelve years later the second army will not be so easily absorbed.',
+    s:'Temple history on ramanuja.org; V. N. Hari Rao, The Srirangam Temple: Art and Architecture (1967).'},
+   {y:'1323',h:'Ulugh Khan reaches the island',w:['sri'],c:[10.86,78.69],z:10,t:'trad',
+    x:'The festival is under way when the news arrives. The priests divide into three parties: one to carry Namperumal south, one to raise a wall before the sleeping Ranganatha, one to save what can be saved of the teaching. By tradition the Udaiyavar shrine in the south-west corner was also walled over to look like blank masonry. The Delhi army then uses the temple as a fortress camp.',
+    s:'Koyil Olugu and Sri Vaishnava tradition; the walling of the Udaiyavar shrine is temple tradition with no written source located.'},
+   {y:'1323',h:'The night among the dead',w:['sri','sam'],c:[10.9,78.72],z:11,t:'trad',
+    x:'Vedanta Desika leaves northward with Sudarsana Suri\u2019s two young sons and the only manuscript of the Srutaprakasika. Near Samayavaram the Sultanate troops fall on the party. Desika has the boys lie beneath the bodies, lies down beside them with the book, and slips away before dawn.',
+    s:'Sri Vaishnava biographies of Desika (SriPedia archives; M. Narasimhachary, Sri Vedanta Desika).'},
+   {y:'1323',h:'South with Namperumal',w:['sri','sam','jyo'],c:[10.4,78.4],z:8,t:'trad',
+    x:'Pillai Lokacharya, old and failing, leads the party that carries Namperumal and his two consorts south through the forest tracks. He dies at Jyotishkudi near Madurai, and his disciples carry the image on without him.',
+    s:'Koyil Olugu and Sri Vaishnava tradition. The exact order of stops differs by account.'},
+   {y:'after 1323',h:'Desika in the hills',w:['sri','sam','jyo','sat'],c:[11.2,77.9],z:8,t:'trad',
+    x:'Desika makes his way to Satyamangalam in the hills, where the Srutaprakasika is safe and where he composes his hymn of fear and hope. He stays for years.',
+    s:'Biographical accounts of Desika on ramanuja.org and SriPedia.'},
+   {y:'decades',h:'Years on the road',w:['sri','sam','jyo','sat','tvl','ker'],c:[10.2,77.5],z:7,t:'trad',
+    x:'The image waits out the occupation in the southern country and in Kerala. Nothing is harder to reconstruct than where the party slept, and the accounts disagree on the places and the order.',
+    s:'Sri Vaishnava tradition; stops are approximate.'},
+   {y:'decades',h:'North to Melkote',w:['sri','sam','jyo','sat','tvl','ker','mel'],c:[11.8,76.9],z:7,t:'trad',
+    x:'Melkote, where Ramanuja himself had once taken refuge, receives both the image and, later, Desika, who spends years there after his stay at Satyamangalam.',
+    s:'Sri Vaishnava tradition and accounts of Desika.'},
+   {y:'decades',h:'Tirupati',w:['sri','sam','jyo','sat','tvl','ker','mel','tpt'],c:[12.9,78.3],z:7,t:'rec',
+    x:'The image reaches the hills of Tirupati, where it waits while the world beyond them turns. Vijayanagara is rising in the north of the peninsula.',
+    s:'Inscription in the second enclosure at Srirangam, as summarised on ramanuja.org: the image was taken from Tirupati.'},
+   {y:'c. 1370',h:'Senji and Gopana',w:['sri','sam','jyo','sat','tvl','ker','mel','tpt','sen'],c:[12.9,79.1],z:8,t:'rec',
+    x:'Gopana, a general of the Vijayanagara prince Kampana, takes the image from Tirupati to Senji, his base, as the Sultanate garrison is driven from the Kaveri country. Kampana\u2019s wife Gangadevi describes the abandoned temple in her poem Madhura Vijayam.',
+    s:'Srirangam inscription of Gopana; Madhura Vijayam.'},
+   {y:'1371',h:'Home',w:['sri','sam','jyo','sat','tvl','ker','mel','tpt','sen'],c:[11.9,78.6],z:7,t:'rec',
+    x:'Namperumal is reinstalled at Srirangam with his consorts, forty-eight years after he left. The wall comes down, the lamps are lit, and the seated figure in the south-west corner is anointed again. Some accounts place Desika at the return, but his traditional dates (1268 to 1369) end two years earlier, so his homecoming is left open here.',
+    s:'Inscription of 1371 recording the restoration, as summarised on ramanuja.org.'}
+  ];
+
+  var map=L.map('map',{zoomControl:true,scrollWheelZoom:false}).setView([11.2,78.2],7);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
+  map.on('focus',function(){map.scrollWheelZoom.enable();});map.on('blur',function(){map.scrollWheelZoom.disable();});
+
+  var pins={},lines=[],cur=0,timer=null;
+  Object.keys(P).forEach(function(k){
+    var p=P[k];
+    var m=L.marker(p.ll,{icon:L.divIcon({className:'',html:'<div class="pin '+(p.t==='rec'?'':'trad')+'"></div>',iconSize:[16,16],iconAnchor:[8,8]}),keyboard:true,title:p.n});
+    m.bindTooltip(p.n,{permanent:true,direction:'right',offset:[10,0],className:'lab'});
+    pins[k]=m;
+  });
+  function seg(a,b,color,dash,step){
+    var ln=L.polyline([P[a].ll,P[b].ll],{color:color,weight:3,opacity:.85,dashArray:dash});
+    lines.push({ln:ln,step:step,who:color===('#8C3F2E')?'nam':'des'});
+  }
+  NAM.forEach(function(s){seg(s[0],s[1],'#8C3F2E',null,s[2]);});
+  DES.forEach(function(s){seg(s[0],s[1],'#4F7266','6 6',s[2]);});
+
+  var el={step:document.getElementById('step'),year:document.getElementById('year'),card:document.getElementById('card'),prev:document.getElementById('prev'),next:document.getElementById('next'),play:document.getElementById('play'),tn:document.getElementById('tNam'),td:document.getElementById('tDes')};
+  var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce)el.play.style.display='none';
+
+  function render(){
+    var s=S[cur];
+    Object.keys(pins).forEach(function(k){
+      var on=s.w.indexOf(k)>-1;
+      if(on&&!map.hasLayer(pins[k]))pins[k].addTo(map);
+      if(!on&&map.hasLayer(pins[k]))map.removeLayer(pins[k]);
+      var d=pins[k].getElement&&pins[k].getElement();
+      if(d){var pin=d.querySelector('.pin');if(pin)pin.classList.toggle('now',s.w[s.w.length-1]===k);}
+    });
+    lines.forEach(function(o){
+      var show=o.step<=cur&&((o.who==='nam'&&el.tn.checked)||(o.who==='des'&&el.td.checked));
+      if(show&&!map.hasLayer(o.ln))o.ln.addTo(map);
+      if(!show&&map.hasLayer(o.ln))map.removeLayer(o.ln);
+    });
+    map.flyTo(s.c,s.z,{duration:reduce?0:.8});
+    el.step.value=cur;el.step.style.setProperty('--p',(cur/(S.length-1)*100)+'%');
+    el.year.textContent=s.y;
+    el.prev.disabled=cur===0;el.next.disabled=cur===S.length-1;
+    el.card.innerHTML='<h2>'+s.h+'</h2><p><span class="tier '+(s.t==='rec'?'rec':'')+'">'+(s.t==='rec'?'Record':'Tradition')+'</span>'+s.x+'</p><p class="note">Source: '+s.s+' Positions approximate.</p>';
+    setTimeout(function(){Object.keys(pins).forEach(function(k){var d=pins[k].getElement&&pins[k].getElement();if(d){var pin=d.querySelector('.pin');if(pin)pin.classList.toggle('now',S[cur].w[S[cur].w.length-1]===k);}});},50);
+  }
+  function go(i){cur=Math.max(0,Math.min(S.length-1,i));render();}
+  function stop(){if(timer){clearInterval(timer);timer=null;}el.play.textContent='Play';el.play.setAttribute('aria-pressed','false');}
+  el.prev.onclick=function(){stop();go(cur-1);};
+  el.next.onclick=function(){stop();go(cur+1);};
+  el.step.oninput=function(){stop();go(+el.step.value);};
+  el.tn.onchange=el.td.onchange=render;
+  el.play.onclick=function(){
+    if(timer){stop();return;}
+    if(cur===S.length-1)go(0);
+    el.play.textContent='Pause';el.play.setAttribute('aria-pressed','true');
+    timer=setInterval(function(){if(cur>=S.length-1){stop();return;}go(cur+1);},4200);
+  };
+  render();
+})();
+</script>
+</body>
+</html>
