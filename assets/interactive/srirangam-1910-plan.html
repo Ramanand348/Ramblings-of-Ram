@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plan of the Srirangam Temple, 1910 - Interactive</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--night:#14182B;--parch:#EFE7D2;--cream:#F4EEDD;--ink:#241F16;--soft:#4A4132;--brass:#B8863F;--rust:#8C3F2E;--line:rgba(36,31,22,.16)}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--parch);color:var(--ink);font-family:'Source Serif 4',Georgia,serif;-webkit-font-smoothing:antialiased}
+button{font:inherit;cursor:pointer}
+.top{background:var(--night);color:var(--cream);padding:10px 16px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.top h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;margin:0}
+.top span{font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:rgba(244,238,221,.62)}
+#stage{padding:12px 10px 6px}
+#plan{position:relative;width:100%;max-width:520px;margin:0 auto;border:1px solid var(--line);background:#e9dfc2;line-height:0}
+#plan img{width:100%;height:auto;display:block}
+.hs{position:absolute;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;border:2px solid var(--night);background:var(--brass);color:#fff;font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:.78rem;line-height:1;padding:0;display:flex;align-items:center;justify-content:center;box-shadow:0 1px 4px rgba(0,0,0,.4)}
+.hs.sel{background:var(--rust);transform:scale(1.18)}
+.hs:focus-visible{outline:3px solid var(--rust);outline-offset:2px}
+#card{background:var(--cream);border-top:2px solid var(--brass);padding:12px 16px 16px;min-height:170px}
+#card h2{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.08rem;margin:0 0 6px}
+#card p{margin:0 0 7px;font-size:.93rem;line-height:1.55}
+.tier{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.05em;text-transform:uppercase;border-radius:4px;padding:1px 6px;margin-right:5px;border:1px solid var(--rust);color:var(--rust);vertical-align:1px}
+.tier.rec{background:var(--brass);border-color:var(--brass);color:#fff}
+#card p.note{font-family:'IBM Plex Mono',monospace;font-size:.64rem;color:var(--soft);line-height:1.5}
+</style>
+</head>
+<body>
+<div class="top"><h1>The Temple as Surveyed in 1910</h1><span>Fergusson, Burgess and Spiers &middot; tap a letter</span></div>
+<div id="stage"><div id="plan"><img src="../images/srirangam-plan-1910.png" width="497" height="692" alt="1910 plan of the four inner courts of the Srirangam temple, with the sanctum at the centre and gateways on the south, east and north."></div></div>
+<div id="card" aria-live="polite"></div>
+<script>
+(function(){
+  var IW=497,IH=692;
+  // x,y are pixel positions on the cropped 497 x 692 plan. Letters and names are the plan's own legend.
+  var H=[
+   {k:'E',x:237,y:266,n:'The Shrine (the sanctum)',b:'The heart of the innermost court, drawn by the surveyors as curiously circular. Ranganatha lies here. By tradition, in 1323 the priests raised a wall before him and set a false image in front of it. The wall stayed up until 1371.',t:'1323'},
+   {k:'H',x:232,y:437,n:'Garuda mantapam',b:'The large pillared hall south of the inner courts, on the line of the south gate and the main axis of the temple.',t:'plan'},
+   {k:'B',x:452,y:348,n:'East or Vellay Gopuram',b:'The east gate of the outermost court on this plan, the white tower. Tradition ties it to Vellayi, the temple dancer who led a Sultanate officer up the unfinished tower and leapt with him.',t:'trad'},
+   {k:'A',x:232,y:662,n:'South or Kurat Alwar Gopuram',b:'The south gate of the outermost court on this plan, on the main axis of the temple. The great Rajagopuram of the outermost wall lies further south, beyond this plan.',t:'plan'},
+   {k:'S',x:415,y:130,n:'1000 columns mantapam',b:'The thousand-pillared hall, in the north-east of the outermost court.',t:'plan'},
+   {k:'M',x:283,y:128,n:'Chandra-pushkarani',b:'The temple tank, north of the inner courts.',t:'plan'},
+   {k:'R',x:62,y:63,n:'Ranganayaki temple',b:'The shrine of Ranganayaki, the consort of Ranganatha, in the north-west of the outermost court.',t:'plan'},
+   {k:'W',x:160,y:548,n:'Krishna temples',b:'Krishna temples in the south-west of the outermost court, which fits the Venugopala shrine known from temple guides. A second one stands further east at the bottom of the plan.',t:'plan'}
+  ];
+  var plan=document.getElementById('plan'),card=document.getElementById('card');
+  function show(h){
+    Array.prototype.forEach.call(plan.querySelectorAll('.hs'),function(b){b.classList.toggle('sel',b.getAttribute('data-k')===h.k);});
+    var tag=h.t==='1323'?'<span class="tier">Tradition</span>':h.t==='trad'?'<span class="tier">Tradition</span>':'<span class="tier rec">On the plan</span>';
+    card.innerHTML='<h2>'+h.k+'. '+h.n+'</h2><p>'+tag+h.b+'</p><p class="note">Plan: Fergusson, Burgess and Spiers, History of Indian Architecture, 1910, vol. 1, p. 368. It shows the temple as it stood in 1910, nearly six centuries after the events of this story, and covers the four inner courts only. It does not label the Udaiyavar shrine, which stands in the fifth enclosure outside the plan.</p>';
+  }
+  H.forEach(function(h,i){
+    var b=document.createElement('button');
+    b.className='hs';b.textContent=h.k;b.setAttribute('data-k',h.k);b.setAttribute('aria-label',h.k+', '+h.n);
+    b.style.left=(h.x/IW*100)+'%';b.style.top=(h.y/IH*100)+'%';
+    b.addEventListener('click',function(){show(h);});
+    plan.appendChild(b);
+    if(h.k==='W'){var b2=b.cloneNode(true);b2.style.left=(275/IW*100)+'%';b2.style.top=(585/IH*100)+'%';b2.addEventListener('click',function(){show(h);});plan.appendChild(b2);}
+  });
+  show(H[0]);
+})();
+</script>
+</body>
+</html>

@@ -21,7 +21,7 @@ button{font:inherit;color:inherit;cursor:pointer}
 .btn[aria-pressed="true"]{background:var(--night);color:var(--cream);border-color:var(--night)}
 .hint{font-family:'IBM Plex Mono',monospace;font-size:.64rem;color:var(--soft);margin-left:auto}
 #stage{padding:10px 10px 4px;background:var(--parch)}
-svg{width:100%;height:auto;display:block;max-height:60vh}
+svg{width:100%;height:auto;display:block;margin:0 auto;max-height:66vh}
 .band{fill:var(--cream);stroke:none;cursor:pointer;transition:fill .15s}
 .band:hover{fill:#fff7e0}
 .band.sel{fill:#F1DFB4}
@@ -55,15 +55,14 @@ svg{width:100%;height:auto;display:block;max-height:60vh}
     <button class="btn" id="b-1323" aria-pressed="false">1323</button>
     <span class="hint">Rings are numbered from the sanctum outward</span>
   </div>
-  <div id="stage"><svg id="svg" viewBox="0 0 720 560" role="group" aria-label="Plan of the seven concentric enclosures of the Srirangam temple"></svg></div>
+  <div id="stage"><svg id="svg" viewBox="0 0 520 720" role="group" aria-label="Plan of the seven concentric enclosures of the Srirangam temple"></svg></div>
   <div id="card" aria-live="polite"></div>
 </div>
 <script>
 (function(){
   var NS='http://www.w3.org/2000/svg',svg=document.getElementById('svg'),card=document.getElementById('card');
-  var W=692,H=532,X0=14,Y0=14,STEP=34;
-  function inset(k){return (7-k)*STEP;}                 // wall k (k=7 outermost, 0 = sanctum block)
-  function rect(k){var d=k===0?238:inset(k);return {x:X0+d,y:Y0+d,w:W-2*d,h:H-2*d};}
+  var W=500,H=700,X0=10,Y0=10,DX=26,DY=38;
+  function rect(k){var n=7-k,ix=n*DX,iy=n*DY;return {x:X0+ix,y:Y0+iy,w:W-2*ix,h:H-2*iy};}   // wall k (7 outermost, 0 = sanctum block)
   function el(n,a,p){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);(p||svg).appendChild(e);return e;}
   function rp(r){return 'M'+r.x+' '+r.y+'h'+r.w+'v'+r.h+'h'+(-r.w)+'z';}
 
@@ -76,10 +75,10 @@ svg{width:100%;height:auto;display:block;max-height:60vh}
       y:['<span class="tier rec">Record</span>This is where the stone says it: the restoration of 1371 is written on this ring.']},
    3:{n:'Kulasekharan',t:'rec',p:'The third enclosure, named for the Kulasekharan street.',l:['No event in this story is tied to this ring.'],y:[]},
    4:{n:'Alinadan',t:'rec',p:'The fourth enclosure, whose wall tradition credits to Tirumangai Alvar.',
-      l:['The Vellai Gopuram, the white tower, stands on its east side. It is the second tallest gopuram.','The Venugopala shrine, a Nayak-period work with an inscription of 1674, stands in its south-west corner.'],
+      l:['The Vellai Gopuram, the white tower, stands on its east side. It is the second tallest gopuram, and the 1910 plan marks it as the East or Vellay Gopuram.','The Venugopala shrine, a Nayak-period work with an inscription of 1674, stands in its south-west corner, where the 1910 plan shows Krishna temples.','The 1910 plan puts the Ranganayaki (Thayar) shrine in the north-west of this court.'],
       y:['<span class="tier">Tradition</span>The Vellai Gopuram is named for Vellayi, the temple dancer who in tradition led a Sultanate officer up the tower and leapt with him to save the temple.']},
    5:{n:'Agalangan',t:'rec',p:'The fifth enclosure, the seat of the Udaiyavar shrine.',
-      l:['The Udaiyavar (Ramanuja) shrine stands in the old Vasantha Mandapam, where tradition says Ramanuja was laid to rest in 1137.','The shrine is reported to stand near the shrine of Pillai Lokacharya.','Shrines of Chakkarathazhwar and Andal are on the west side and the Thayar shrine is on the south side, by one temple guide.','The plan does not place the Udaiyavar shrine on a particular side of the ring.'],
+      l:['The Udaiyavar (Ramanuja) shrine stands in the old Vasantha Mandapam, where tradition says Ramanuja was laid to rest in 1137.','The shrine is reported to stand near the shrine of Pillai Lokacharya.','The plan does not place the Udaiyavar shrine on a particular side of the ring.'],
       y:['<span class="tier">Tradition</span>The priests of the shrine say it was walled over in 1323 to look like blank masonry. No written source located for this piece records it.']},
    6:{n:'Tiruvikraman',t:'rec',p:'The sixth enclosure, named for the Tiruvikraman street.',l:['No event in this story is tied to this ring.'],y:[]},
    7:{n:'Chitrai',t:'rec',p:'The outermost enclosure, a rampart-like wall around the whole complex of about 156 acres.',
@@ -97,7 +96,8 @@ svg{width:100%;height:auto;display:block;max-height:60vh}
   for(k=7;k>=0;k--){el('path',{d:rp(rect(k)),'class':'wall'},g);}
   var sc=rect(0);
   el('rect',{x:sc.x,y:sc.y,width:sc.w,height:sc.h,rx:3,'class':'sanct'},g);
-  var st=el('text',{x:sc.x+sc.w/2,y:sc.y+sc.h/2+5,'class':'sanct-t'},g);st.textContent='Sanctum of Ranganatha';
+  var st=el('text',{x:sc.x+sc.w/2,y:sc.y+sc.h/2-2,'class':'sanct-t'},g);st.textContent='Sanctum of';
+  var st2=el('text',{x:sc.x+sc.w/2,y:sc.y+sc.h/2+18,'class':'sanct-t'},g);st2.textContent='Ranganatha';
 
   // 1323 overlays
   var ov=el('g',{id:'ov'},g);
@@ -105,11 +105,11 @@ svg{width:100%;height:auto;display:block;max-height:60vh}
   el('path',{d:rp(r5)+rp(r4),'fill-rule':'evenodd','class':'tint5'},ov);
   el('rect',{x:sc.x-7,y:sc.y-7,width:sc.w+14,height:sc.h+14,rx:6,'class':'deco hid'},ov);
   var dl=el('text',{x:sc.x+sc.w/2,y:sc.y-14,'class':'tag hid','text-anchor':'middle'},ov);dl.textContent='false wall and decoy';
-  var wl=el('text',{x:360,y:r5.y+16+STEP*0,'class':'tag hid','text-anchor':'middle'},ov);wl.textContent='Udaiyavar shrine walled';
+  var wl=el('text',{x:260,y:r5.y+24,'class':'tag hid','text-anchor':'middle'},ov);wl.textContent='Udaiyavar shrine walled';
   wl.setAttribute('y',rect(5).y+24);
 
   // ring numbers on the north band of each ring
-  for(k=1;k<=7;k++){var q=rect(k),n=el('text',{x:q.x+STEP*0.5,y:q.y+q.h/2+6,'class':'num'},g);n.textContent=k;}
+  for(k=1;k<=7;k++){var q=rect(k),n=el('text',{x:q.x+DX*0.5,y:q.y+q.h/2+6,'class':'num'},g);n.textContent=k;}
 
   // features with a sourced side
   function pin(cx,cy,c,label,dx,dy,anchor){
@@ -117,9 +117,9 @@ svg{width:100%;height:auto;display:block;max-height:60vh}
     if(label){var t=el('text',{x:cx+dx,y:cy+dy,'class':'tag'},g);t.textContent=label;if(anchor)t.setAttribute('text-anchor',anchor);}
   }
   var r7=rect(7),r4o=rect(4);
-  pin(r7.x+r7.w/2,r7.y+r7.h-STEP*0.5,'#B8863F','Rajagopuram',12,5);
-  pin(r4o.x+r4o.w-STEP*0.5,r4o.y+r4o.h/2,'#B8863F','Vellai',12,5);
-  pin(r4o.x+STEP*0.5,r4o.y+r4o.h-STEP*0.5,'#4F7266','Venugopala',12,5);
+  pin(r7.x+r7.w/2,r7.y+r7.h-DY*0.5,'#B8863F','Rajagopuram',12,5);
+  pin(r4o.x+r4o.w-DX*0.5,r4o.y+r4o.h/2,'#B8863F','Vellai',12,5);
+  pin(r4o.x+DX*0.5,r4o.y+r4o.h-DY*0.5,'#4F7266','Venugopala',12,5);
 
   var sel0=0;
   function sel(k){
@@ -129,7 +129,7 @@ svg{width:100%;height:auto;display:block;max-height:60vh}
     if(d.l.length){h+='<ul>'+d.l.map(function(x){return '<li>'+x+'</li>';}).join('')+'</ul>';}
     var on=document.getElementById('ov').parentNode.classList.contains('on');
     if(d.y.length){h+='<p><b>In 1323 and after.</b> '+d.y.join(' ')+'</p>';}
-    h+='<p class="note">Schematic only: ring order, names and the sides given for gopurams follow temple guides and the Srirangam temple histories on ramanuja.org; sizes and positions are not to scale.</p>';
+    h+='<p class="note">Schematic only: ring order, names and the sides given for gopurams follow temple guides, the Srirangam temple histories on ramanuja.org and the 1910 plan by Fergusson, Burgess and Spiers; sizes and positions are not to scale.</p>';
     card.innerHTML=h;
   }
   function mode(m){
