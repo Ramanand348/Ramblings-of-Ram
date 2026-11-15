@@ -60,6 +60,23 @@
           "label": "The fleet"
         }
       ]
+    },
+    {
+      "id": "record-memory",
+      "title": "Record and Memory",
+      "blurb": "Two long looks at how the south remembers a catastrophe: a temple's tradition of the Sultanate sack, and a famine that the records document in detail.",
+      "items": [
+        {
+          "path": "research/history/srirangam-ramanuja-koyil-years-of-fire.html",
+          "title": "The Saint Who Stayed: Ramanuja, the Koyil and the Years of Fire",
+          "label": "The temple"
+        },
+        {
+          "path": "research/history/madras-famine-1876-78.html",
+          "title": "A Pound of Grain and an Anna: The Madras Famine of 1876–78",
+          "label": "The famine"
+        }
+      ]
     }
   ]
 }
