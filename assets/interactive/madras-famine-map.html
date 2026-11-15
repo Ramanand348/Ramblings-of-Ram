@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Where the Famine Is Recorded - Interactive Map</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--night:#14182B;--parch:#EFE7D2;--cream:#F4EEDD;--ink:#241F16;--soft:#4A4132;--brass:#B8863F;--rust:#8C3F2E;--verd:#4F7266;--line:rgba(36,31,22,.16)}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;background:var(--parch);color:var(--ink);font-family:'Source Serif 4',Georgia,serif;-webkit-font-smoothing:antialiased}
+#app{display:flex;flex-direction:column;height:100vh;min-height:560px}
+.top{background:var(--night);color:var(--cream);padding:10px 16px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.top h1{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.05rem;margin:0}
+.top span{font-family:'IBM Plex Mono',monospace;font-size:.68rem;letter-spacing:.03em;color:rgba(244,238,221,.62)}
+#wrap{position:relative;flex:1;min-height:0}
+#map{position:absolute;inset:0;background:#d9cfb4}
+#map .leaflet-tile-pane{filter:sepia(.5) saturate(.62) hue-rotate(-6deg) contrast(.92) brightness(1.03)}
+.leaflet-control-attribution{font-size:9px;background:rgba(244,238,221,.8)!important}
+.pin{width:16px;height:16px;border-radius:50%;border:2px solid var(--night);background:var(--brass);box-shadow:0 1px 4px rgba(0,0,0,.4)}
+.pin.lit{background:var(--rust);box-shadow:0 0 0 5px rgba(140,63,46,.28),0 1px 4px rgba(0,0,0,.4)}
+.lab{font-family:'IBM Plex Mono',monospace;font-size:.68rem;background:rgba(244,238,221,.92);border:1px solid var(--line);border-radius:5px;padding:1px 5px;color:var(--ink);box-shadow:none}
+.leaflet-tooltip.lab:before{display:none}
+#card{background:var(--cream);border-top:2px solid var(--brass);padding:12px 16px 14px;max-height:200px;overflow-y:auto;flex:none}
+#card h2{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:1.08rem;margin:0 0 4px}
+#card p{margin:0 0 6px;font-size:.93rem;line-height:1.55}
+#card p.note{font-family:'IBM Plex Mono',monospace;font-size:.64rem;color:var(--soft);margin-top:4px;line-height:1.5}
+@media (max-width:640px){#card{max-height:230px}.top span{display:none}}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="top"><h1>Where the Famine Is Recorded</h1><span>Places named in the sources, 1874 to 1878 &middot; tap a marker</span></div>
+  <div id="wrap"><div id="map"></div></div>
+  <div id="card" aria-live="polite">
+    <h2>Tap a marker</h2>
+    <p>Each marker is a place where a source read for this piece records something specific. Markers sit at the modern city centre, not at the exact site.</p>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+var P = [
+ {n:'Madras (Chennai)', ll:[13.0827,80.2707], h:'Capital of the Madras Presidency',
+  t:['W. R. Cornish, Sanitary Commissioner of the Madras Presidency, argued for a minimum ration of 680 grams of grain plus vegetables and protein for labourers on the relief works.',
+     'In March 1877 the Madras government raised the ration to 570 grams of grain and 43 grams of dal. The campaigner William Digby witnessed the crisis in the Presidency and later put the all-India toll at 9.4 million.']},
+ {n:'Kolar', ll:[13.1362,78.1292], h:'Ragi lost two years before the famine',
+  t:['In 1874, two years before the famine proper, heavy rain destroyed the ragi crop in Kolar and Bangalore. Scant rain the next year dried up lakes and cut food stocks.']},
+ {n:'Bengaluru (Bangalore)', ll:[12.9716,77.5946], h:'Relief seekers and the railway',
+  t:['Large numbers of people travelled to Bangalore when relief was on offer. They worked on the Bangalore to Mysore railway line in exchange for food and grain.']},
+ {n:'Mysuru (Mysore)', ll:[12.2958,76.6394], h:'Princely state of Mysore',
+  t:['The state opened relief kitchens, imported large quantities of grain from the neighbouring Madras Presidency, allowed temporary grazing in forests, and built and repaired tanks.',
+     'Its population fell by 874,000 against the 1871 census. Dewan C. V. Rungacharlu put the cost to the state at 160 lakhs, with a debt of 80 lakhs.']},
+ {n:'Hyderabad', ll:[17.3850,78.4867], h:'Princely state of Hyderabad',
+  t:['Hyderabad was one of the four main famine regions. For Mysore and Hyderabad together, the Imperial Gazetteer records Rs 7.2 million spent to provide 72 million person-days of relief.']},
+ {n:'Bombay (Mumbai)', ll:[18.9750,72.8258], h:'Bombay Presidency',
+  t:['The Temple wage cut of January 1877 applied to relief camps in Bombay as well as Madras. The stricter test for qualifying for relief led to strikes by relief workers in the Presidency.']},
+ {n:'Madurai', ll:[9.9252,78.1198], h:'In the satire',
+  t:['In a Tamil satire on the famine, the god Sundaresvara of Madurai pleads his helplessness before the problems of the people hit by it.']},
+ {n:'Sivaganga', ll:[9.8433,78.4809], h:'A court poet writes the famine down',
+  t:['Villiappa Pillai, one of the court poets of Sivagangai, composed the Panchalakshna Tirumugavilasam, published in 1899: about 4,500 lines of humour and biting irony on the conditions of people in the great famine of 1876.']}
+];
+var map = L.map('map',{zoomControl:true,scrollWheelZoom:false});
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:12,attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
+var card = document.getElementById('card'), markers = [];
+function show(i){
+  var p = P[i];
+  card.innerHTML = '<h2></h2><p><strong></strong></p>';
+  card.querySelector('h2').textContent = p.n;
+  card.querySelector('strong').textContent = p.h;
+  p.t.forEach(function(s){ var e=document.createElement('p'); e.textContent=s; card.appendChild(e); });
+  var n=document.createElement('p'); n.className='note';
+  n.textContent='Sources: Imperial Gazetteer of India vol. III (1907); Hall-Matthews; Arnold (1994); Dyson (2018); Zvelebil (1974), as summarised in secondary accounts.';
+  card.appendChild(n);
+  markers.forEach(function(m,j){ m.getElement().querySelector('.pin').classList.toggle('lit', j===i); });
+}
+var pts = [];
+P.forEach(function(p,i){
+  var m = L.marker(p.ll,{icon:L.divIcon({className:'',html:'<div class="pin"></div>',iconSize:[16,16],iconAnchor:[8,8]}),keyboard:true,title:p.n});
+  var D=['right','top','left','left','right','right','left','right'][i]; var off=D==='top'?[0,-8]:(D==='left'?[-10,0]:[10,0]);
+  m.addTo(map).bindTooltip(p.n,{permanent:true,direction:D,offset:off,className:'lab'});
+  m.on('click',function(){show(i);});
+  markers.push(m); pts.push(p.ll);
+});
+function fit(){map.invalidateSize();map.fitBounds(pts,{padding:[34,34]});}
+fit(); window.addEventListener('load',fit); window.addEventListener('resize',fit);
+</script>
+</body>
+</html>
