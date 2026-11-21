@@ -1,0 +1,54 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>A cell with two parents - What If</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EFE7D2;--card:#F4EEDD;--ink:#241F16;--soft:#4A4132;--line:rgba(36,31,22,.2);--host:#4F7266;--guest:#8C3F2E;--prop:#6B5B7A;--gold:#B8863F}
+:root[data-theme=dark]{--bg:#171B30;--card:#1D2242;--ink:#EDE7D5;--soft:#B7AE95;--line:rgba(237,231,213,.2);--host:#7FB5A2;--guest:#E08A72;--prop:#A596B8;--gold:#D8B570}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Source Serif 4",Georgia,serif;-webkit-font-smoothing:antialiased}
+main{max-width:640px;margin:0 auto;padding:12px 12px 16px}
+svg{width:100%;height:auto;display:block}svg text{font-family:"Source Serif 4",Georgia,serif;fill:var(--ink);font-size:11px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+.chips button{font:500 .72rem "IBM Plex Mono",monospace;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:8px 10px;border-radius:6px;cursor:pointer;min-height:36px}
+.chips button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:12px 14px;margin-top:10px}
+.panel h2{font:600 1.05rem Fraunces,Georgia,serif;margin:0 0 6px}.panel p{margin:0 0 8px;font-size:.95rem;line-height:1.55}
+.panel .ev{font-size:.82rem;color:var(--soft);border-top:1px solid var(--line);padding-top:8px;margin:8px 0 0}
+.key{display:flex;gap:14px;flex-wrap:wrap;font:400 .7rem "IBM Plex Mono",monospace;color:var(--soft);margin-top:10px}
+.key i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+.off{display:none}:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+.bead{cursor:pointer}.bead:focus{outline:none}.bead:focus-visible circle{stroke:var(--gold);stroke-width:4}.bead circle{stroke:var(--card);stroke-width:2;transition:stroke .15s}.bead.on circle{stroke:var(--gold);stroke-width:4}
+svg .z{font-size:10px;fill:var(--soft);text-anchor:middle}svg .bl{font-size:10.5px;text-anchor:middle}
+.tag{font:500 .72rem "IBM Plex Mono",monospace;color:var(--soft);margin:0 0 6px}
+
+</style><script>(function(){var r=document.documentElement;function s(){var t=null;try{t=parent.document.documentElement.getAttribute("data-theme")}catch(e){}if(!t)t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";r.setAttribute("data-theme",t)}s();try{new MutationObserver(s).observe(parent.document.documentElement,{attributes:true,attributeFilter:["data-theme"]})}catch(e){}})();</script></head><body><main><svg id="s" viewBox="0 0 360 400" role="group" aria-label="A eukaryotic cell with jobs coloured by which parent they resemble"><title>A eukaryotic cell with each job coloured by the ancestor it resembles</title>
+<rect x="8" y="8" width="344" height="384" rx="72" fill="var(--card)" stroke="var(--line)" stroke-width="2"/>
+<ellipse cx="180" cy="105" rx="140" ry="78" fill="none" stroke="var(--soft)" stroke-width="1.5" stroke-dasharray="5 4"/><text class="z" x="180" y="46">Nucleus</text>
+<ellipse cx="105" cy="335" rx="100" ry="48" fill="var(--guest)" fill-opacity=".14" stroke="var(--guest)" stroke-width="2"/><text class="z" x="105" y="303">Mitochondrion</text>
+<g id="g"></g></svg>
+<div class="panel"><p class="tag" id="g2">Tap a bead</p><h2 id="t">Which parent does each job take after?</h2><p id="d">Each bead is a job a eukaryotic cell does. Its colour shows whether the proteins behind it look archaeal, bacterial, or have a proposed origin.</p><p class="ev">Positions show where each job is done today. In the hypothesis the nucleus arrived later, and the mitochondrion is the guest itself.</p></div>
+<div class="key"><span><i style="background:var(--host)"></i>Looks archaeal (host)</span><span><i style="background:var(--guest)"></i>Looks bacterial (guest)</span><span><i style="background:var(--prop)"></i>Proposed origin</span></div>
+<script>
+var T={A:"Looks archaeal",B:"Looks bacterial",P:"Proposed origin"},V={A:"var(--host)",B:"var(--guest)",P:"var(--prop)"};
+var D=[
+["A","DNA/copying",85,80,"DNA copying","The proteins that copy DNA are related to the archaeal versions, not the bacterial ones."],
+["A","Gene/reading",180,80,"Gene reading","RNA polymerase, the enzyme that reads genes, is built on the archaeal plan."],
+["A","DNA/packaging",275,80,"DNA packaging","Eukaryotic DNA is wound on histones. Archaea have related histone proteins that also package DNA, and most bacteria lack them."],
+["P","Splicing",180,150,"Splicing","The machine that cuts introns out of messages. One hypothesis traces it to bacterial self-splicing introns that the guest carried in. It is debated."],
+["A","Protein/building",55,235,"Protein building","Many ribosomal proteins and the factors that start translation match the archaeal set."],
+["A","Scaffold/and traffic",140,235,"Scaffold and traffic","Actin-like filaments, ESCRT membrane pinchers and vesicle-steering GTPases appear in Asgard archaea. They look like the host’s toolkit."],
+["B","Amino acid/making",225,235,"Amino acid making","Many of the enzymes that build amino acids and cofactors look bacterial."],
+["B","Cell/metabolism",310,235,"Cell metabolism","Much of the cell’s everyday chemistry uses enzymes of bacterial type. A share of them trace to other bacteria rather than to the mitochondrial ancestor."],
+["B","Respiration",62,322,"Respiration","The chain that makes ATP in mitochondria is bacterial in origin. It is the guest’s own trade."],
+["B","Iron-sulfur/kits",148,322,"Iron-sulfur kits","Even the stripped-down relics of mitochondria still assemble iron-sulfur clusters, small metal parts that many proteins need."],
+["B","Membrane/lipids",270,322,"Membrane lipids","Eukaryotic membranes use bacterial-type lipids, though an archaeal host would have started with the other kind. This is the open problem of Chapter 7."]];
+var N="http://www.w3.org/2000/svg",g=document.getElementById("g"),beads=[];
+function mk(n,a){var e=document.createElementNS(N,n);for(var k in a)e.setAttribute(k,a[k]);return e}
+D.forEach(function(r,i){var b=mk("g",{"class":"bead",tabindex:0,role:"button","aria-label":r[4]+", "+T[r[0]]});
+b.appendChild(mk("circle",{cx:r[2],cy:r[3],r:14,fill:V[r[0]]}));
+var t=mk("text",{"class":"bl",x:r[2],y:r[3]+28});r[1].split("/").forEach(function(w,j){var s=mk("tspan",{x:r[2],dy:j?12:0});s.textContent=w;t.appendChild(s)});b.appendChild(t);
+function pick(){beads.forEach(function(x){x.classList.remove("on")});b.classList.add("on");
+document.getElementById("g2").textContent=T[r[0]];document.getElementById("t").textContent=r[4];document.getElementById("d").textContent=r[5]}
+b.addEventListener("click",pick);b.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();pick()}});
+beads.push(b);g.appendChild(b)});
+</script></main><script>(function(){function f(){try{frameElement.style.height=(document.querySelector("main").offsetHeight+2)+"px"}catch(e){}}addEventListener("load",f);addEventListener("resize",f);try{new ResizeObserver(f).observe(document.body)}catch(e){}})();</script></body></html>

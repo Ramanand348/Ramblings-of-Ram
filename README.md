@@ -12,6 +12,8 @@ tags.html                  Browse by topic (reads assets/search-index.json)
 404.html                   Not-found page
 research/                  Long-form research pieces
   science/  history/  gaming/      one folder per category, each with an index.html
+what-if/                   What If series: one granted hypothesis per piece, with its own index.html
+                           (registered by hand in archive, sitemap, rss and search index)
 blog/                      Notebook posts (shorter, informal)
   science/  history/  gaming/      same structure; blog/_template.html starts a new post
 assets/

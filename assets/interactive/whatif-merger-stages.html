@@ -1,0 +1,58 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>How a host and a guest may have merged - What If</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EFE7D2;--card:#F4EEDD;--ink:#241F16;--soft:#4A4132;--line:rgba(36,31,22,.2);--host:#4F7266;--guest:#8C3F2E;--prop:#6B5B7A;--gold:#B8863F}
+:root[data-theme=dark]{--bg:#171B30;--card:#1D2242;--ink:#EDE7D5;--soft:#B7AE95;--line:rgba(237,231,213,.2);--host:#7FB5A2;--guest:#E08A72;--prop:#A596B8;--gold:#D8B570}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Source Serif 4",Georgia,serif;-webkit-font-smoothing:antialiased}
+main{max-width:640px;margin:0 auto;padding:12px 12px 16px}
+svg{width:100%;height:auto;display:block}svg text{font-family:"Source Serif 4",Georgia,serif;fill:var(--ink);font-size:11px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+.chips button{font:500 .72rem "IBM Plex Mono",monospace;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:8px 10px;border-radius:6px;cursor:pointer;min-height:36px}
+.chips button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:12px 14px;margin-top:10px}
+.panel h2{font:600 1.05rem Fraunces,Georgia,serif;margin:0 0 6px}.panel p{margin:0 0 8px;font-size:.95rem;line-height:1.55}
+.panel .ev{font-size:.82rem;color:var(--soft);border-top:1px solid var(--line);padding-top:8px;margin:8px 0 0}
+.key{display:flex;gap:14px;flex-wrap:wrap;font:400 .7rem "IBM Plex Mono",monospace;color:var(--soft);margin-top:10px}
+.key i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+.off{display:none}:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+svg .l{font-size:11px}svg .lb{font-size:10px;fill:var(--bg);text-anchor:middle}
+
+</style><script>(function(){var r=document.documentElement;function s(){var t=null;try{t=parent.document.documentElement.getAttribute("data-theme")}catch(e){}if(!t)t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";r.setAttribute("data-theme",t)}s();try{new MutationObserver(s).observe(parent.document.documentElement,{attributes:true,attributeFilter:["data-theme"]})}catch(e){}})();</script></head><body><main><div class="chips" id="chips" role="group" aria-label="Stages of the merger"></div>
+<svg viewBox="0 0 360 230" role="img" aria-labelledby="st"><title id="st">Three drawn stages of a host archaeon taking in a bacterium</title>
+<path d="M0 208Q60 198 120 208T240 208T360 208V230H0Z" fill="var(--soft)" opacity=".18"/>
+<g id="f0">
+<g fill="none" stroke="var(--host)" stroke-width="6" stroke-linecap="round"><path d="M158 100C188 82 206 70 232 76C246 79 249 92 238 98"/><path d="M160 126C194 130 214 150 244 148C260 146 266 160 254 168"/><path d="M112 153C102 182 122 196 150 192C174 190 190 200 214 197"/><path d="M92 88C78 62 98 42 126 46"/></g>
+<circle cx="120" cy="116" r="40" fill="var(--host)"/><circle cx="120" cy="116" r="13" fill="none" stroke="var(--bg)" stroke-width="2" stroke-dasharray="3 3"/>
+<g fill="var(--guest)"><rect x="236" y="82" width="36" height="15" rx="7.5" transform="rotate(-20 254 90)"/><rect x="232" y="142" width="36" height="15" rx="7.5" transform="rotate(14 250 150)"/><rect x="200" y="186" width="36" height="15" rx="7.5" transform="rotate(-6 218 194)"/></g>
+<g fill="var(--gold)"><circle cx="224" cy="104" r="3"/><circle cx="210" cy="112" r="3"/><circle cx="196" cy="118" r="3"/><circle cx="226" cy="146" r="3"/><circle cx="212" cy="139" r="3"/></g>
+<text class="l" x="146" y="34">Host archaeon</text><text class="l" x="262" y="62">Bacteria</text></g>
+<g id="f1" class="off">
+<ellipse cx="196" cy="116" rx="50" ry="32" fill="var(--host)" fill-opacity=".3" stroke="var(--host)" stroke-width="5"/>
+<circle cx="116" cy="116" r="42" fill="var(--host)"/><circle cx="116" cy="116" r="13" fill="none" stroke="var(--bg)" stroke-width="2" stroke-dasharray="3 3"/>
+<rect x="176" y="108" width="40" height="16" rx="8" fill="var(--guest)" transform="rotate(-10 196 116)"/>
+<g fill="var(--guest)" opacity=".45"><rect x="272" y="64" width="36" height="15" rx="7.5" transform="rotate(-20 290 72)"/><rect x="268" y="160" width="36" height="15" rx="7.5" transform="rotate(14 286 168)"/></g>
+<g fill="var(--gold)"><circle cx="166" cy="114" r="3"/><circle cx="154" cy="116" r="3"/><circle cx="176" cy="98" r="3"/></g>
+<text class="l" x="58" y="62">Host archaeon</text><text class="l" x="168" y="170">Enclosed partner</text></g>
+<g id="f2" class="off">
+<ellipse cx="180" cy="116" rx="110" ry="82" fill="var(--host)"/>
+<circle cx="128" cy="100" r="17" fill="none" stroke="var(--bg)" stroke-width="2.5" stroke-dasharray="4 3"/>
+<rect x="190" y="104" width="62" height="26" rx="13" fill="var(--guest)"/>
+<g fill="var(--gold)"><circle cx="184" cy="112" r="3.5"/><circle cx="172" cy="108" r="3.5"/><circle cx="160" cy="106" r="3.5"/></g>
+<text class="lb" x="128" y="136">DNA, no nucleus</text><text class="lb" x="221" y="152">Future mitochondrion</text>
+<text class="l" x="146" y="20">Host archaeon</text></g>
+</svg>
+<div class="panel"><h2 id="t"></h2><p id="d"></p><p class="ev" id="e"></p></div>
+<div class="key"><span><i style="background:var(--host)"></i>Host archaeon</span><span><i style="background:var(--guest)"></i>Bacterium</span><span><i style="background:var(--gold)"></i>Hydrogen gas</span></div>
+<script>
+var F=[
+{n:"Entangle",t:"Entangle",d:"A slow-growing archaeon with long, branching protrusions lives in oxygen-poor mud. Bacterial partners that give off hydrogen gather close, and the protrusions wrap around them.",e:"Seen: the cultured Asgard cell has branched protrusions and lives alongside partner microbes that use its hydrogen. Proposed: the protrusions hold bacteria in place."},
+{n:"Engulf",t:"Engulf",d:"The protrusions fuse around one partner and shut it into a pocket of the host’s own membrane. Nothing is digested, because the bacterium was already feeding the host.",e:"Proposed: no Asgard cell has been seen doing this. The entangle, engulf, endogenise model is a hypothesis drawn from cultured cells."},
+{n:"Endogenise",t:"Endogenise",d:"The bacterium stays as a permanent resident and keeps passing hydrogen to its host. The host has DNA but no nucleus yet. Over a very long time the guest will shrink into the mitochondrion.",e:"Granted for this series: one merger, once. The outcome is visible in every mitochondrion, which still looks like a bacterium reduced to an organelle."}];
+var c=document.getElementById("chips");
+F.forEach(function(f,i){var b=document.createElement("button");b.textContent=f.n;b.onclick=function(){show(i)};c.appendChild(b)});
+function show(i){F.forEach(function(_,k){document.getElementById("f"+k).classList.toggle("off",k!==i);c.children[k].setAttribute("aria-pressed",k===i)});
+document.getElementById("t").textContent=F[i].t;document.getElementById("d").textContent=F[i].d;document.getElementById("e").textContent=F[i].e}
+show(0);
+</script></main><script>(function(){function f(){try{frameElement.style.height=(document.querySelector("main").offsetHeight+2)+"px"}catch(e){}}addEventListener("load",f);addEventListener("resize",f);try{new ResizeObserver(f).observe(document.body)}catch(e){}})();</script></body></html>

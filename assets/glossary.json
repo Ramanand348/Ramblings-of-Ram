@@ -159,6 +159,41 @@
       "term": "Chicxulub",
       "def": "The impact crater beneath Mexico's Yucatan peninsula, linked to the extinction of the non-avian dinosaurs.",
       "exact": false
+    },
+    {
+      "term": "archaea",
+      "def": "One of the three domains of life: single-celled organisms without a nucleus that are as different from bacteria as from us. Many live in extreme or oxygen-poor places.",
+      "exact": false
+    },
+    {
+      "term": "eukaryote",
+      "def": "An organism whose cells have a nucleus. Animals, plants, fungi and single-celled protists are all eukaryotes.",
+      "exact": false
+    },
+    {
+      "term": "mitochondria",
+      "def": "The organelles that make most of a eukaryotic cell’s ATP. They descend from a bacterium that once lived on its own.",
+      "exact": false
+    },
+    {
+      "term": "syntrophy",
+      "def": "A partnership in which two kinds of microbes live off each other’s waste products.",
+      "exact": false
+    },
+    {
+      "term": "intron",
+      "def": "A stretch of a gene that is cut out of the message before the protein is built.",
+      "exact": false
+    },
+    {
+      "term": "ATP",
+      "def": "The molecule cells use as a portable energy currency.",
+      "exact": true
+    },
+    {
+      "term": "ribosome",
+      "def": "The molecular machine that builds proteins from a gene’s message.",
+      "exact": false
     }
   ]
 }

@@ -77,6 +77,18 @@
           "label": "The famine"
         }
       ]
+    },
+    {
+      "id": "what-if",
+      "title": "What If",
+      "blurb": "Take one of the world’s open mysteries, grant a plausible hypothesis as fact, and follow it as far as the evidence goes.",
+      "items": [
+        {
+          "path": "what-if/mitochondrion-guest-that-never-left.html",
+          "title": "What If the Mitochondrion Was a Guest That Never Left?",
+          "label": "Origin of complex cells"
+        }
+      ]
     }
   ]
 }

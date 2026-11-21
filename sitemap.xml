@@ -170,6 +170,16 @@
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://ramanand348.github.io/Ramblings-of-Ram/what-if/index.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://ramanand348.github.io/Ramblings-of-Ram/what-if/mitochondrion-guest-that-never-left.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
 
 
