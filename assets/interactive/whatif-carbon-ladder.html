@@ -1,0 +1,50 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Climbing the carbon ladder - What If</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EFE7D2;--card:#F4EEDD;--ink:#241F16;--soft:#4A4132;--line:rgba(36,31,22,.2);--host:#4F7266;--guest:#8C3F2E;--prop:#6B5B7A;--gold:#B8863F}
+:root[data-theme=dark]{--bg:#171B30;--card:#1D2242;--ink:#EDE7D5;--soft:#B7AE95;--line:rgba(237,231,213,.2);--host:#7FB5A2;--guest:#E08A72;--prop:#A596B8;--gold:#D8B570}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Source Serif 4",Georgia,serif;-webkit-font-smoothing:antialiased}
+main{max-width:640px;margin:0 auto;padding:12px 12px 16px}
+svg{width:100%;height:auto;display:block}svg text{font-family:"Source Serif 4",Georgia,serif;fill:var(--ink);font-size:11px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+.chips button{font:500 .72rem "IBM Plex Mono",monospace;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:8px 10px;border-radius:6px;cursor:pointer;min-height:36px}
+.chips button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:12px 14px;margin-top:10px}
+.panel h2{font:600 1.05rem Fraunces,Georgia,serif;margin:0 0 6px}.panel p{margin:0 0 8px;font-size:.95rem;line-height:1.55}
+.panel .ev{font-size:.82rem;color:var(--soft);border-top:1px solid var(--line);padding-top:8px;margin:8px 0 0}
+.key{display:flex;gap:14px;flex-wrap:wrap;font:400 .7rem "IBM Plex Mono",monospace;color:var(--soft);margin-top:10px}
+.key i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+.off{display:none}:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+:root{--vent:#8C3F2E;--sea:#3F6E8C}:root[data-theme=dark]{--vent:#E08A72;--sea:#7DB0D0}input[type=range]{width:100%;accent-color:var(--gold);margin:6px 0 2px}.lab{font:400 .72rem "IBM Plex Mono",monospace;color:var(--soft);display:flex;justify-content:space-between;gap:8px}.read{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0 0}.read div{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:8px 10px;font:500 .78rem "IBM Plex Mono",monospace}.read b{display:block;font:600 1.1rem Fraunces,Georgia,serif;margin-top:2px}.bar{display:block;width:100%;height:8px;border-radius:4px;background:var(--line);margin-top:6px;overflow:hidden}.bar i{display:block;height:100%;background:var(--gold)}svg .t{font-size:11px;text-anchor:middle}
+.rung{display:grid;grid-template-columns:96px 1fr;gap:10px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:8px 10px;margin:0 0 6px;transition:opacity .25s}
+.rung.dim{opacity:.22}.rung svg{width:96px;height:auto}.rung h3{font:600 .98rem Fraunces,Georgia,serif;margin:0}.rung p{margin:2px 0 0;font-size:.82rem;line-height:1.4;color:var(--soft)}
+.arrow{font:500 .72rem "IBM Plex Mono",monospace;color:var(--gold);text-align:center;margin:-2px 0 4px}.dim+.arrow{opacity:.25}
+.go{font:500 .78rem "IBM Plex Mono",monospace;border:1px solid var(--ink);background:var(--ink);color:var(--bg);padding:9px 14px;border-radius:6px;cursor:pointer;min-height:38px}
+.go[disabled]{opacity:.5;cursor:default}
+
+</style><script>(function(){var r=document.documentElement;function s(){var t=null;try{t=parent.document.documentElement.getAttribute("data-theme")}catch(e){}if(!t)t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";r.setAttribute("data-theme",t)}s();try{new MutationObserver(s).observe(parent.document.documentElement,{attributes:true,attributeFilter:["data-theme"]})}catch(e){}})();</script></head><body><main><div class="chips" id="chips" role="group" aria-label="Where the chemistry happens"></div>
+<div id="L"></div>
+<div style="display:flex;gap:8px;margin:6px 0 0"><button class="go" id="go" type="button">Add hydrogen</button><button class="go" id="rs" type="button" style="background:var(--card);color:var(--ink);border-color:var(--line)">Start over</button></div>
+<div class="panel"><h2 id="t"></h2><p id="d2"></p><p class="ev" id="e"></p></div>
+<div class="key"><span><i style="background:var(--soft)"></i>Carbon</span><span><i style="background:var(--vent)"></i>Oxygen</span><span>Hydrogens not drawn</span></div>
+<script>
+var M=[{n:"Carbon dioxide",c:"1 carbon",a:[["O",14,28],["C",48,28],["O",82,28]],b:[[0,1,2],[1,2,2]],rock:"Dissolved in the acidic ocean. The starting material.",cell:"Taken in by the pathway as its only carbon source."},
+{n:"Formate",c:"1 carbon",a:[["C",40,22],["O",18,44],["O",64,44]],b:[[0,1,2],[0,2,1]],rock:"Up to 200 millimolar with awaruite, magnetite or greigite, at 100 °C in alkaline water.",cell:"In methanogens the first step uses an enzyme with 46 iron-sulfur clusters."},
+{n:"Acetate",c:"2 carbons",a:[["C",16,30],["C",44,30],["O",66,12],["O",66,48]],b:[[0,1,1],[1,2,2],[1,3,1]],rock:"Up to 100 micromolar, about two thousand times less than formate.",cell:"An acetyl group built on a nickel and iron-sulfur enzyme, the pathway’s central catalyst."},
+{n:"Pyruvate",c:"3 carbons",a:[["C",12,36],["C",34,36],["C",56,36],["O",34,14],["O",76,20],["O",76,52]],b:[[0,1,1],[1,2,1],[1,3,2],[2,4,2],[2,5,1]],rock:"Up to 10 micromolar. A crossroads molecule that all of metabolism uses.",cell:"Joins the cell’s main metabolism, where it can feed everything else."}];
+var N="http://www.w3.org/2000/svg",L=document.getElementById("L"),step=0,mode=0,rows=[];
+function mol(m){var s=document.createElementNS(N,"svg");s.setAttribute("viewBox","0 0 100 60");
+m.b.forEach(function(b){var A=m.a[b[0]],B=m.a[b[1]];for(var k=0;k<b[2];k++){var o=b[2]==1?0:(k?2.6:-2.6),l=document.createElementNS(N,"line");l.setAttribute("x1",A[1]);l.setAttribute("y1",A[2]+o);l.setAttribute("x2",B[1]);l.setAttribute("y2",B[2]+o);l.setAttribute("stroke","var(--soft)");l.setAttribute("stroke-width","2");s.appendChild(l)}});
+m.a.forEach(function(a){var c=document.createElementNS(N,"circle");c.setAttribute("cx",a[1]);c.setAttribute("cy",a[2]);c.setAttribute("r",a[0]=="C"?7:6);c.setAttribute("fill",a[0]=="C"?"var(--soft)":"var(--vent)");s.appendChild(c)});return s}
+M.forEach(function(m,i){var r=document.createElement("div");r.className="rung";r.appendChild(mol(m));var d=document.createElement("div");d.innerHTML="<h3></h3><p class=\"c\"></p><p class=\"x\"></p>";d.querySelector("h3").textContent=m.n+" ("+m.c+")";r.appendChild(d);L.appendChild(r);rows.push(r);if(i<3){var a=document.createElement("div");a.className="arrow";a.textContent="+ hydrogen, a catalyst";L.appendChild(a)}});
+var ch=document.getElementById("chips");["In the rock","In the cell"].forEach(function(t,i){var b=document.createElement("button");b.textContent=t;b.onclick=function(){mode=i;draw()};ch.appendChild(b)});
+function draw(){rows.forEach(function(r,i){r.classList.toggle("dim",i>step);r.querySelector(".x").textContent=i<=step?(mode?M[i].cell:M[i].rock):""});
+[].forEach.call(ch.children,function(b,i){b.setAttribute("aria-pressed",i===mode)});
+document.getElementById("go").disabled=step>=3;
+document.getElementById("t").textContent=mode?"In the cell: enzymes":"In the rock: minerals";
+document.getElementById("d2").textContent=mode?"Living acetogens and methanogens climb the same ladder with enzymes. Those enzymes are built around nickel and iron-sulfur clusters, the same metals the rock uses.":"Minerals from alkaline vents climb the ladder overnight in hot alkaline water. The yield falls by orders of magnitude at every rung.";
+document.getElementById("e").textContent=mode?"Reading: the earliest catalysts may have been the minerals themselves, with proteins later forming around them.":"Lab results from three laboratories, 2020. This is a demonstration under lab conditions, not a measurement of the early Earth."}
+document.getElementById("go").onclick=function(){if(step<3){step++;draw()}};document.getElementById("rs").onclick=function(){step=0;draw()};draw();
+</script></main><script>(function(){function f(){try{frameElement.style.height=(document.querySelector("main").offsetHeight+2)+"px"}catch(e){}}addEventListener("load",f);addEventListener("resize",f);try{new ResizeObserver(f).observe(document.body)}catch(e){}})();</script></body></html>

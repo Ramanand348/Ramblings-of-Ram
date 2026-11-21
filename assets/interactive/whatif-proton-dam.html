@@ -1,0 +1,51 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Protons through a mineral wall - What If</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#EFE7D2;--card:#F4EEDD;--ink:#241F16;--soft:#4A4132;--line:rgba(36,31,22,.2);--host:#4F7266;--guest:#8C3F2E;--prop:#6B5B7A;--gold:#B8863F}
+:root[data-theme=dark]{--bg:#171B30;--card:#1D2242;--ink:#EDE7D5;--soft:#B7AE95;--line:rgba(237,231,213,.2);--host:#7FB5A2;--guest:#E08A72;--prop:#A596B8;--gold:#D8B570}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--ink);font-family:"Source Serif 4",Georgia,serif;-webkit-font-smoothing:antialiased}
+main{max-width:640px;margin:0 auto;padding:12px 12px 16px}
+svg{width:100%;height:auto;display:block}svg text{font-family:"Source Serif 4",Georgia,serif;fill:var(--ink);font-size:11px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+.chips button{font:500 .72rem "IBM Plex Mono",monospace;border:1px solid var(--line);background:var(--card);color:var(--ink);padding:8px 10px;border-radius:6px;cursor:pointer;min-height:36px}
+.chips button[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:12px 14px;margin-top:10px}
+.panel h2{font:600 1.05rem Fraunces,Georgia,serif;margin:0 0 6px}.panel p{margin:0 0 8px;font-size:.95rem;line-height:1.55}
+.panel .ev{font-size:.82rem;color:var(--soft);border-top:1px solid var(--line);padding-top:8px;margin:8px 0 0}
+.key{display:flex;gap:14px;flex-wrap:wrap;font:400 .7rem "IBM Plex Mono",monospace;color:var(--soft);margin-top:10px}
+.key i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px;vertical-align:-1px}
+.off{display:none}:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+:root{--vent:#8C3F2E;--sea:#3F6E8C}:root[data-theme=dark]{--vent:#E08A72;--sea:#7DB0D0}input[type=range]{width:100%;accent-color:var(--gold);margin:6px 0 2px}.lab{font:400 .72rem "IBM Plex Mono",monospace;color:var(--soft);display:flex;justify-content:space-between;gap:8px}.read{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px 0 0}.read div{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:8px 10px;font:500 .78rem "IBM Plex Mono",monospace}.read b{display:block;font:600 1.1rem Fraunces,Georgia,serif;margin-top:2px}.bar{display:block;width:100%;height:8px;border-radius:4px;background:var(--line);margin-top:6px;overflow:hidden}.bar i{display:block;height:100%;background:var(--gold)}svg .t{font-size:11px;text-anchor:middle}
+.rung{display:grid;grid-template-columns:96px 1fr;gap:10px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:8px 10px;margin:0 0 6px;transition:opacity .25s}
+.rung.dim{opacity:.22}.rung svg{width:96px;height:auto}.rung h3{font:600 .98rem Fraunces,Georgia,serif;margin:0}.rung p{margin:2px 0 0;font-size:.82rem;line-height:1.4;color:var(--soft)}
+.arrow{font:500 .72rem "IBM Plex Mono",monospace;color:var(--gold);text-align:center;margin:-2px 0 4px}.dim+.arrow{opacity:.25}
+.go{font:500 .78rem "IBM Plex Mono",monospace;border:1px solid var(--ink);background:var(--ink);color:var(--bg);padding:9px 14px;border-radius:6px;cursor:pointer;min-height:38px}
+.go[disabled]{opacity:.5;cursor:default}
+
+</style><script>(function(){var r=document.documentElement;function s(){var t=null;try{t=parent.document.documentElement.getAttribute("data-theme")}catch(e){}if(!t)t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";r.setAttribute("data-theme",t)}s();try{new MutationObserver(s).observe(parent.document.documentElement,{attributes:true,attributeFilter:["data-theme"]})}catch(e){}})();</script></head><body><main><svg viewBox="0 0 360 200" role="img" aria-labelledby="st"><title id="st">A rotor in a mineral wall turned by protons flowing from acidic ocean to alkaline vent</title>
+<rect x="0" y="0" width="150" height="200" fill="var(--sea)" opacity=".22"/><rect x="210" y="0" width="150" height="200" fill="var(--vent)" opacity=".22"/><rect x="150" y="0" width="60" height="200" fill="var(--soft)" opacity=".3"/>
+<g id="d"></g>
+<g transform="translate(180,100)"><circle r="26" fill="var(--bg)" stroke="var(--soft)" stroke-width="2"/><g id="ro"><g fill="var(--gold)"><rect x="-4" y="-24" width="8" height="24" rx="3"/><rect x="-4" y="-24" width="8" height="24" rx="3" transform="rotate(60)"/><rect x="-4" y="-24" width="8" height="24" rx="3" transform="rotate(120)"/><rect x="-4" y="-24" width="8" height="24" rx="3" transform="rotate(180)"/><rect x="-4" y="-24" width="8" height="24" rx="3" transform="rotate(240)"/><rect x="-4" y="-24" width="8" height="24" rx="3" transform="rotate(300)"/></g></g></g>
+<text class="t" x="75" y="18">Acidic ocean</text><text class="t" x="285" y="18">Alkaline vent</text><text class="t" x="180" y="18" style="font-size:10px">machine</text>
+<path d="M118 100h-0M140 150l22-4M140 52l22 4" stroke="none"/></svg>
+<div class="lab" style="margin-top:6px"><span>Ocean pH <b id="o1"></b></span><span>Vent pH <b id="v1"></b></span></div>
+<input type="range" id="o" min="5" max="9" step="0.1" value="6" aria-label="Ocean pH"><input type="range" id="v" min="8" max="12" step="0.1" value="10.5" aria-label="Vent pH">
+<div class="read"><div>Gradient<b id="g"></b></div><div>Protons, ocean vs vent<b id="f"></b></div></div>
+<div class="panel"><h2 id="t"></h2><p id="d2"></p><p class="ev">Dot counts are symbolic. Critics doubt that a natural gradient could drive a machine this simple, so the drawing shows the idea and not proof.</p></div>
+<script>
+var N="http://www.w3.org/2000/svg",G=document.getElementById("d"),s=11;function rnd(){s=(s*9301+49297)%233280;return s/233280}
+var L=[],R=[];function mk(a,x0,col){for(var i=0;i<22;i++){var c=document.createElementNS(N,"circle");c.setAttribute("cx",x0+rnd()*120);c.setAttribute("cy",30+rnd()*150);c.setAttribute("r",3.5);c.setAttribute("fill",col);G.appendChild(c);a.push(c)}}
+mk(L,12,"var(--sea)");mk(R,228,"var(--vent)");
+var o=document.getElementById("o"),v=document.getElementById("v"),ang=0,sp=0,last=0,rm=matchMedia("(prefers-reduced-motion: reduce)").matches;
+function n(p){return Math.max(1,Math.min(22,Math.round(1+(12-p)*3)))}
+function up(){var d=+v.value-+o.value;document.getElementById("o1").textContent=(+o.value).toFixed(1);document.getElementById("v1").textContent=(+v.value).toFixed(1);
+L.forEach(function(c,i){c.style.display=i<n(+o.value)?"":"none"});R.forEach(function(c,i){c.style.display=i<n(+v.value)?"":"none"});
+document.getElementById("g").textContent=d>0?d.toFixed(1)+" pH units":"none";
+document.getElementById("f").textContent=d>0?"×"+Math.round(Math.pow(10,d)).toLocaleString("en-US"):"×1";
+sp=d>0?d*45:0;document.getElementById("t").textContent=d>0?"Protons flow, the rotor turns":"No gradient, nothing turns";
+document.getElementById("d2").textContent=d>0?"Each pH unit is a tenfold difference in protons. Protons crowd on the acidic side and push through the machine toward the alkaline side. A cell does the same thing with ATP synthase, and uses the turning to make ATP.":"With the ocean no more acidic than the vent, there is no push. Slide the vent pH up or the ocean pH down to build a gradient."}
+function tick(t){var dt=(t-last)/1000;last=t;if(!rm){ang=(ang+sp*Math.min(dt,.1))%360;document.getElementById("ro").setAttribute("transform","rotate("+ang+")")}requestAnimationFrame(tick)}
+o.addEventListener("input",up);v.addEventListener("input",up);up();requestAnimationFrame(tick);
+</script></main><script>(function(){function f(){try{frameElement.style.height=(document.querySelector("main").offsetHeight+2)+"px"}catch(e){}}addEventListener("load",f);addEventListener("resize",f);try{new ResizeObserver(f).observe(document.body)}catch(e){}})();</script></body></html>

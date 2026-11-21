@@ -194,6 +194,36 @@
       "term": "ribosome",
       "def": "The molecular machine that builds proteins from a gene’s message.",
       "exact": false
+    },
+    {
+      "term": "serpentinization",
+      "def": "A reaction between seawater and mantle rock that makes heat, hydrogen and methane without any magma.",
+      "exact": false
+    },
+    {
+      "term": "acetogen",
+      "def": "A microbe that lives on hydrogen and carbon dioxide and makes acetate as its main waste product.",
+      "exact": false
+    },
+    {
+      "term": "methanogen",
+      "def": "A microbe, always an archaeon, that lives on hydrogen and carbon dioxide and makes methane.",
+      "exact": false
+    },
+    {
+      "term": "pH",
+      "def": "A scale for acidity. Each unit is a tenfold change in the concentration of protons.",
+      "exact": true
+    },
+    {
+      "term": "formate",
+      "def": "The simplest product of reducing carbon dioxide, with one carbon atom.",
+      "exact": false
+    },
+    {
+      "term": "pyruvate",
+      "def": "A three-carbon molecule at the crossroads of metabolism, made at the end of the acetyl-CoA pathway.",
+      "exact": false
     }
   ]
 }
