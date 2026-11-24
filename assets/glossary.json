@@ -224,6 +224,31 @@
       "term": "pyruvate",
       "def": "A three-carbon molecule at the crossroads of metabolism, made at the end of the acetyl-CoA pathway.",
       "exact": false
+    },
+    {
+      "term": "hard step",
+      "def": "A step in life’s history so unlikely that, left to itself, it would usually take far longer than the time available. The ones that happen anyway are the lucky exceptions.",
+      "exact": false
+    },
+    {
+      "term": "red dwarf",
+      "def": "A small, dim star that burns its fuel very slowly. Most stars in the galaxy are red dwarfs, and the longest-lived will shine for trillions of years.",
+      "exact": false
+    },
+    {
+      "term": "tidally locked",
+      "def": "Always turning the same face to its star, the way the Moon does to Earth.",
+      "exact": false
+    },
+    {
+      "term": "past light cone",
+      "def": "Everything that could have sent a signal that has already reached us.",
+      "exact": false
+    },
+    {
+      "term": "gigaparsec",
+      "def": "A billion parsecs, about 3.26 billion light years.",
+      "exact": false
     }
   ]
 }
